@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+
 
 class InputTextFile:
     def __init__(self, filename):
