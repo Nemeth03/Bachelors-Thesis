@@ -1,2 +1,0 @@
-# Bachelors-Thesis
-testing

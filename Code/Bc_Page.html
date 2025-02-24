@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analýza interpunkčných znamienok v rôznojazyčných textoch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), 0 0 15px rgba(0, 0, 0, 0.1);
+            transform: perspective(1px) translateZ(0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        section:hover {
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        section h2 {
+            color: #2d2d2d;
+        }
+
+        section p, li {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: #000;
+        }
+
+        .info {
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+        }
+
+        .annotation {
+            border: 2px solid #e5e5e5;
+        }
+
+        .goal {
+            border: 2px solid #d4d4d4;
+        }
+
+        .literature {
+            border: 2px solid #ccc;
+        }
+
+        .dennik {
+            border: 2px solid #b0b0b0;
+            background-color: #f9f9f9;
+        }
+
+        .dokumenty {
+            border: 2px solid #a0a0a0;
+            background-color: #f0f0f0;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analýza interpunkčných znamienok v rôznojazyčných textoch</h1>
+        <nav>
+            <a href="#info">Info</a>
+            <a href="#annotation">Anotácia</a>
+            <a href="#goal">Cieľ práce</a>
+            <a href="#literature">Literatúra</a>
+            <a href="#dokumenty">Dokumenty</a>
+            <a href="#dennik">Denník</a>
+        </nav>
+        <section id="info" class="info">
+            <h2>Info</h2>
+            <p><strong>Názov:</strong> Analýza interpunkčných znamienok v rôznojazyčných textoch</p>
+            <p><strong>Katedra:</strong> FMFI.KAI - Katedra aplikovanej informatiky</p>
+            <p><strong>Školiteľ:</strong> doc. RNDr. Mária Markošová, PhD</p>
+            <p><strong>Autor:</strong> Zdenko Németh</p>
+            <p><strong>Kontakt:</strong> nemeth105@uniba.sk</p>
+        </section>
+        <section id="annotation" class="annotation">
+            <h2>Anotácia</h2>
+            <p>Študent naprogramuje aplikáciu, ktorá v textovom súbore spracuje distribúciu interpunkčných 
+               znamienok. V aplikácii je potrebná možnosť výberu, teda, či pôjde o distribúciu všetkých 
+               interpunkčných znamienok, alebo len tých, ktoré budú dopredu špecifikované (napr. len čiarky, 
+               len bodkočiarky ....). Aplikácia tiež musí umožniť rôzne typy zobrazení výsledných súborov, 
+               ako napr. log log zobrazenie, log lin zobrazenie a podobne. Študent porovná a vyhodnotí 
+               distribúcie, ktoré získa pre jednotlivé jazyky.</p>
+        </section>
+        <section id="goal" class="goal">
+            <h2>Cieľ práce</h2>
+            <p>Cieľom je vytvoriť aplikáciu na analýzu distribúcií interpunkčných znamienok v texte.</p>
+        </section>
+        <section id="literature" class="literature">
+            <h2>Literatúra</h2>
+            <ul>
+                <li>
+                    <a href="https://arxiv.org/abs/1604.00834" target="_blank">
+                        Kulig and others. In narrative texts punctuation marks obey the same statistics as words, 
+                        Information Sciences Volume 375, 1 January 2017, Pages 98-113
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section id="dokumenty" class="dokumenty">
+            <h2>Dokumenty</h2>
+        </section>
+        <section id="dennik" class="dennik">
+            <h2>Denník</h2>
+        </section>
+    </div>
+</body>
+</html>
