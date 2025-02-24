@@ -26,4 +26,3 @@ if __name__ == '__main__':
     englishInput = InputTextFile('pribeh_eng.txt')
     textSk = slovakInput.read()
     textEng = englishInput.read()
-    
