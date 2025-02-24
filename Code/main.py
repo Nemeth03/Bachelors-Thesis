@@ -20,6 +20,7 @@ class App:
     ...
     
 if __name__ == '__main__':
+
     print('Running the app...')
     slovakInput = InputTextFile('pribeh_sk.txt')
     englishInput = InputTextFile('pribeh_eng.txt')
