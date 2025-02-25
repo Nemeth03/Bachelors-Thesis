@@ -29,6 +29,8 @@ class App(QMainWindow):
                                     'French': {'Quotation': ['«»']}, 
                                     'Spanish': {'Quotation': ['„“', '«»'], 'Exclamation': ['¡','!'], 'Question': ['¿','?']}}
         self.selectedPunctuation = {}
+        self.visualization = ['Log Log', 'Log Lin']
+        self.selectedVisualization = {}
         self.initGUI()
     
 
@@ -41,7 +43,7 @@ class App(QMainWindow):
         # window settings
         self.setWindowTitle('PMA')
         self.setGeometry(250, 150, 700, 450)
-        self.setFixedSize(700, 450)
+        self.setFixedSize(700, 500)
 
         # file selction
         self.labelFileSelect = QLabel('Select a text file:', self)
@@ -70,22 +72,27 @@ class App(QMainWindow):
         self.languageDropdown.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
         # punctuation selection
-        self.selectAllCheckbox = QCheckBox('Select All', self)
-        self.selectAllCheckbox.stateChanged.connect(self.selectAllPunctuation)
+        self.selectAllPuncCheckbox = QCheckBox('Select All', self)
+        self.selectAllPuncCheckbox.stateChanged.connect(self.selectAllPunctuation)
         self.punctuationLabel = QLabel('Select Punctuation:', self)
         punctuationLayout = QGridLayout()
-        row = 0
-        col = 0
-        self.checkboxes = {}
-        for label, symbol in self.punctuation.items():
+        self.punctuationCheckboxes = {}
+        for i, (label, symbol) in enumerate(self.punctuation.items()):
             checkbox = QCheckBox(f'{label}  {symbol}', self)
             checkbox.stateChanged.connect(self.updateSelectedPunctuation)
-            punctuationLayout.addWidget(checkbox, row, col)
-            self.checkboxes[label] = checkbox
-            col += 1
-            if col > 1:
-                col = 0
-                row += 1
+            punctuationLayout.addWidget(checkbox, i//2, i%2)
+            self.punctuationCheckboxes[label] = checkbox
+        
+        # visualization selection
+        self.visualizationLabel = QLabel('Select Visualization:', self)
+        visualizationLayout = QHBoxLayout()
+        visualizationLayout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.visualizationCheckboxes = {}
+        for viz in self.visualization:
+            checkbox = QCheckBox(viz, self)
+            checkbox.stateChanged.connect(self.updateSelectedVisualization)
+            visualizationLayout.addWidget(checkbox)
+            self.visualizationCheckboxes[viz] = checkbox
 
         # submit button
         self.submitButton = QPushButton('Submit', self)
@@ -111,8 +118,10 @@ class App(QMainWindow):
         layout.addLayout(fileSelectLayout)
         layout.addLayout(languageLayout)
         layout.addWidget(self.punctuationLabel)
-        layout.addWidget(self.selectAllCheckbox)
+        layout.addWidget(self.selectAllPuncCheckbox)
         layout.addLayout(punctuationLayout)
+        layout.addWidget(self.visualizationLabel)
+        layout.addLayout(visualizationLayout)
         layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
         layout.addLayout(buttonLayout)
         layout.setSpacing(10)
@@ -146,24 +155,36 @@ class App(QMainWindow):
         else:
             if punctuationCheckboxLabel in self.selectedPunctuation:
                 del self.selectedPunctuation[punctuationCheckboxLabel]
-            self.selectAllCheckbox.blockSignals(True)
-            self.selectAllCheckbox.setChecked(False)
-            self.selectAllCheckbox.blockSignals(False)
-        if all(checkbox.isChecked() for checkbox in self.checkboxes.values()):
-            self.selectAllCheckbox.blockSignals(True)
-            self.selectAllCheckbox.setChecked(True)
-            self.selectAllCheckbox.blockSignals(False)
+            self.selectAllPuncCheckbox.blockSignals(True)
+            self.selectAllPuncCheckbox.setChecked(False)
+            self.selectAllPuncCheckbox.blockSignals(False)
+        if all(checkbox.isChecked() for checkbox in self.punctuationCheckboxes.values()):
+            self.selectAllPuncCheckbox.blockSignals(True)
+            self.selectAllPuncCheckbox.setChecked(True)
+            self.selectAllPuncCheckbox.blockSignals(False)
         print(f"Selected Punctuation: {self.selectedPunctuation}")
         self.validateInputData()
     
 
     def selectAllPunctuation(self, state):
         if state == 2:
-            for checkbox in self.checkboxes.values():
+            for checkbox in self.punctuationCheckboxes.values():
                 checkbox.setChecked(True)
         else:
-            for checkbox in self.checkboxes.values():
+            for checkbox in self.punctuationCheckboxes.values():
                 checkbox.setChecked(False)
+        self.validateInputData()
+    
+
+    def updateSelectedVisualization(self, state):
+        sender = self.sender()
+        visualizationCheckboxLabel = sender.text()
+        if state == 2:
+            self.selectedVisualization[visualizationCheckboxLabel] = True
+        else:
+            if visualizationCheckboxLabel in self.selectedVisualization:
+                del self.selectedVisualization[visualizationCheckboxLabel]
+        print(f"Selected Visualization: {self.selectedVisualization}")
         self.validateInputData()
 
 
@@ -175,6 +196,7 @@ class App(QMainWindow):
         print(f"File selected: {self.labelFileSelectPath.text()}")
         print(f"Language: {self.selectedLanguage}")
         print(f"Selected Punctuation: {self.selectedPunctuation}")
+        print(f"Selected Visualization: {self.selectedVisualization}")
 
 
     def enableSubmitButton(self):
@@ -182,7 +204,8 @@ class App(QMainWindow):
     
 
     def validateInputData(self):
-        self.submitButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage and self.selectedPunctuation))
+        self.submitButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage and \
+                                          self.selectedPunctuation and self.selectedVisualization))
 
 
     def processSubmittedData(self):
