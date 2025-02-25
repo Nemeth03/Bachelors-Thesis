@@ -182,6 +182,6 @@ def main():
 if __name__ == '__main__':
     main()
 
-# prida visualizacia, vyber zobrazeni, aj do GUI
+# pridat vizualizaciu, vyber zobrazeni, aj do GUI
 # fixnutie select all checkbox, aby sa uncheckoval pri uncheck jedneho z checkboxov
-# pridat do submitSelectedData data processing a zobrazenie vysledkov
+# pridat do submitSelectedData data processing a zobrazenie vysledkov, aj osetrenie zlych vstupov
