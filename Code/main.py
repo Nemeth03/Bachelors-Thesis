@@ -20,7 +20,7 @@ class App(QMainWindow):
         self.inputTextFile = None
         self.textData = None
         self.languageOptions = ['Slovak', 'English', 'Czech', 'German', 'French', 'Spanish']
-        self.selectedLanguage = ''
+        self.selectedLanguage = 'Slovak'
         self.punctuation = {'Period': '.', 
                             'Comma': ',', 
                             'Exclamation': '!', 
@@ -48,50 +48,48 @@ class App(QMainWindow):
     
     def initGUI(self):
         self.setWindowTitle('PMA')
-        self.setGeometry(250, 150, 600, 400)
-
+        self.setGeometry(250, 150, 700, 450)
         self.setFixedSize(700, 450)
 
         self.labelFileSelect = QLabel('Select a text file:', self)
-        self.labelFileSelect.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+        self.labelFileSelect.setAlignment(Qt.AlignmentFlag.AlignLeft)
 
         # file selction
-        self.label = QLabel('No file selected', self)
-        self.label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-        self.label.setStyleSheet("background-color: white; border: 1px solid #000000; padding: 5px;")
-        self.label.setFixedSize(600, 30)
-        self.button = QPushButton('Select File', self)
-        self.button.clicked.connect(self.select_file)
-        file_layout = QHBoxLayout()
-        file_layout.addWidget(self.label)
-        file_layout.addWidget(self.button)
-        file_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)  # Align elements to the left
-        file_layout.setSpacing(10)  # Set spacing to zero between the label and the button
-        self.label.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.labelFileSelectPath = QLabel('No file selected', self)
+        self.labelFileSelectPath.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        self.labelFileSelectPath.setStyleSheet("background-color: white; border: 1px solid #000000; padding: 5px;")
+        self.labelFileSelectPath.setFixedSize(600, 30)
+        self.buttonSelectFile = QPushButton('Select File', self)
+        self.buttonSelectFile.clicked.connect(self.selectInputFile)
+        fileSelectLayout = QHBoxLayout()
+        fileSelectLayout.addWidget(self.labelFileSelectPath)
+        fileSelectLayout.addWidget(self.buttonSelectFile)
+        fileSelectLayout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        fileSelectLayout.setSpacing(10)
 
         # language selection
-        self.language_combo = QComboBox(self)
-        self.language_combo.addItems(self.languageOptions)
-        self.language_combo.currentIndexChanged.connect(self.language_changed)
-        lang_layout = QHBoxLayout()
-        lang_layout.addWidget(QLabel('Select Language:'))
-        lang_layout.addWidget(self.language_combo)
-        lang_layout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        lang_layout.setSpacing(10)
-        self.language_combo.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.languageDropdown = QComboBox(self)
+        self.languageDropdown.addItems(self.languageOptions)
+        self.languageDropdown.currentIndexChanged.connect(self.languageChange)
+        languageLayout = QHBoxLayout()
+        languageLayout.addWidget(QLabel('Select Language:'))
+        languageLayout.addWidget(self.languageDropdown)
+        languageLayout.setAlignment(Qt.AlignmentFlag.AlignLeft)
+        languageLayout.setSpacing(10)
+        self.languageDropdown.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
         # punctuation selection
-        self.select_all_checkbox = QCheckBox('Select All', self)
-        self.select_all_checkbox.stateChanged.connect(self.select_all_punctuation)
-        punctuation_headline = QLabel('Select Punctuation:', self)
-        punctuation_layout = QGridLayout()
+        self.selectAllCheckbox = QCheckBox('Select All', self)
+        self.selectAllCheckbox.stateChanged.connect(self.selectAllPunctuation)
+        self.punctuationLabel = QLabel('Select Punctuation:', self)
+        punctuationLayout = QGridLayout()
         row = 0
         col = 0
         self.checkboxes = {}
         for label, symbol in self.punctuation.items():
             checkbox = QCheckBox(f'{label}  {symbol}', self)
-            checkbox.stateChanged.connect(self.update_punctuation)
-            punctuation_layout.addWidget(checkbox, row, col)
+            checkbox.stateChanged.connect(self.updateSelectedPunctuation)
+            punctuationLayout.addWidget(checkbox, row, col)
             self.checkboxes[label] = checkbox
             col += 1
             if col > 1:
@@ -99,32 +97,32 @@ class App(QMainWindow):
                 row += 1
 
         # submit button
-        self.submit_button = QPushButton('Submit', self)
-        self.submit_button.clicked.connect(self.submit_data)
-        self.submit_button.setFixedWidth(100)  # Make the button smaller
-        self.submit_button.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.submitButton = QPushButton('Submit', self)
+        self.submitButton.clicked.connect(self.submitSelectedData)
+        self.submitButton.setFixedWidth(150)
+        self.submitButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
         # exit button
-        self.exit_button = QPushButton('Exit', self)
-        self.exit_button.clicked.connect(self.exit_application)
-        self.exit_button.setFixedWidth(100)  # Make the button smaller
-        self.exit_button.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.exitButton = QPushButton('Exit', self)
+        self.exitButton.clicked.connect(self.exitApp)
+        self.exitButton.setFixedWidth(150)
+        self.exitButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
 
-        button_layout = QHBoxLayout()
-        button_layout.addWidget(self.submit_button)
-        button_layout.addWidget(self.exit_button)
-        button_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        buttonLayout = QHBoxLayout()
+        buttonLayout.addWidget(self.submitButton)
+        buttonLayout.addWidget(self.exitButton)
+        buttonLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         # main layout
         layout = QVBoxLayout(self)
         layout.addWidget(self.labelFileSelect)
-        layout.addLayout(file_layout)
-        layout.addLayout(lang_layout)
-        layout.addWidget(punctuation_headline)
-        layout.addWidget(self.select_all_checkbox)
-        layout.addLayout(punctuation_layout)
+        layout.addLayout(fileSelectLayout)
+        layout.addLayout(languageLayout)
+        layout.addWidget(self.punctuationLabel)
+        layout.addWidget(self.selectAllCheckbox)
+        layout.addLayout(punctuationLayout)
         layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
-        layout.addLayout(button_layout)
+        layout.addLayout(buttonLayout)
 
         layout.setSpacing(10)
         
@@ -132,29 +130,28 @@ class App(QMainWindow):
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
 
-    def select_file(self):
-        file_dialog = QFileDialog()
-        file_path, _ = file_dialog.getOpenFileName(self, "Open File", "", "All Files (*.*)")
-        if file_path:
-            self.label.setText(file_path)
-            print(f"Selected file: {file_path}")
+    def selectInputFile(self):
+        fileDialog = QFileDialog()
+        filePath, _ = fileDialog.getOpenFileName(self, 'Open File', '', 'Text Files (*.txt)')
+        if filePath:
+            self.labelFileSelectPath.setText(filePath)
+            print(f"Selected file: {filePath}")
         
-    def language_changed(self, index):
+    def languageChange(self, index):
         self.selectedLanguage = self.languageOptions[index]
         print(f"Selected language: {self.selectedLanguage}")
 
-    def update_punctuation(self, state):
+    def updateSelectedPunctuation(self, state):
         sender = self.sender()
-        punctuation_label = sender.text()
+        punctuationCheckboxLabel = sender.text().split()[0]
         if state == 2:
-            self.selectedPunctuation[punctuation_label.split()[0]] = self.punctuation[punctuation_label.split()[0]]
+            self.selectedPunctuation[punctuationCheckboxLabel] = self.punctuation[punctuationCheckboxLabel]
         else:
-            if punctuation_label in self.selectedPunctuation:
-                del self.selectedPunctuation[punctuation_label]
+            if punctuationCheckboxLabel in self.selectedPunctuation:
+                del self.selectedPunctuation[punctuationCheckboxLabel]
         print(f"Selected Punctuation: {self.selectedPunctuation}")
     
-    def select_all_punctuation(self, state):
-        # If "Select All" is checked, select all individual checkboxes
+    def selectAllPunctuation(self, state):
         if state == 2:
             for checkbox in self.checkboxes.values():
                 checkbox.setChecked(True)
@@ -162,29 +159,27 @@ class App(QMainWindow):
             for checkbox in self.checkboxes.values():
                 checkbox.setChecked(False)
 
-    def submit_data(self):
+    def submitSelectedData(self):
         print("Submitting data...")
-        print(f"File selected: {self.label.text()}")
+        print(f"File selected: {self.labelFileSelectPath.text()}")
         print(f"Language: {self.selectedLanguage}")
         print(f"Selected Punctuation: {self.selectedPunctuation}")
     
-    def exit_application(self):
-        print("Exiting application...")
+    def exitApp(self):
+        print('App terminated...')
         self.close()
 
         
 def main():
+    print('Running the app...')
     app = QApplication([])
     window = App()
     window.show()
     app.exec()
 
 if __name__ == '__main__':
-    print('Running the app...')
     main()
-    print('App terminated...')
 
 # prida visualizacia, vyber zobrazeni, aj do GUI
-# refaktorovanie kodu
 # fixnutie select all checkbox, aby sa uncheckoval
 # namiesto printov aj premenne menit
