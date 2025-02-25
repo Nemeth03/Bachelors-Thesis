@@ -134,8 +134,9 @@ class App(QMainWindow):
         fileDialog = QFileDialog()
         filePath, _ = fileDialog.getOpenFileName(self, 'Open File', '', 'Text Files (*.txt)')
         if filePath:
-            self.labelFileSelectPath.setText(filePath)
-            print(f"Selected file: {filePath}")
+            self.inputTextFile = filePath.split('/')[-1]
+            self.labelFileSelectPath.setText(self.inputTextFile)
+            print(f"Selected file: {self.inputTextFile}")
         
     def languageChange(self, index):
         self.selectedLanguage = self.languageOptions[index]
@@ -164,6 +165,7 @@ class App(QMainWindow):
         print(f"File selected: {self.labelFileSelectPath.text()}")
         print(f"Language: {self.selectedLanguage}")
         print(f"Selected Punctuation: {self.selectedPunctuation}")
+
     
     def exitApp(self):
         print('App terminated...')
@@ -181,5 +183,5 @@ if __name__ == '__main__':
     main()
 
 # prida visualizacia, vyber zobrazeni, aj do GUI
-# fixnutie select all checkbox, aby sa uncheckoval
-# namiesto printov aj premenne menit
+# fixnutie select all checkbox, aby sa uncheckoval pri uncheck jedneho z checkboxov
+# pridat do submitSelectedData data processing a zobrazenie vysledkov
