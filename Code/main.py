@@ -1,26 +1,29 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QFileDialog, QLabel, QHBoxLayout, \
                             QWidget, QComboBox, QCheckBox, QGridLayout, QSpacerItem, QSizePolicy
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer
 
 # Visualization of the analysed data
 class GraphVisualizer:
     def __init__(self):
         ...
     
+
     def plotLogLog(self):
         ...
     
+
     def plotLogLin(self):
         ...
     
+
 # Main class that will run the app
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
         self.inputTextFile = None
         self.textData = None
-        self.languageOptions = ['Slovak', 'English', 'Czech', 'German', 'French', 'Spanish']
-        self.selectedLanguage = 'Slovak'
+        self.languageOptions = ['', 'Slovak', 'English', 'Czech', 'German', 'French', 'Spanish']
+        self.selectedLanguage = ''
         self.punctuation = {'Period': '.', 
                             'Comma': ',', 
                             'Exclamation': '!', 
@@ -42,19 +45,21 @@ class App(QMainWindow):
         self.selectedPunctuation = {}
         self.initGUI()
     
+
     def readTextFile(self, path):
         with open(path, 'r', encoding='utf-8') as f:
             return f.read().strip()
     
+
     def initGUI(self):
+        # window settings
         self.setWindowTitle('PMA')
         self.setGeometry(250, 150, 700, 450)
         self.setFixedSize(700, 450)
 
+        # file selction
         self.labelFileSelect = QLabel('Select a text file:', self)
         self.labelFileSelect.setAlignment(Qt.AlignmentFlag.AlignLeft)
-
-        # file selction
         self.labelFileSelectPath = QLabel('No file selected', self)
         self.labelFileSelectPath.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.labelFileSelectPath.setStyleSheet("background-color: white; border: 1px solid #000000; padding: 5px;")
@@ -123,12 +128,12 @@ class App(QMainWindow):
         layout.addLayout(punctuationLayout)
         layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
         layout.addLayout(buttonLayout)
-
         layout.setSpacing(10)
         
         central_widget = QWidget(self)
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
+
 
     def selectInputFile(self):
         fileDialog = QFileDialog()
@@ -138,9 +143,11 @@ class App(QMainWindow):
             self.labelFileSelectPath.setText(self.inputTextFile)
             print(f"Selected file: {self.inputTextFile}")
         
+
     def languageChange(self, index):
         self.selectedLanguage = self.languageOptions[index]
         print(f"Selected language: {self.selectedLanguage}")
+
 
     def updateSelectedPunctuation(self, state):
         sender = self.sender()
@@ -150,8 +157,16 @@ class App(QMainWindow):
         else:
             if punctuationCheckboxLabel in self.selectedPunctuation:
                 del self.selectedPunctuation[punctuationCheckboxLabel]
+            self.selectAllCheckbox.blockSignals(True)
+            self.selectAllCheckbox.setChecked(False)
+            self.selectAllCheckbox.blockSignals(False)
+        if all(checkbox.isChecked() for checkbox in self.checkboxes.values()):
+            self.selectAllCheckbox.blockSignals(True)
+            self.selectAllCheckbox.setChecked(True)
+            self.selectAllCheckbox.blockSignals(False)
         print(f"Selected Punctuation: {self.selectedPunctuation}")
     
+
     def selectAllPunctuation(self, state):
         if state == 2:
             for checkbox in self.checkboxes.values():
@@ -160,12 +175,23 @@ class App(QMainWindow):
             for checkbox in self.checkboxes.values():
                 checkbox.setChecked(False)
 
+
     def submitSelectedData(self):
+        self.submitButton.setEnabled(False)
+        QTimer.singleShot(3000, self.enableSubmitButton)
+        if self.checkSubmittedData():
+            ...
+
         print("Submitting data...")
         print(f"File selected: {self.labelFileSelectPath.text()}")
         print(f"Language: {self.selectedLanguage}")
         print(f"Selected Punctuation: {self.selectedPunctuation}")
 
+    def enableSubmitButton(self):
+        self.submitButton.setEnabled(True)
+    
+    def checkSubmittedData(self):
+        ...
     
     def exitApp(self):
         print('App terminated...')
@@ -179,9 +205,9 @@ def main():
     window.show()
     app.exec()
 
+
 if __name__ == '__main__':
     main()
 
 # pridat vizualizaciu, vyber zobrazeni, aj do GUI
-# fixnutie select all checkbox, aby sa uncheckoval pri uncheck jedneho z checkboxov
 # pridat do submitSelectedData data processing a zobrazenie vysledkov, aj osetrenie zlych vstupov
