@@ -2,20 +2,6 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton,
                             QWidget, QComboBox, QCheckBox, QGridLayout, QSpacerItem, QSizePolicy
 from PyQt6.QtCore import Qt, QTimer
 
-# Visualization of the analysed data
-class GraphVisualizer:
-    def __init__(self):
-        ...
-    
-
-    def plotLogLog(self):
-        ...
-    
-
-    def plotLogLin(self):
-        ...
-    
-
 # Main class that will run the app
 class App(QMainWindow):
     def __init__(self):
@@ -197,6 +183,10 @@ class App(QMainWindow):
 
     def validateInputData(self):
         self.submitButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage and self.selectedPunctuation))
+
+
+    def processSubmittedData(self):
+        ...
     
 
     def exitApp(self):
