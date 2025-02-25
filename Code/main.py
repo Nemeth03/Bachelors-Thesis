@@ -106,6 +106,7 @@ class App(QMainWindow):
         self.submitButton.clicked.connect(self.submitSelectedData)
         self.submitButton.setFixedWidth(150)
         self.submitButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.submitButton.setEnabled(False)
 
         # exit button
         self.exitButton = QPushButton('Exit', self)
@@ -139,14 +140,16 @@ class App(QMainWindow):
         fileDialog = QFileDialog()
         filePath, _ = fileDialog.getOpenFileName(self, 'Open File', '', 'Text Files (*.txt)')
         if filePath:
-            self.inputTextFile = filePath.split('/')[-1]
+            self.inputTextFile = filePath
             self.labelFileSelectPath.setText(self.inputTextFile)
             print(f"Selected file: {self.inputTextFile}")
+            self.validateInputData()
         
 
     def languageChange(self, index):
         self.selectedLanguage = self.languageOptions[index]
         print(f"Selected language: {self.selectedLanguage}")
+        self.validateInputData()
 
 
     def updateSelectedPunctuation(self, state):
@@ -165,6 +168,7 @@ class App(QMainWindow):
             self.selectAllCheckbox.setChecked(True)
             self.selectAllCheckbox.blockSignals(False)
         print(f"Selected Punctuation: {self.selectedPunctuation}")
+        self.validateInputData()
     
 
     def selectAllPunctuation(self, state):
@@ -174,25 +178,27 @@ class App(QMainWindow):
         else:
             for checkbox in self.checkboxes.values():
                 checkbox.setChecked(False)
+        self.validateInputData()
 
 
     def submitSelectedData(self):
         self.submitButton.setEnabled(False)
         QTimer.singleShot(3000, self.enableSubmitButton)
-        if self.checkSubmittedData():
-            ...
 
         print("Submitting data...")
         print(f"File selected: {self.labelFileSelectPath.text()}")
         print(f"Language: {self.selectedLanguage}")
         print(f"Selected Punctuation: {self.selectedPunctuation}")
 
+
     def enableSubmitButton(self):
         self.submitButton.setEnabled(True)
     
-    def checkSubmittedData(self):
-        ...
+
+    def validateInputData(self):
+        self.submitButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage and self.selectedPunctuation))
     
+
     def exitApp(self):
         print('App terminated...')
         self.close()
@@ -208,6 +214,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# pridat vizualizaciu, vyber zobrazeni, aj do GUI
-# pridat do submitSelectedData data processing a zobrazenie vysledkov, aj osetrenie zlych vstupov
