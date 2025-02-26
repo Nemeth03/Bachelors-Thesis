@@ -50,7 +50,7 @@ class App(QMainWindow):
         self.labelFileSelect.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.labelFileSelectPath = QLabel('No file selected', self)
         self.labelFileSelectPath.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        self.labelFileSelectPath.setStyleSheet("background-color: white; border: 1px solid #000000; padding: 5px;")
+        self.labelFileSelectPath.setStyleSheet("background-color: white; border: 1px solid #000000; padding: 5px; color: black")
         self.labelFileSelectPath.setFixedSize(600, 30)
         self.buttonSelectFile = QPushButton('Select File', self)
         self.buttonSelectFile.clicked.connect(self.selectInputFile)
