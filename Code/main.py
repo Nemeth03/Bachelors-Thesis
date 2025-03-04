@@ -23,22 +23,26 @@ regexDict = {
     "emDash": r'—'
 }
 
+allPunctuation = regexDict.keys()
+
 
 def readTextFile(path):
     with open(path, 'r', encoding='utf-8') as file:
         return file.read()
 
-    
-# questionable if change splitted data to lowercase
-# add selection for punctuaction
-def processTextFile(text, includePunctuation=False):
-    if includePunctuation:
-        data = re.findall('|'.join(regexDict.values()), text)
+
+def processTextFile(text, includePunctuation=False, punctuationSelection=[], toLowerCase=False):
+    if not includePunctuation:
+        regexPattern = regexDict['wordsNumbers']
     else:
-        data = re.findall(regexDict['wordsNumbers'], text)
+        selectedPunctuation = [regexDict[pat] for pat in punctuationSelection] if punctuationSelection else []
+        regexPattern = '|'.join([regexDict['wordsNumbers']] + selectedPunctuation)
+    
+    data = re.findall(regexPattern, text)
     if not data:
         return []
-    return [word.lower() for word in data]
+    
+    return [word.lower() for word in data] if toLowerCase else data
     
 
 def createGraphData(data):
@@ -68,9 +72,9 @@ def plotGraph(data):
 
     pos = nx.spring_layout(G, k=0.15, iterations=21, seed=17)
 
-    plt.figure(figsize=(10, 8))
-    nx.draw_networkx_nodes(G, pos, node_size=25, node_color='orange', alpha=1)
-    nx.draw_networkx_edges(G, pos, width=0.7, alpha=0.5, edge_color='gray')
+    plt.figure(figsize=(8, 8))
+    nx.draw_networkx_nodes(G, pos, node_size=20, node_color='red', alpha=1)
+    nx.draw_networkx_edges(G, pos, width=0.6, alpha=0.5, edge_color='black')
 
     plt.title('Word Association Network')
     plt.axis('off')
@@ -78,7 +82,14 @@ def plotGraph(data):
 
 
 if __name__ == "__main__":
-    inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
-    processedData = processTextFile(inputData, False)
+    # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
+    # processedData = processTextFile(inputData, False)
+
+    inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
+    processedData = processTextFile(inputData, True, allPunctuation, True)
+
     graphData = createGraphData(processedData)
+    nodesCount = len(graphData.keys())
+    edgesCount = sum(len(edges) for edges in graphData.values()) // 2
+    print(f"Number of nodes: {nodesCount} Number of edges: {edgesCount}")
     plotGraph(graphData)
