@@ -6,20 +6,32 @@
 
 import matplotlib.pyplot as plt
 import networkx as nx
+import re
 
 def readTextFile(path):
     with open(path, 'r', encoding='utf-8') as file:
         return file.read()
     
-def processTextFile(text):
-    return []
-
-def createGraphData(data, includePunctuation=False):
-    graphDataDict = {}
+    
+def processTextFile(text, includePunctuation=False):
     if includePunctuation:
-        ...
+        data = re.findall(r"\.{3}|[\w']+|[.,!?;:()\"'/-]", text)
     else:
-        ...
+        data = re.findall(r"\w+", text)
+    if data is None:
+        return []
+    splits = []
+    for element in data:
+        if "'" in element:
+            splits.extend(re.findall(r"\w+|'", element))
+        else:
+            splits.append(element)
+    return [word.lower() for word in splits]
+    
+
+def createGraphData(data):
+    graphDataDict = {}
+
     return graphDataDict
     
 
@@ -41,8 +53,10 @@ def plotGraph(data):
     plt.axis('off')
     plt.show()
 
+
 if __name__ == "__main__":
-    inputData = readTextFile("inputText.txt")
-    processedData = processTextFile(inputData)
-    graphData = createGraphData(processedData)
-    plotGraph(graphData)
+    print(processTextFile('"Hi, (How) are you?"', False))
+    # inputData = readTextFile("inputText.txt")
+    # processedData = processTextFile(inputData)
+    # graphData = createGraphData(processedData)
+    # plotGraph(graphData)
