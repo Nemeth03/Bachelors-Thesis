@@ -26,7 +26,6 @@ def readTextFile(path):
         return file.read()
     
     
-# add selection for the punctuation to be included or not
 def processTextFile(text, includePunctuation=False):
     if includePunctuation:
         data = re.findall(r"[a-zA-Z0-9]+|\.{3}|_|[.,!?;:()\"'/-]", text)
