@@ -1,5 +1,8 @@
-A paragraph? 70–80 words? So short! Using—let me get this straight—all 14 punctuation marks?
-Intriguing; yet I think it can be done, probably, without (excessive) false modesty on my part.
-[Boasting omitted.] Of course, it’ll be tricky to fit in the braces ({}) but I’m sure we’ll find a way: as Karl Marx said,
-“… mankind always sets itself only such tasks as it can solve …”.
-There: that’s only partly half-assed, more like quarter-assed. Enjoy. [The End]
+"Wait... did you see that?" she asked. "It’s a once-in-a-lifetime event—absolutely unbelievable!"
+(I mean, really... who would have thought?) Scientists say: "This phenomenon happens every 100 years."
+Amazing, isn’t it? Numbers, like 42 or 99, appear everywhere.
+Look at these symbols: [brackets], {braces}, and (parentheses)—all in one place!
+Also, file paths use slashes, like "C:/Users/John_Doe/".
+Oh, and don’t forget hyphens, en dashes (5–10 years, 15–20 years), and em dashes—just like this!
+Just testing multiple uses of these brackets [], braces {} and parentheses ().
+Also some more under_score; ofcourse I forget semicolon;.

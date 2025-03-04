@@ -16,7 +16,7 @@ regexDict = {
     "brackets": r'[\[\]]',
     "braces": r'[{}]',
     "quotation": r'["“”]',
-    "apostrophe": r'\'',
+    "apostrophe": r'[\'’]',
     "slash": r'/',
     "hyphen": r'-',
     "enDash": r'–',
@@ -47,6 +47,8 @@ def createGraphData(data):
     for element in data:
         if element in regexDict['quotation']:
             element = '"'
+        if element in regexDict['apostrophe']:
+            element = '\''
         if element not in graphDataDict:
             graphDataDict[element] = []
         if previousWord is not None:
