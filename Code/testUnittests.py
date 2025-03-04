@@ -101,12 +101,19 @@ class TestProcessTextFile(unittest.TestCase):
                          ['Also', 'file', 'paths', 'use', 'slashes', 'like', 'C', 'Users', 'John', 'Doe'])
     
     def testPunctuationSelection1(self):
+<<<<<<< HEAD
         self.assertEqual(main.processTextFile('[brackets], \{braces\}, and (parentheses)—all in one place!', True, ['brackets', 'comma'], True),
                          ['[', 'brackets', ']', ',', 'braces', ',', 'and', 'parentheses', 'all', 'in', 'one', 'place'])
     
     def testPunctuationSelection2(self):
         self.assertEqual(main.processTextFile('[brackets], \{braces\}, and (parentheses)—all in one place!', True, ['braces', 'emDash'], True),
                          ['brackets', '{', 'braces', '}', 'and', 'parentheses', '—', 'all', 'in', 'one', 'place'])
+=======
+        ...
+    
+    def testPunctuationSelection2(self):
+        ...
+>>>>>>> aee36c45b608d98da5223cfd5d99fe19c7787a3b
     
 
 if __name__ == '__main__':

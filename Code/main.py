@@ -30,8 +30,14 @@ def readTextFile(path):
     with open(path, 'r', encoding='utf-8') as file:
         return file.read()
 
+<<<<<<< HEAD
 
 def processTextFile(text, includePunctuation=False, punctuationSelection=[], toLowerCase=False):
+=======
+    
+# questionable if change splitted data to lowercase
+def processTextFile(text, includePunctuation=False, punctuationSelection=None, toLowerCase=False):
+>>>>>>> aee36c45b608d98da5223cfd5d99fe19c7787a3b
     if not includePunctuation:
         regexPattern = regexDict['wordsNumbers']
     else:
