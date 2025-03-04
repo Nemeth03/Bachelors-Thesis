@@ -23,6 +23,7 @@ regexDict = {
     "emDash": r'—'
 }
 
+
 allPunctuation = regexDict.keys()
 
 
@@ -30,7 +31,7 @@ def readTextFile(path):
     with open(path, 'r', encoding='utf-8') as file:
         return file.read()
    
-# questionable if change splitted data to lowercase
+
 def processTextFile(text, includePunctuation=False, punctuationSelection=None, toLowerCase=False):
     if not includePunctuation:
         regexPattern = regexDict['wordsNumbers']
@@ -41,7 +42,7 @@ def processTextFile(text, includePunctuation=False, punctuationSelection=None, t
     data = re.findall(regexPattern, text)
     if not data:
         return []
-    
+
     return [word.lower() for word in data] if toLowerCase else data
     
 
@@ -70,7 +71,7 @@ def plotGraph(data):
             if not G.has_edge(node, edge):
                 G.add_edge(node, edge)
 
-    pos = nx.spring_layout(G, k=0.15, iterations=21, seed=17)
+    pos = nx.spring_layout(G, k=0.15, iterations=79, seed=21)
 
     plt.figure(figsize=(8, 8))
     nx.draw_networkx_nodes(G, pos, node_size=20, node_color='red', alpha=1)
