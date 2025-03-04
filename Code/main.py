@@ -18,7 +18,7 @@ def processTextFile(text, includePunctuation=False):
         data = re.findall(r"\.{3}|[\w']+|[.,!?;:()\"'/-]", text)
     else:
         data = re.findall(r"\w+", text)
-    if data is None:
+    if not data:
         return []
     splits = []
     for element in data:
@@ -31,7 +31,14 @@ def processTextFile(text, includePunctuation=False):
 
 def createGraphData(data):
     graphDataDict = {}
-
+    previousWord = None
+    for element in data:
+        if element not in graphDataDict:
+            graphDataDict[element] = []
+        if previousWord is not None:
+            graphDataDict[previousWord].append(element)
+            graphDataDict[element].append(previousWord)
+        previousWord = element
     return graphDataDict
     
 
@@ -55,8 +62,7 @@ def plotGraph(data):
 
 
 if __name__ == "__main__":
-    print(processTextFile('"Hi, (How) are you?"', False))
-    # inputData = readTextFile("inputText.txt")
-    # processedData = processTextFile(inputData)
-    # graphData = createGraphData(processedData)
-    # plotGraph(graphData)
+    inputData = readTextFile("inputTextFiles\oneLineNoPunct.txt")
+    processedData = processTextFile(inputData)
+    graphData = createGraphData(processedData)
+    plotGraph(graphData)
