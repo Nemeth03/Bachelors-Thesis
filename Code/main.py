@@ -42,7 +42,7 @@ def plotGraph(data):
     plt.show()
 
 if __name__ == "__main__":
-    inputData = readTextFile("testing.txt")
+    inputData = readTextFile("inputText.txt")
     processedData = processTextFile(inputData)
     graphData = createGraphData(processedData)
     plotGraph(graphData)
