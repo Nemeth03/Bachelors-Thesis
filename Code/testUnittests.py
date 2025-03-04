@@ -27,52 +27,52 @@ class TestProcessTextFile(unittest.TestCase):
         self.assertEqual(main.processTextFile('In the afternoon we saw what was supposed to be a rock', True), \
                          ['in', 'the', 'afternoon', 'we', 'saw', 'what', 'was', 'supposed', 'to', 'be', 'a', 'rock'])
     
-    def testIgnorePunct(self):
+    def testIgnorePunctFP(self):
         self.assertEqual(main.processTextFile('"Hi, How are: you?"', False), ['hi', 'how', 'are', 'you'])
     
-    def testDot(self):
+    def testDotTP(self):
         self.assertEqual(main.processTextFile('TesTinG. TeStIng.', True), ['testing', '.', 'testing', '.'])
     
-    def testComma(self):
+    def testCommaTP(self):
         self.assertEqual(main.processTextFile('TesTinG, TeStIng', True), ['testing', ',', 'testing'])
     
-    def testQuestionMark(self):
+    def testQuestionMarkTP(self):
         self.assertEqual(main.processTextFile('QuestionMark? QuestionMark?', True), ['questionmark', '?', 'questionmark', '?'])
     
-    def testExclamationMark(self):
+    def testExclamationMarkTP(self):
         self.assertEqual(main.processTextFile('ExclamationMark! ExclamationMark!', True), ['exclamationmark', '!', 'exclamationmark', '!'])
     
-    def testSemicolon(self):
+    def testSemicolonTP(self):
         self.assertEqual(main.processTextFile('Semicolon; Semicolon;', True), ['semicolon', ';', 'semicolon', ';'])
     
-    def testColon(self):
+    def testColonTP(self):
         self.assertEqual(main.processTextFile('Colon: Colon:', True), ['colon', ':', 'colon', ':'])
     
-    def testParentheses(self):
+    def testParenthesesTP(self):
         self.assertEqual(main.processTextFile('Parentheses (Parentheses)', True), ['parentheses', '(', 'parentheses', ')'])
     
-    def testThreeDots(self):
+    def testThreeDotsTP(self):
         self.assertEqual(main.processTextFile('ThreeDots... ThreeDots...', True), ['threedots', '...', 'threedots', '...'])
     
-    def testUnderscore(self):
-        self.assertEqual(main.processTextFile('Under_score Under_score', True), ['under_score', 'under_score'])
+    def testUnderscoreTP(self):
+        self.assertEqual(main.processTextFile('Under_score Under_score', True), ['under', '_', 'score', 'under', '_', 'score'])
     
-    def testHyphen(self):
+    def testHyphenTP(self):
         self.assertEqual(main.processTextFile('Hyphen-hyphen Hyphen-hyphen', True), ['hyphen', '-', 'hyphen', 'hyphen', '-', 'hyphen'])
     
-    def testApostrophe(self):
+    def testApostropheTP(self):
         self.assertEqual(main.processTextFile("Apostrophe's Apostrophe's", True), ['apostrophe', "'", 's', 'apostrophe', "'", 's'])
     
-    def testQuotationMarks(self):
+    def testQuotationMarksTP(self):
         self.assertEqual(main.processTextFile('"QuotationMarks", "QuotationMarks"', True), ['"', 'quotationmarks', '"', ',', '"', 'quotationmarks', '"'])
     
-    def testNumbersComma(self):
+    def testNumbersCommaTP(self):
         self.assertEqual(main.processTextFile('Number 1,20375', True), ['number', '1', ',', '20375'])
     
-    def testNumbersDot(self):
+    def testNumbersDotTP(self):
         self.assertEqual(main.processTextFile('Number 723.97', True), ['number', '723', '.', '97'])
     
-    def testNumbersSlash(self):
+    def testNumbersSlashTP(self):
         self.assertEqual(main.processTextFile('Number 13/21', True), ['number', '13', '/', '21'])
 
     def testMultiplePunct(self):
