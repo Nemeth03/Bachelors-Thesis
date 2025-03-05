@@ -71,10 +71,10 @@ def plotGraph(data):
             if not G.has_edge(node, edge):
                 G.add_edge(node, edge)
 
-    pos = nx.spring_layout(G, k=0.15, iterations=79, seed=21)
+    pos = nx.spring_layout(G, k=0.15, iterations=27, seed=21)
 
     plt.figure(figsize=(8, 8))
-    nx.draw_networkx_nodes(G, pos, node_size=20, node_color='red', alpha=1)
+    nx.draw_networkx_nodes(G, pos, node_size=1, node_color='black', alpha=1)
     nx.draw_networkx_edges(G, pos, width=0.6, alpha=0.5, edge_color='black')
 
     plt.title('Word Association Network')
@@ -86,8 +86,14 @@ if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
     # processedData = processTextFile(inputData, False)
 
-    inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
-    processedData = processTextFile(inputData, True, allPunctuation, True)
+    # inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
+    # processedData = processTextFile(inputData, True, allPunctuation, True)
+
+    # inputData = readTextFile('inputTextFiles\longWithLotsPunct.txt')
+    # processedData = processTextFile(inputData, False, allPunctuation, False)
+
+    inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
+    processedData = processTextFile(inputData, True, allPunctuation, False)
 
     graphData = createGraphData(processedData)
     nodesCount = len(graphData.keys())
