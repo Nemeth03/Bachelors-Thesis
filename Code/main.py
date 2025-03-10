@@ -81,10 +81,21 @@ def plotGraph(data):
     plt.axis('off')
     plt.show()
 
+def calculateValues(data):
+    result = []
+    degrees = [(node, len(edges)) for node, edges in data.items()]
+    highestDegrees = sorted(degrees, key=lambda x: x[1], reverse=True)[:3]
+    result.append(f'Number of nodes: {len(data.keys())}')
+    result.append(f'Number of edges: {sum(degree for _, degree in degrees)//2}')
+    result.append(f'Highest degrees: {highestDegrees}')
+    result.append(f'Average degree: {sum(degree for _, degree in degrees) / len(degrees):.4f}')
+    result.append(f'Max degree: {max(degree for _, degree in degrees)}')
+    result.append(f'Min degree: {min(degree for _, degree in degrees)}')
+    return '\n'.join(result)
 
 if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
-    # processedData = processTextFile(inputData, False)
+    # processedData = processTextFile(inputData, False, allPunctuation, False)
 
     # inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
@@ -92,11 +103,9 @@ if __name__ == "__main__":
     inputData = readTextFile('inputTextFiles\longWithLotsPunct.txt')
     processedData = processTextFile(inputData, False, allPunctuation, False)
 
-    # inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
-    # processedData = processTextFile(inputData, True, allPunctuation, False)
+    inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
+    processedData = processTextFile(inputData, True, allPunctuation, False)
 
     graphData = createGraphData(processedData)
-    nodesCount = len(graphData.keys())
-    edgesCount = sum(len(edges) for edges in graphData.values()) // 2
-    print(f"Number of nodes: {nodesCount} Number of edges: {edgesCount}")
-    plotGraph(graphData)
+    print(calculateValues(graphData))
+    # plotGraph(graphData)
