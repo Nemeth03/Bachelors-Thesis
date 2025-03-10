@@ -64,12 +64,7 @@ def createGraphData(data):
     
 
 def plotGraph(data):
-    G = nx.Graph()
-
-    for node, edges in data.items():
-        for edge in edges:
-            if not G.has_edge(node, edge):
-                G.add_edge(node, edge)
+    G = nx.Graph(data)
 
     pos = nx.spring_layout(G, k=0.15, iterations=27, seed=21)
 
@@ -83,32 +78,40 @@ def plotGraph(data):
 
 def calculateValues(data):
     result = []
-    degrees = [(node, len(edges)) for node, edges in data.items()]
-    highestDegrees = sorted(degrees, key=lambda x: x[1], reverse=True)[:3]
-    result.append(f'Number of nodes: {len(data.keys())}')
-    result.append(f'Number of edges: {sum(degree for _, degree in degrees)//2}')
-    result.append(f'Highest degrees: {highestDegrees}')
-    result.append(f'Average degree: {sum(degree for _, degree in degrees) / len(degrees):.4f}')
-    result.append(f'Max degree: {max(degree for _, degree in degrees)}')
-    result.append(f'Min degree: {min(degree for _, degree in degrees)}')
+    G = nx.Graph(data)
+    degrees = sorted(G.degree(), key=lambda x: x[1], reverse=True)
+    degValues = [deg for _, deg in G.degree()]
+
+    result.append(f'Number of nodes: {G.number_of_nodes()}')
+    result.append(f'Number of edges: {G.number_of_edges()}')
+    result.append(f'Highest degrees: {degrees[:3]}')
+    result.append(f'Average degree: {sum(degValues)/len(degValues):.4f}')
+    result.append(f'Max degree: {degrees[0]}')
+    result.append(f'Min degree: {degrees[-1]}')
+    result.append(f'Network density: {nx.density(G):.4f}')
+    result.append(f'Average clustering coefficient: {nx.average_clustering(G):.4f}')
+    result.append(f'Number of connected components: {len(list(nx.connected_components(G)))}')
+    result.append(f'Centrality Nodes: {sorted(nx.betweenness_centrality(G).items(), key=lambda x: x[1], reverse=True)[:3]}')
+    result.append(f'Diameter: {nx.diameter(G)}')
+    result.append(f'Average shortest path: {nx.average_shortest_path_length(G):.4f}')
     return '\n'.join(result)
 
 if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
     # processedData = processTextFile(inputData, False, allPunctuation, False)
 
-    # inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
-    # processedData = processTextFile(inputData, True, allPunctuation, True)
+    inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
+    processedData = processTextFile(inputData, True, allPunctuation, True)
 
     # inputData = readTextFile('inputTextFiles\longWithLotsPunct.txt')
     # processedData = processTextFile(inputData, False, allPunctuation, False)
 
-    inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
-    processedData = processTextFile(inputData, True, allPunctuation, True)
+    # inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
+    # processedData = processTextFile(inputData, True, allPunctuation, True)
 
     # inputData = readTextFile('inputTextFiles\OliverTwist.txt')
     # processedData = processTextFile(inputData, False, allPunctuation, False)
 
     graphData = createGraphData(processedData)
     print(calculateValues(graphData))
-    # plotGraph(graphData)
+    plotGraph(graphData)
