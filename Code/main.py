@@ -100,11 +100,14 @@ if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
 
-    inputData = readTextFile('inputTextFiles\longWithLotsPunct.txt')
-    processedData = processTextFile(inputData, False, allPunctuation, False)
+    # inputData = readTextFile('inputTextFiles\longWithLotsPunct.txt')
+    # processedData = processTextFile(inputData, False, allPunctuation, False)
 
     inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
-    processedData = processTextFile(inputData, True, allPunctuation, False)
+    processedData = processTextFile(inputData, True, allPunctuation, True)
+
+    # inputData = readTextFile('inputTextFiles\OliverTwist.txt')
+    # processedData = processTextFile(inputData, False, allPunctuation, False)
 
     graphData = createGraphData(processedData)
     print(calculateValues(graphData))
