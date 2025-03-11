@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import re
+import time
 
 regexDict = {
     "wordsNumbers": r'[a-zA-Z0-9]+',
@@ -66,7 +67,7 @@ def createGraphData(data):
 def plotGraph(data):
     G = nx.Graph(data)
 
-    pos = nx.spring_layout(G, k=0.15, iterations=27, seed=21)
+    pos = nx.spring_layout(G, iterations=35, seed=21)
 
     plt.figure(figsize=(8, 8))
     nx.draw_networkx_nodes(G, pos, node_size=1, node_color='black', alpha=1)
@@ -97,21 +98,30 @@ def calculateValues(data):
     return '\n'.join(result)
 
 if __name__ == "__main__":
+    startTime = time.time()
+    
     # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
     # processedData = processTextFile(inputData, False, allPunctuation, False)
 
-    inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
+    # inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
+    # processedData = processTextFile(inputData, True, allPunctuation, True)
+
+    inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
     processedData = processTextFile(inputData, True, allPunctuation, True)
 
     # inputData = readTextFile('inputTextFiles\longWithLotsPunct.txt')
-    # processedData = processTextFile(inputData, False, allPunctuation, False)
-
-    # inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
-
+    
     # inputData = readTextFile('inputTextFiles\OliverTwist.txt')
-    # processedData = processTextFile(inputData, False, allPunctuation, False)
+    # processedData = processTextFile(inputData, True, allPunctuation, True)
 
     graphData = createGraphData(processedData)
     print(calculateValues(graphData))
+
+    minutes, seconds = divmod(time.time() - startTime, 60)
+    print(f"--- {int(minutes)} minutes, {seconds:.2f} seconds ---")
+
     plotGraph(graphData)
+
+    minutes, seconds = divmod(time.time() - startTime, 60)
+    print(f"--- {int(minutes)} minutes, {seconds:.2f} seconds ---")

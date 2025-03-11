@@ -1,0 +1,144 @@
+input text: inputTextFiles\oneLineNoPunct.txt
+
+Number of nodes: 12
+Number of edges: 11
+Highest degrees: [('the', 2), ('afternoon', 2), ('we', 2)]
+Average degree: 1.8333
+Max degree: ('the', 2)
+Min degree: ('rock', 1)
+Network density: 0.1667
+Average clustering coefficient: 0.0000
+Number of connected components: 1
+Centrality Nodes: [('what', 0.5454545454545454), ('was', 0.5454545454545454), ('saw', 0.509090909090909)]
+Diameter: 11
+Average shortest path: 4.3333
+--- 0 minutes, 0.01 seconds ---
+--- 0 minutes, 2.01 seconds ---
+
+
+
+input text: inputTextFiles\shortWithLotsPunct.txt
+
+Number of nodes: 83
+Number of edges: 100
+Highest degrees: [('years', 6), ('like', 6), ('and', 6)]
+Average degree: 2.4096
+Max degree: ('years', 6)
+Min degree: ('semicolon', 1)
+Network density: 0.0294
+Average clustering coefficient: 0.0639
+Number of connected components: 1
+Centrality Nodes: [('and', 0.3234668272608653), ('it', 0.2819080598213389), ('like', 0.2679915688045768)]
+Diameter: 15
+Average shortest path: 6.0400
+--- 0 minutes, 0.02 seconds ---
+--- 0 minutes, 1.39 seconds ---
+
+Number of nodes: 101
+Number of edges: 160
+Highest degrees: [(',', 22), ('"', 17), ('.', 9)]
+Average degree: 3.1683
+Max degree: (',', 22)
+Min degree: ('users', 1)
+Network density: 0.0317
+Average clustering coefficient: 0.0907
+Number of connected components: 1
+Centrality Nodes: [(',', 0.388303315091194), ('"', 0.3667032361577816), (')', 0.14743615867858292)]
+Diameter: 9
+Average shortest path: 3.9202
+--- 0 minutes, 0.04 seconds ---
+--- 0 minutes, 1.32 seconds ---
+
+
+
+input text: inputTextFiles\mediumWithLotsPunct.txt
+
+Number of nodes: 882
+Number of edges: 2171
+Highest degrees: [('the', 190), ('and', 114), ('a', 107)]
+Average degree: 4.9229
+Max degree: ('the', 190)
+Min degree: ('mistress', 1)
+Network density: 0.0056
+Average clustering coefficient: 0.1736
+Number of connected components: 1
+Centrality Nodes: [('the', 0.26507248606891226), ('a', 0.16054581696466486), ('and', 0.13952726058418485)]
+Diameter: 7
+Average shortest path: 3.2246
+--- 0 minutes, 2.24 seconds ---
+--- 0 minutes, 5.82 seconds ---
+
+Number of nodes: 893
+Number of edges: 2330
+Highest degrees: [(',', 243), ('the', 183), ('.', 107)]
+Average degree: 5.2184
+Max degree: (',', 243)
+Min degree: ('charlotte', 1)
+Network density: 0.0059
+Average clustering coefficient: 0.2613
+Number of connected components: 1
+Centrality Nodes: [(',', 0.31209225328351625), ('the', 0.2032158062364585), ('a', 0.11145809465204363)]
+Diameter: 6
+Average shortest path: 3.0149
+--- 0 minutes, 2.41 seconds ---
+--- 0 minutes, 7.11 seconds ---
+
+
+
+input text: inputTextFiles\longWithLotsPunct.txt
+
+Number of nodes: 2876
+Number of edges: 10129
+Highest degrees: [('the', 728), ('and', 585), ('of', 442)]
+Average degree: 7.0438
+Max degree: ('the', 728)
+Min degree: ('quiet', 1)
+Network density: 0.0025
+Average clustering coefficient: 0.3012
+Number of connected components: 1
+Centrality Nodes: [('the', 0.22876659447663622), ('and', 0.18412334948542297), ('of', 0.11451037223963238)]
+Diameter: 7
+Average shortest path: 2.9485
+--- 0 minutes, 30.68 seconds ---
+--- 0 minutes, 45.35 seconds ---
+
+Number of nodes: 2889
+Number of edges: 10265
+Highest degrees: [(',', 905), ('the', 668), ('.', 476)]
+Average degree: 7.1063
+Max degree: (',', 905)
+Min degree: ('quiet', 1)
+Network density: 0.0025
+Average clustering coefficient: 0.3832
+Number of connected components: 1
+Centrality Nodes: [(',', 0.26844664776715127), ('the', 0.1728290618069082), ('.', 0.10633485337227247)]
+Diameter: 6
+Average shortest path: 2.8281
+--- 0 minutes, 30.06 seconds ---
+--- 0 minutes, 43.25 seconds ---
+
+
+
+input text: inputTextFiles\OliverTwist.txt
+
+Number of nodes: 10149
+Number of edges: 71577
+Highest degrees: [('and', 3543), ('the', 3454), ('of', 2261)]
+Average degree: 14.1052
+Max degree: ('and', 3543)
+Min degree: ('screeched', 1)
+Network density: 0.0014
+Average clustering coefficient: 0.5188
+Number of connected components: 1
+--- 0 minutes, 4.01 seconds ---
+
+Number of nodes: 10162
+Number of edges: 66564
+Highest degrees: [(',', 4440), ('the', 3192), ('and', 2653)]
+Average degree: 13.1006
+Max degree: (',', 4440)
+Min degree: ('falters', 1)
+Network density: 0.0013
+Average clustering coefficient: 0.5824
+Number of connected components: 1
+--- 0 minutes, 5.14 seconds ---
