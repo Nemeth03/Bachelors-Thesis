@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import re
 import time
+from collections import Counter
 
 regexDict = {
     "wordsNumbers": r'[a-zA-Z0-9]+',
@@ -49,6 +50,7 @@ def processTextFile(text, includePunctuation=False, punctuationSelection=None, t
 
 def createGraphData(data):
     graphDataDict = {}
+    nodeCounter = Counter()
     previousWord = None
     for element in data:
         if element in regexDict['quotation']:
@@ -61,7 +63,8 @@ def createGraphData(data):
             graphDataDict[previousWord].append(element)
             graphDataDict[element].append(previousWord)
         previousWord = element
-    return graphDataDict
+        nodeCounter[element] += 1
+    return graphDataDict, nodeCounter
     
 
 def plotGraph(data):
@@ -77,7 +80,8 @@ def plotGraph(data):
     plt.axis('off')
     plt.show()
 
-def calculateValues(data):
+
+def calculateValues(data, occurrenceData):
     result = []
     G = nx.Graph(data)
     degrees = sorted(G.degree(), key=lambda x: x[1], reverse=True)
@@ -85,17 +89,19 @@ def calculateValues(data):
 
     result.append(f'Number of nodes: {G.number_of_nodes()}')
     result.append(f'Number of edges: {G.number_of_edges()}')
+    result.append(f'Top occurrences: {occurrenceData.most_common(3)}')
     result.append(f'Highest degrees: {degrees[:3]}')
     result.append(f'Average degree: {sum(degValues)/len(degValues):.4f}')
     result.append(f'Max degree: {degrees[0]}')
     result.append(f'Min degree: {degrees[-1]}')
     result.append(f'Network density: {nx.density(G):.4f}')
     result.append(f'Average clustering coefficient: {nx.average_clustering(G):.4f}')
-    result.append(f'Number of connected components: {len(list(nx.connected_components(G)))}')
-    result.append(f'Centrality Nodes: {sorted(nx.betweenness_centrality(G).items(), key=lambda x: x[1], reverse=True)[:3]}')
-    result.append(f'Diameter: {nx.diameter(G)}')
-    result.append(f'Average shortest path: {nx.average_shortest_path_length(G):.4f}')
+    # result.append(f'Number of connected components: {len(list(nx.connected_components(G)))}')
+    # result.append(f'Centrality Nodes: {sorted(nx.betweenness_centrality(G).items(), key=lambda x: x[1], reverse=True)[:3]}')
+    # result.append(f'Diameter: {nx.diameter(G)}')
+    # result.append(f'Average shortest path: {nx.average_shortest_path_length(G):.4f}')
     return '\n'.join(result)
+
 
 if __name__ == "__main__":
     startTime = time.time()
@@ -115,8 +121,8 @@ if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\OliverTwist.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
 
-    graphData = createGraphData(processedData)
-    print(calculateValues(graphData))
+    graphData, occurrenceDict  = createGraphData(processedData)
+    print(calculateValues(graphData, occurrenceDict))
 
     minutes, seconds = divmod(time.time() - startTime, 60)
     print(f"--- {int(minutes)} minutes, {seconds:.2f} seconds ---")
