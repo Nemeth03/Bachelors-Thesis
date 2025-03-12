@@ -89,8 +89,8 @@ def calculateValues(data, occurrenceData):
 
     result.append(f'Number of nodes: {G.number_of_nodes()}')
     result.append(f'Number of edges: {G.number_of_edges()}')
-    result.append(f'Top occurrences: {occurrenceData.most_common(3)}')
-    result.append(f'Highest degrees: {degrees[:3]}')
+    result.append(f'Top occurrences: {occurrenceData.most_common(5)}')
+    result.append(f'Highest degrees: {degrees[:5]}')
     result.append(f'Average degree: {sum(degValues)/len(degValues):.4f}')
     result.append(f'Max degree: {degrees[0]}')
     result.append(f'Min degree: {degrees[-1]}')
@@ -112,11 +112,11 @@ if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\shortENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
 
-    inputData = readTextFile('inputTextFiles\mediumENG.txt')
-    processedData = processTextFile(inputData, True, allPunctuation, True)
-
-    # inputData = readTextFile('inputTextFiles\longENG.txt')
+    # inputData = readTextFile('inputTextFiles\mediumENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
+
+    inputData = readTextFile('inputTextFiles\longENG.txt')
+    processedData = processTextFile(inputData, True, allPunctuation, True)
     
     # inputData = readTextFile('inputTextFiles\OliverTwistENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
