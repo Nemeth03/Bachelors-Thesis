@@ -4,7 +4,7 @@ import re
 import time
 from collections import Counter
 
-regexDict = {
+regexDictEng = {
     "wordsNumbers": r'[a-zA-Z0-9]+',
     "ellipsis": r'\.{3}',
     "underscore": r'_',
@@ -26,7 +26,7 @@ regexDict = {
 }
 
 
-allPunctuation = regexDict.keys()
+allPunctuationEng = regexDictEng.keys()
 
 
 def readTextFile(path):
@@ -36,10 +36,10 @@ def readTextFile(path):
 
 def processTextFile(text, includePunctuation=False, punctuationSelection=None, toLowerCase=False):
     if not includePunctuation:
-        regexPattern = regexDict['wordsNumbers']
+        regexPattern = regexDictEng['wordsNumbers']
     else:
-        selectedPunctuation = [regexDict[pat] for pat in punctuationSelection] if punctuationSelection else []
-        regexPattern = '|'.join([regexDict['wordsNumbers']] + selectedPunctuation)
+        selectedPunctuation = [regexDictEng[pat] for pat in punctuationSelection] if punctuationSelection else []
+        regexPattern = '|'.join([regexDictEng['wordsNumbers']] + selectedPunctuation)
     
     data = re.findall(regexPattern, text)
     if not data:
@@ -53,9 +53,9 @@ def createGraphData(data):
     nodeCounter = Counter()
     previousWord = None
     for element in data:
-        if element in regexDict['quotation']:
+        if element in regexDictEng['quotation']:
             element = '"'
-        if element in regexDict['apostrophe']:
+        if element in regexDictEng['apostrophe']:
             element = '\''
         if element not in graphDataDict:
             graphDataDict[element] = []
@@ -107,19 +107,19 @@ if __name__ == "__main__":
     startTime = time.time()
     
     # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
-    # processedData = processTextFile(inputData, False, allPunctuation, False)
+    # processedData = processTextFile(inputData, False, allPunctuationEng, False)
 
     # inputData = readTextFile('inputTextFiles\shortENG.txt')
-    # processedData = processTextFile(inputData, True, allPunctuation, True)
+    # processedData = processTextFile(inputData, True, allPunctuationEng, True)
 
     # inputData = readTextFile('inputTextFiles\mediumENG.txt')
-    # processedData = processTextFile(inputData, True, allPunctuation, True)
+    # processedData = processTextFile(inputData, True, allPunctuationEng, True)
 
     inputData = readTextFile('inputTextFiles\longENG.txt')
-    processedData = processTextFile(inputData, True, allPunctuation, True)
+    processedData = processTextFile(inputData, True, allPunctuationEng, True)
     
     # inputData = readTextFile('inputTextFiles\OliverTwistENG.txt')
-    # processedData = processTextFile(inputData, True, allPunctuation, True)
+    # processedData = processTextFile(inputData, True, allPunctuationEng, True)
 
     graphData, occurrenceDict  = createGraphData(processedData)
     print(calculateValues(graphData, occurrenceDict))
