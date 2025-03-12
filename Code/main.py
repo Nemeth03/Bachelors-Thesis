@@ -25,37 +25,64 @@ regexDictEng = {
     "emDash": r'—'
 }
 
+regexDictGer = {
+    "wordsNumbers": r'[a-zA-ZäöüÄÖÜß0-9]+',
+    "ellipsis": r'\.{3}',
+    "underscore": r'_',
+    "period": r'\.',
+    "comma": r',',
+    "exclamation": r'!',
+    "question": r'\?',
+    "semicolon": r';',
+    "colon": r':',
+    "parenthesis": r'[()]',
+    "brackets": r'[\[\]]',
+    "braces": r'[{}]',
+    "quotation": r'["“”«»]',
+    "apostrophe": r'[\'’]',
+    "slash": r'/',
+    "hyphen": r'-',
+    "enDash": r'–',
+    "emDash": r'—'
+}
 
 allPunctuationEng = regexDictEng.keys()
-
+allPunctuationGer = regexDictGer.keys()
 
 def readTextFile(path):
     with open(path, 'r', encoding='utf-8') as file:
         return file.read()
-   
 
-def processTextFile(text, includePunctuation=False, punctuationSelection=None, toLowerCase=False):
+def processTextFile(text, includePunctuation=False, punctuationSelection=None, toLowerCase=False, language='eng'):
+    if language == 'eng':
+        regexDict = regexDictEng
+    elif language == 'ger':
+        regexDict = regexDictGer
+
     if not includePunctuation:
-        regexPattern = regexDictEng['wordsNumbers']
+        regexPattern = regexDict['wordsNumbers']
     else:
-        selectedPunctuation = [regexDictEng[pat] for pat in punctuationSelection] if punctuationSelection else []
-        regexPattern = '|'.join([regexDictEng['wordsNumbers']] + selectedPunctuation)
+        selectedPunctuation = [regexDict[pat] for pat in punctuationSelection] if punctuationSelection else []
+        regexPattern = '|'.join([regexDict['wordsNumbers']] + selectedPunctuation)
     
     data = re.findall(regexPattern, text)
     if not data:
         return []
 
     return [word.lower() for word in data] if toLowerCase else data
-    
 
-def createGraphData(data):
+def createGraphData(data, language='eng'):
+    if language == 'eng':
+        regexDict = regexDictEng
+    elif language == 'ger':
+        regexDict = regexDictGer
     graphDataDict = {}
     nodeCounter = Counter()
     previousWord = None
     for element in data:
-        if element in regexDictEng['quotation']:
+        if element in regexDict['quotation']:
             element = '"'
-        if element in regexDictEng['apostrophe']:
+        if element in regexDict['apostrophe']:
             element = '\''
         if element not in graphDataDict:
             graphDataDict[element] = []
@@ -65,7 +92,6 @@ def createGraphData(data):
         previousWord = element
         nodeCounter[element] += 1
     return graphDataDict, nodeCounter
-    
 
 def plotGraph(data):
     G = nx.Graph(data)
@@ -79,7 +105,6 @@ def plotGraph(data):
     plt.title('Word Association Network')
     plt.axis('off')
     plt.show()
-
 
 def calculateValues(data, occurrenceData):
     result = []
@@ -105,23 +130,38 @@ def calculateValues(data, occurrenceData):
 
 if __name__ == "__main__":
     startTime = time.time()
+
+    textLanguage = 'ger'    # 'eng' or 'ger'
     
+    ### ENG ###
+
     # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
-    # processedData = processTextFile(inputData, False, allPunctuationEng, False)
+    # processedData = processTextFile(inputData, False, allPunctuationEng, False, textLanguage)
 
     # inputData = readTextFile('inputTextFiles\shortENG.txt')
-    # processedData = processTextFile(inputData, True, allPunctuationEng, True)
+    # processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
 
     # inputData = readTextFile('inputTextFiles\mediumENG.txt')
-    # processedData = processTextFile(inputData, True, allPunctuationEng, True)
+    # processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
 
-    inputData = readTextFile('inputTextFiles\longENG.txt')
-    processedData = processTextFile(inputData, True, allPunctuationEng, True)
+    # inputData = readTextFile('inputTextFiles\longENG.txt')
+    # processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
     
     # inputData = readTextFile('inputTextFiles\OliverTwistENG.txt')
-    # processedData = processTextFile(inputData, True, allPunctuationEng, True)
+    # processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
 
-    graphData, occurrenceDict  = createGraphData(processedData)
+    ### GER ###
+
+    inputData = readTextFile('inputTextFiles\mediumGER.txt')
+    processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
+
+    # inputData = readTextFile('inputTextFiles\longGER.txt')
+    # processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
+
+    # inputData = readTextFile('inputTextFiles\OliverTwistGER.txt')
+    # processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
+
+    graphData, occurrenceDict  = createGraphData(processedData, textLanguage)
     print(calculateValues(graphData, occurrenceDict))
 
     minutes, seconds = divmod(time.time() - startTime, 60)

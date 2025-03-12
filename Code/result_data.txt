@@ -48,32 +48,36 @@ graph
 
 
 
+### OLIVER TWIST TEXT ###
+
+
+
 input text: inputTextFiles\mediumENG.txt
 
-Number of nodes: 882
-Number of edges: 2171
-Top occurrences: [('the', 175), ('a', 71), ('of', 66), ('and', 64), ('to', 61)]
-Highest degrees: [('the', 190), ('and', 114), ('a', 107), ('of', 95), ('to', 92)]
-Average degree: 4.9229
-Max degree: ('the', 190)
-Min degree: ('mistress', 1)
-Network density: 0.0056
-Average clustering coefficient: 0.1736
---- 0 minutes, 0.03 seconds ---
+Number of nodes: 500
+Number of edges: 996
+Top occurrences: [('the', 76), ('and', 36), ('of', 35), ('a', 35), ('to', 28)]
+Highest degrees: [('the', 101), ('and', 65), ('of', 58), ('a', 53), ('to', 45)]
+Average degree: 3.9840
+Max degree: ('the', 101)
+Min degree: ('louder', 1)
+Network density: 0.0080
+Average clustering coefficient: 0.1224
+--- 0 minutes, 0.02 seconds ---
 
-Number of nodes: 893
-Number of edges: 2330
-Top occurrences: [(',', 264), ('the', 175), ('"', 162), ('.', 150), ('a', 71)]
-Highest degrees: [(',', 243), ('the', 183), ('.', 107), ('a', 107), ('of', 96)]
-Average degree: 5.2184
-Max degree: (',', 243)
-Min degree: ('charlotte', 1)
-Network density: 0.0059
-Average clustering coefficient: 0.2613
---- 0 minutes, 0.03 seconds ---
+Number of nodes: 511
+Number of edges: 1110
+Top occurrences: [(',', 96), ('the', 76), ('.', 36), ('and', 36), ('of', 35)]
+Highest degrees: [(',', 132), ('the', 96), ('of', 58), ('.', 52), ('a', 51)]
+Average degree: 4.3444
+Max degree: (',', 132)
+Min degree: ('added', 1)
+Network density: 0.0085
+Average clustering coefficient: 0.1797
+--- 0 minutes, 0.01 seconds ---
 
 graph
---- 0 minutes, 4.55 seconds ---
+--- 0 minutes, 3.01 seconds ---
 
 
 
@@ -132,3 +136,90 @@ Average clustering coefficient: 0.5824
 
 graph
 --- 2 minutes, 39.88 seconds ---
+
+
+
+input text: inputTextFiles\mediumGER.txt
+
+Number of nodes: 483
+Number of edges: 826
+Top occurrences: [('und', 30), ('die', 28), ('der', 27), ('sie', 21), ('das', 14)]
+Highest degrees: [('und', 57), ('die', 48), ('der', 40), ('sie', 39), ('von', 23)]
+Average degree: 3.4203
+Max degree: ('und', 57)
+Min degree: ('1', 1)
+Network density: 0.0071
+Average clustering coefficient: 0.0501
+--- 0 minutes, 0.02 seconds ---
+
+Number of nodes: 492
+Number of edges: 922
+Top occurrences: [(',', 94), ('und', 30), ('die', 28), ('der', 27), ('.', 26)]
+Highest degrees: [(',', 137), ('und', 51), ('die', 45), ('.', 40), ('der', 35)]
+Average degree: 3.7480
+Max degree: (',', 137)
+Min degree: ('schauderte', 1)
+Network density: 0.0076
+Average clustering coefficient: 0.1173
+--- 0 minutes, 0.01 seconds ---
+
+graph
+--- 0 minutes, 2.04 seconds ---
+
+
+
+input text: inputTextFiles\longGER.txt
+
+Number of nodes: 2556
+Number of edges: 7034
+Top occurrences: [('und', 284), ('der', 236), ('die', 202), ('er', 164), ('zu', 158)]
+Highest degrees: [('und', 415), ('die', 275), ('der', 263), ('zu', 227), ('er', 177)]
+Average degree: 5.5039
+Max degree: ('und', 415)
+Min degree: ('gassenbuben', 1)
+Network density: 0.0022
+Average clustering coefficient: 0.1706
+--- 0 minutes, 0.10 seconds ---
+
+Number of nodes: 2568
+Number of edges: 7252
+Top occurrences: [(',', 956), ('.', 488), ('"', 418), ('und', 284), ('der', 236)]
+Highest degrees: [(',', 805), ('.', 350), ('und', 348), ('die', 230), ('zu', 220)]
+Average degree: 5.6480
+Max degree: (',', 805)
+Min degree: ('beschloß', 1)
+Network density: 0.0022
+Average clustering coefficient: 0.2759
+--- 0 minutes, 0.14 seconds ---
+
+graph
+--- 0 minutes, 15.78 seconds ---
+
+
+
+input text: inputTextFiles\OliverTwistGER.txt
+
+Number of nodes: 14023
+Number of edges: 70036
+Top occurrences: [('und', 4517), ('der', 2671), ('die', 2527), ('sie', 2187), ('er', 2086)]
+Highest degrees: [('und', 3562), ('die', 1904), ('der', 1768), ('zu', 1624), ('sie', 1190)]
+Average degree: 9.9887
+Max degree: ('und', 3562)
+Min degree: ('abirrte', 1)
+Network density: 0.0007
+Average clustering coefficient: 0.3484
+--- 0 minutes, 3.00 seconds ---
+
+Number of nodes: 14036
+Number of edges: 66374
+Top occurrences: [(',', 12961), ('"', 6814), ('.', 5830), ('und', 4517), ('der', 2671)]
+Highest degrees: [(',', 5093), ('und', 3078), ('.', 2609), ('zu', 1554), ('die', 1494)]
+Average degree: 9.4577
+Max degree: (',', 5093)
+Min degree: ('fischte', 1)
+Network density: 0.0007
+Average clustering coefficient: 0.4566
+--- 0 minutes, 4.46 seconds ---
+
+graph
+--- 4 minutes, 33.97 seconds ---
