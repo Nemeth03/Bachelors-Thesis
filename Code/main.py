@@ -109,16 +109,16 @@ if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\oneLineNoPunct.txt')
     # processedData = processTextFile(inputData, False, allPunctuation, False)
 
-    # inputData = readTextFile('inputTextFiles\shortWithLotsPunct.txt')
+    # inputData = readTextFile('inputTextFiles\shortENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
 
-    inputData = readTextFile('inputTextFiles\mediumWithLotsPunct.txt')
+    inputData = readTextFile('inputTextFiles\mediumENG.txt')
     processedData = processTextFile(inputData, True, allPunctuation, True)
 
-    # inputData = readTextFile('inputTextFiles\longWithLotsPunct.txt')
+    # inputData = readTextFile('inputTextFiles\longENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
     
-    # inputData = readTextFile('inputTextFiles\OliverTwist.txt')
+    # inputData = readTextFile('inputTextFiles\OliverTwistENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuation, True)
 
     graphData, occurrenceDict  = createGraphData(processedData)
