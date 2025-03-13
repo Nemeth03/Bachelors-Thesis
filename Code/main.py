@@ -120,7 +120,7 @@ def calculateValues(data, occurrenceData):
 if __name__ == "__main__":
     startTime = time.time()
 
-    textLanguage = 'ger'    # 'eng' or 'ger'
+    textLanguage = 'eng'    # 'eng' or 'ger'
     
     ### ENG ###
 
@@ -130,8 +130,8 @@ if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\shortENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
 
-    # inputData = readTextFile('inputTextFiles\mediumENG.txt')
-    # processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
+    inputData = readTextFile('inputTextFiles\mediumENG.txt')
+    processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
 
     # inputData = readTextFile('inputTextFiles\longENG.txt')
     # processedData = processTextFile(inputData, True, allPunctuationEng, True, textLanguage)
@@ -144,8 +144,8 @@ if __name__ == "__main__":
     # inputData = readTextFile('inputTextFiles\mediumGER.txt')
     # processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
 
-    inputData = readTextFile('inputTextFiles\longGER.txt')
-    processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
+    # inputData = readTextFile('inputTextFiles\longGER.txt')
+    # processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
 
     # inputData = readTextFile('inputTextFiles\OliverTwistGER.txt')
     # processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
@@ -161,6 +161,9 @@ if __name__ == "__main__":
     minutes, seconds = divmod(time.time() - startTime, 60)
     print(f"--- {int(minutes)} minutes, {seconds:.2f} seconds ---")
 
+
+
+### TODO ###
 
 # distribucia stupna uzlov, log binnig vizualizacia, degree histogram
 # ak bude mat zlom prelozit priamku v zlome v log log plote
