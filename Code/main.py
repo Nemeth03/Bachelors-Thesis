@@ -25,27 +25,10 @@ regexDictEng = {
     "emDash": r'—'
 }
 
-
-regexDictGer = {
-    "wordsNumbers": r'[a-zA-ZäöüÄÖÜß0-9]+',
-    "ellipsis": r'\.{3}',
-    "underscore": r'_',
-    "period": r'\.',
-    "comma": r',',
-    "exclamation": r'!',
-    "question": r'\?',
-    "semicolon": r';',
-    "colon": r':',
-    "parenthesis": r'[()]',
-    "brackets": r'[\[\]]',
-    "braces": r'[{}]',
-    "quotation": r'["“”«»]',
-    "apostrophe": r'[\'’]',
-    "slash": r'/',
-    "hyphen": r'-',
-    "enDash": r'–',
-    "emDash": r'—'
-}
+regexDictGer = regexDictEng
+regexDictGer['wordsNumbers'] = r'[a-zA-ZäöüÄÖÜß0-9]+'
+regexDictGer['quotation'] = r'["„“«»]'
+regexDictGer['apostrophe'] = r'[\'’‚‘]'
 
 allPunctuationEng = regexDictEng.keys()
 allPunctuationGer = regexDictGer.keys()
