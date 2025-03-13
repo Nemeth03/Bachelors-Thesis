@@ -25,6 +25,7 @@ regexDictEng = {
     "emDash": r'—'
 }
 
+
 regexDictGer = {
     "wordsNumbers": r'[a-zA-ZäöüÄÖÜß0-9]+',
     "ellipsis": r'\.{3}',
@@ -38,13 +39,14 @@ regexDictGer = {
     "parenthesis": r'[()]',
     "brackets": r'[\[\]]',
     "braces": r'[{}]',
-    "quotation": r'["“”«»]',
+    "quotation": r'[5“”«»]',
     "apostrophe": r'[\'’]',
     "slash": r'/',
     "hyphen": r'-',
     "enDash": r'–',
     "emDash": r'—'
 }
+
 
 allPunctuationEng = regexDictEng.keys()
 allPunctuationGer = regexDictGer.keys()
@@ -152,11 +154,11 @@ if __name__ == "__main__":
 
     ### GER ###
 
-    inputData = readTextFile('inputTextFiles\mediumGER.txt')
-    processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
-
-    # inputData = readTextFile('inputTextFiles\longGER.txt')
+    # inputData = readTextFile('inputTextFiles\mediumGER.txt')
     # processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
+
+    inputData = readTextFile('inputTextFiles\longGER.txt')
+    processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
 
     # inputData = readTextFile('inputTextFiles\OliverTwistGER.txt')
     # processedData = processTextFile(inputData, True, allPunctuationGer, True, textLanguage)
@@ -171,3 +173,10 @@ if __name__ == "__main__":
 
     minutes, seconds = divmod(time.time() - startTime, 60)
     print(f"--- {int(minutes)} minutes, {seconds:.2f} seconds ---")
+
+
+# distribucia stupna uzlov, log binnig vizualizacia
+# ak bude mat zlom prelozit priamku v zlome v log log plote
+# z toho sa bude odcitavat skalovaci exponent
+
+# ked tak plot aj s aj bez punctuation do jedneho na porovnanie
