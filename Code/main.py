@@ -18,7 +18,7 @@ regexDictEng = {
     "brackets": r'[\[\]]',
     "braces": r'[{}]',
     "quotation": r'["“”]',
-    "apostrophe": r'[\'’]',
+    "apostrophe": r'[\'’‘]',
     "slash": r'/',
     "hyphen": r'-',
     "enDash": r'–',
@@ -39,7 +39,7 @@ regexDictGer = {
     "parenthesis": r'[()]',
     "brackets": r'[\[\]]',
     "braces": r'[{}]',
-    "quotation": r'[5“”«»]',
+    "quotation": r'["“”«»]',
     "apostrophe": r'[\'’]',
     "slash": r'/',
     "hyphen": r'-',
@@ -47,13 +47,14 @@ regexDictGer = {
     "emDash": r'—'
 }
 
-
 allPunctuationEng = regexDictEng.keys()
 allPunctuationGer = regexDictGer.keys()
+
 
 def readTextFile(path):
     with open(path, 'r', encoding='utf-8') as file:
         return file.read()
+    
 
 def processTextFile(text, includePunctuation=False, punctuationSelection=None, toLowerCase=False, language='eng'):
     if language == 'eng':
@@ -72,6 +73,7 @@ def processTextFile(text, includePunctuation=False, punctuationSelection=None, t
         return []
 
     return [word.lower() for word in data] if toLowerCase else data
+
 
 def createGraphData(data, language='eng'):
     if language == 'eng':
@@ -95,6 +97,7 @@ def createGraphData(data, language='eng'):
         nodeCounter[element] += 1
     return graphDataDict, nodeCounter
 
+
 def plotGraph(data):
     G = nx.Graph(data)
 
@@ -107,6 +110,7 @@ def plotGraph(data):
     plt.title('Word Association Network')
     plt.axis('off')
     plt.show()
+    
 
 def calculateValues(data, occurrenceData):
     result = []
