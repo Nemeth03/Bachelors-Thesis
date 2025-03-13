@@ -5,24 +5,24 @@ import time
 from collections import Counter
 
 regexDictEng = {
-    "wordsNumbers": r'[a-zA-Z0-9]+',
-    "ellipsis": r'\.{3}',
-    "underscore": r'_',
-    "period": r'\.',
-    "comma": r',',
-    "exclamation": r'!',
-    "question": r'\?',
-    "semicolon": r';',
-    "colon": r':',
-    "parenthesis": r'[()]',
-    "brackets": r'[\[\]]',
-    "braces": r'[{}]',
-    "quotation": r'["“”]',
-    "apostrophe": r'[\'’‘]',
-    "slash": r'/',
-    "hyphen": r'-',
-    "enDash": r'–',
-    "emDash": r'—'
+    'wordsNumbers': r'[a-zA-Z0-9]+',
+    'ellipsis': r'\.{3}',
+    'underscore': r'_',
+    'period': r'\.',
+    'comma': r',',
+    'exclamation': r'!',
+    'question': r'\?',
+    'semicolon': r';',
+    'colon': r':',
+    'parenthesis': r'[()]',
+    'brackets': r'[\[\]]',
+    'braces': r'[{}]',
+    'quotation': r'["“”]',
+    'apostrophe': r'[\'’‘]',
+    'slash': r'/',
+    'hyphen': r'-',
+    'enDash': r'–',
+    'emDash': r'—'
 }
 
 regexDictGer = regexDictEng
