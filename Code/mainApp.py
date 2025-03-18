@@ -1,6 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QFileDialog, QLabel, QHBoxLayout, \
-                            QWidget, QComboBox, QCheckBox, QGridLayout, QSpacerItem, QSizePolicy, QTextEdit
-from PyQt6.QtCore import Qt, QTimer
+import wx
 import matplotlib.pyplot as plt
 import networkx as nx
 import re
@@ -8,9 +6,10 @@ from collections import Counter
 import numpy as np
 
 
-class App(QMainWindow):
+class App(wx.Frame):
     def __init__(self):
-        super().__init__()
+        super().__init__(parent=None, title='Punctuation Marks Analysis', size=(700, 700))
+        
         self.inputTextFile = None
         self.languageOptions = ['', 'English', 'German']
         self.selectedLanguage = ''
@@ -66,176 +65,138 @@ class App(QMainWindow):
 
 
     def initGUI(self):
-        # window settings
-        self.setWindowTitle('Punctuation Marks Analysis')
-        self.setGeometry(250, 150, 700, 450)
-        self.setFixedSize(700, 700)
+        panel = wx.Panel(self)
+        vbox = wx.BoxSizer(wx.VERTICAL)
+        
+        # File Selection
+        self.labelFileSelect = wx.StaticText(panel, label='Select a text file:')
+        self.labelFileSelectPath = wx.TextCtrl(panel, style=wx.TE_READONLY)
+        self.labelFileSelectPath.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.labelFileSelectPath.SetForegroundColour(wx.Colour(0, 0, 0))
+        self.labelFileSelectPath.SetValue('No file selected.')
+        self.buttonSelectFile = wx.Button(panel, label='Select File')
+        self.buttonSelectFile.Bind(wx.EVT_BUTTON, self.selectInputFile)
+        
+        fileSelectLayout = wx.BoxSizer(wx.HORIZONTAL)
+        fileSelectLayout.Add(self.labelFileSelectPath, proportion=1, flag=wx.EXPAND | wx.ALIGN_LEFT)
+        fileSelectLayout.Add(self.buttonSelectFile, flag=wx.LEFT, border=10)
+        
+        # Language Selection
+        self.languageDropdown = wx.Choice(panel, choices=self.languageOptions)
+        self.languageDropdown.Bind(wx.EVT_CHOICE, self.languageChange)
+        languageLayout = wx.BoxSizer(wx.HORIZONTAL)
+        languageLayout.Add(wx.StaticText(panel, label='Select Language:'), flag=wx.ALIGN_LEFT)
+        languageLayout.Add(self.languageDropdown, flag=wx.LEFT, border=10)
 
-        # file selction
-        self.labelFileSelect = QLabel('Select a text file:', self)
-        self.labelFileSelect.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        self.labelFileSelectPath = QLabel('No file selected', self)
-        self.labelFileSelectPath.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        self.labelFileSelectPath.setStyleSheet("background-color: white; border: 1px solid #000000; padding: 5px; color: black")
-        self.labelFileSelectPath.setFixedSize(600, 30)
-        self.buttonSelectFile = QPushButton('Select File', self)
-        self.buttonSelectFile.clicked.connect(self.selectInputFile)
-        fileSelectLayout = QHBoxLayout()
-        fileSelectLayout.addWidget(self.labelFileSelectPath)
-        fileSelectLayout.addWidget(self.buttonSelectFile)
-        fileSelectLayout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        fileSelectLayout.setSpacing(10)
-
-        # language selection
-        self.languageDropdown = QComboBox(self)
-        self.languageDropdown.addItems(self.languageOptions)
-        self.languageDropdown.currentIndexChanged.connect(self.languageChange)
-        languageLayout = QHBoxLayout()
-        languageLayout.addWidget(QLabel('Select Language:'))
-        languageLayout.addWidget(self.languageDropdown)
-        languageLayout.setAlignment(Qt.AlignmentFlag.AlignLeft)
-        languageLayout.setSpacing(10)
-        self.languageDropdown.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-
-        # punctuation selection
-        self.selectAllCheckbox = QCheckBox('Select All', self)
-        self.selectAllCheckbox.stateChanged.connect(self.selectAllPunctuation)
-        self.punctuationLabel = QLabel('Select Punctuation:', self)
-        punctuationLayout = QGridLayout()
+        # Punctuation Selection
+        self.selectAllCheckbox = wx.CheckBox(panel, label='Select All')
+        self.selectAllCheckbox.Bind(wx.EVT_CHECKBOX, self.selectAllPunctuation)
+        self.punctuationLabel = wx.StaticText(panel, label='Select Punctuation:')
+        punctuationLayout = wx.GridSizer(5, 5, 5, 10)
         self.punctuationCheckboxes = {}
-        for i, (label, symbol) in enumerate(self.punctuation.items()):
-            checkbox = QCheckBox(f'{label}  {symbol}', self)
-            checkbox.stateChanged.connect(self.updateSelectedPunctuation)
-            punctuationLayout.addWidget(checkbox, i//3, i%3)
+        for label, symbol in self.punctuation.items():
+            checkbox = wx.CheckBox(panel, label=f'{label}  {symbol}')
+            checkbox.Bind(wx.EVT_CHECKBOX, self.updateSelectedPunctuation)
+            punctuationLayout.Add(checkbox, flag=wx.EXPAND)
             self.punctuationCheckboxes[label] = checkbox
 
-        # exit button
-        self.exitButton = QPushButton('Exit', self)
-        self.exitButton.clicked.connect(self.exitApp)
-        self.exitButton.setFixedWidth(150)
-        self.exitButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        buttonLayout = QHBoxLayout()
-        buttonLayout.addWidget(self.exitButton)
-        buttonLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # Log window
+        self.logWindow = wx.TextCtrl(panel, style=wx.TE_MULTILINE | wx.TE_READONLY)
+        self.logWindow.SetBackgroundColour(wx.Colour(240, 240, 240))
 
-        # network button
-        self.networkButton = QPushButton('Network', self)
-        self.networkButton.clicked.connect(self.plotNetwork)
-        self.networkButton.setFixedWidth(150)
-        self.networkButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        self.networkButton.setEnabled(False)
+        # Buttons
+        self.exitButton = wx.Button(panel, label='Exit')
+        self.exitButton.Bind(wx.EVT_BUTTON, self.exitApp)
 
-        # histogram 1 button
-        self.histogramOneButton = QPushButton('Histogram 1', self)
-        self.histogramOneButton.clicked.connect(self.plotHistogramOne)
-        self.histogramOneButton.setFixedWidth(150)
-        self.histogramOneButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        self.histogramOneButton.setEnabled(False)
+        self.networkButton = wx.Button(panel, label='Network')
+        self.networkButton.Bind(wx.EVT_BUTTON, self.plotNetwork)
+        self.networkButton.Enable(False)
 
-        # histogram 2 button
-        self.histogramTwoButton = QPushButton('Histogram 2', self)
-        self.histogramTwoButton.clicked.connect(self.plotHistogramTwo)
-        self.histogramTwoButton.setFixedWidth(150)
-        self.histogramTwoButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        self.histogramTwoButton.setEnabled(False)
+        self.histogramOneButton = wx.Button(panel, label='Histogram 1')
+        self.histogramOneButton.Bind(wx.EVT_BUTTON, self.plotHistogramOne)
+        self.histogramOneButton.Enable(False)
 
-        # visualisation buttons layout
-        visualisationButtonsLayout = QHBoxLayout()
-        visualisationButtonsLayout.addWidget(self.networkButton)
-        visualisationButtonsLayout.addWidget(self.histogramOneButton)
-        visualisationButtonsLayout.addWidget(self.histogramTwoButton)
-        visualisationButtonsLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.histogramTwoButton = wx.Button(panel, label='Histogram 2')
+        self.histogramTwoButton.Bind(wx.EVT_BUTTON, self.plotHistogramTwo)
+        self.histogramTwoButton.Enable(False)
 
-        # log print button
-        self.outputValues = QPushButton('Calculate Values', self)
-        self.outputValues.clicked.connect(self.logOutputValues)
-        self.outputValues.setFixedWidth(150)
-        self.outputValues.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        self.outputValues.setEnabled(False)
-        visualisationButtonsLayout.addWidget(self.outputValues)
+        self.outputValues = wx.Button(panel, label='Calculate Values')
+        self.outputValues.Bind(wx.EVT_BUTTON, self.logOutputValues)
+        self.outputValues.Enable(False)
 
-        # log window
-        self.logWindow = QTextEdit(self)
-        self.logWindow.setReadOnly(True)
-        self.logWindow.setFixedHeight(275)
-        self.logWindow.setStyleSheet("background-color: #f0f0f0; border: 1px solid #000000; padding: 5px;")
-        
-        # main layout
-        layout = QVBoxLayout(self)
-        layout.addWidget(self.labelFileSelect)
-        layout.addLayout(fileSelectLayout)
-        layout.addLayout(languageLayout)
-        layout.addWidget(self.punctuationLabel)
-        layout.addWidget(self.selectAllCheckbox)
-        layout.addLayout(punctuationLayout)
-        layout.addWidget(self.logWindow)
-        layout.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding))
-        layout.addLayout(visualisationButtonsLayout)
-        layout.addLayout(buttonLayout)
-        layout.setSpacing(10)
+        # Buttons Layout
+        buttonLayout = wx.BoxSizer(wx.HORIZONTAL)
+        buttonLayout.Add(self.networkButton, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.histogramOneButton, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.histogramTwoButton, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.outputValues, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.exitButton, flag=wx.LEFT, border=10)
 
-        central_widget = QWidget(self)
-        central_widget.setLayout(layout)
-        self.setCentralWidget(central_widget)
-    
+        # Layout
+        vbox.Add(self.labelFileSelect, flag=wx.EXPAND | wx.LEFT | wx.TOP, border=10)
+        vbox.Add(fileSelectLayout, flag=wx.EXPAND | wx.LEFT | wx.TOP, border=10)
+        vbox.Add(languageLayout, flag=wx.EXPAND | wx.LEFT | wx.TOP, border=10)
+        vbox.Add(self.punctuationLabel, flag=wx.LEFT | wx.TOP, border=10)
+        vbox.Add(self.selectAllCheckbox, flag=wx.LEFT | wx.TOP, border=10)
+        vbox.Add(punctuationLayout, flag=wx.LEFT | wx.TOP, border=10)
+        vbox.Add(self.logWindow, proportion=1, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP, border=10)        
+        vbox.Add(buttonLayout, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
+
+        panel.SetSizer(vbox)
+        self.Centre()
+
 
     def logMessage(self, message):
-        self.logWindow.append(message)
+        self.logWindow.AppendText(f'{message}\n')
 
 
-    def selectInputFile(self):
-        fileDialog = QFileDialog()
-        filePath, _ = fileDialog.getOpenFileName(self, 'Open File', '', 'Text Files (*.txt)')
-        if filePath:
-            self.inputTextFile = filePath
-            self.labelFileSelectPath.setText(self.inputTextFile)
+    def selectInputFile(self, event):
+        fileDialog = wx.FileDialog(self, 'Open Text File', wildcard='Text files (*.txt)|*.txt', style=wx.FD_OPEN)
+        if fileDialog.ShowModal() == wx.ID_OK:
+            self.inputTextFile = fileDialog.GetPath()
+            self.labelFileSelectPath.SetValue(self.inputTextFile)
             self.validateInputData()
 
 
-    def languageChange(self, index):
-        self.selectedLanguage = self.languageOptions[index]
+    def languageChange(self, event):
+        self.selectedLanguage = self.languageOptions[self.languageDropdown.GetSelection()]
         self.validateInputData()
 
 
-    def updateSelectedPunctuation(self, state):
-        sender = self.sender()
-        punctuationCheckboxLabel = sender.text().split()[0]
-        if state == 2:
+    def updateSelectedPunctuation(self, event):
+        sender = event.GetEventObject()
+        punctuationCheckboxLabel = sender.GetLabel().split()[0]
+        if sender.IsChecked():
             self.selectedPunctuation[punctuationCheckboxLabel] = self.punctuation[punctuationCheckboxLabel]
         else:
             if punctuationCheckboxLabel in self.selectedPunctuation:
                 del self.selectedPunctuation[punctuationCheckboxLabel]
-            self.selectAllCheckbox.blockSignals(True)
-            self.selectAllCheckbox.setChecked(False)
-            self.selectAllCheckbox.blockSignals(False)
-        if all(checkbox.isChecked() for checkbox in self.punctuationCheckboxes.values()):
-            self.selectAllCheckbox.blockSignals(True)
-            self.selectAllCheckbox.setChecked(True)
-            self.selectAllCheckbox.blockSignals(False)
+        self.selectAllCheckbox.SetValue(False) if any([not checkbox.IsChecked() \
+                                    for checkbox in self.punctuationCheckboxes.values()]) else self.selectAllCheckbox.SetValue(True)
         self.validateInputData()
 
 
-    def selectAllPunctuation(self, state):
-        if state == 2:
-            for checkbox in self.punctuationCheckboxes.values():
-                checkbox.setChecked(True)
-        else:
-            for checkbox in self.punctuationCheckboxes.values():
-                checkbox.setChecked(False)
+    def selectAllPunctuation(self, event):
+        checked = event.IsChecked()
+        self.selectedPunctuation.clear()
+        for label, checkbox in self.punctuationCheckboxes.items():
+            checkbox.SetValue(checked)
+            if checked:
+                self.selectedPunctuation[label] = self.punctuation[label]
         self.validateInputData()
 
-    
-    def logOutputValues(self):
+
+    def logOutputValues(self, event):
         self.logMessage(self.collectInputDataInfo())
         self.logMessage(self.calculateValues(*self.processData(self.selectedPunctuation)))
         self.logMessage('\n')
 
-    
+
     def processData(self, selectedPunctuation={}):
         return self.createGraphData(self.processTextFile(selectedPunctuation))
 
 
-    def plotNetwork(self):
+    def plotNetwork(self, event):
         self.logMessage(self.collectInputDataInfo())
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphData, occurrenceData))  
@@ -251,63 +212,49 @@ class App(QMainWindow):
         self.logMessage('\n')
 
 
-    def plotHistogramOne(self):
+    def plotHistogramOne(self, event):
         self.logMessage(self.collectInputDataInfo())
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphData, occurrenceData)) 
         self.logMessage('Plotting degree distribution histogram...')
-
-        # G = nx.Graph(graphData)
-
-        # y = nx.degree_histogram(G)
-        # x = np.arange(0, len(y)).tolist()
-        # nNodes = G.number_of_nodes()
-        # for i in range(len(y)):
-        #     y[i] = y[i]/nNodes
-        # plt.xlabel('Degree\n(log scale)')
-        # plt.ylabel('Number of Nodes\n(log scale)')
-        # plt.xscale("log")
-        # plt.yscale("log")
-        # plt.plot(x, y, 'b-')
-        # ba_c = nx.degree_centrality(G)
-        # ba_c2 = dict(Counter(ba_c.values()))
-        # plt.figure(figsize=(8, 8))
-        # plt.xscale('log')
-        # plt.yscale('log')
-        # plt.scatter(ba_c2.keys(),ba_c2.values(),c='b',marker='x')
-        # plt.xlim((1e-4,1e-1))
-        # plt.ylim((.9,1e4))
-        # plt.xlabel('Degree')
-        # plt.ylabel('Frequency')
-        # plt.show()
-
+        G = nx.Graph(graphData)
+        hist, binCenters = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
+        plt.figure(figsize=(8, 8))
+        plt.scatter(binCenters, hist, color='b', alpha=0.75, label='Binned Data')
+        plt.loglog(binCenters, hist, 'bo-', alpha=0.75, label='Smoothed Curve')
+        plt.xlabel('Degree')
+        plt.ylabel('Frequency')
+        plt.title('Degree Distribution with Log-Binning')
+        plt.legend()
+        plt.show()
         self.logMessage('\n')
 
 
-    def plotHistogramTwo(self):
+    def plotHistogramTwo(self, event):
         self.logMessage(self.collectInputDataInfo())
         graphDataOnlyWords, occurrenceDataOnlyWords = self.processData()
         self.logMessage(self.calculateValues(graphDataOnlyWords, occurrenceDataOnlyWords))
         graphDataCombined, occurrenceDataCombined = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphDataCombined, occurrenceDataCombined))
         self.logMessage('Plotting degree distribution comparison histogram...')
-
-        # G = nx.Graph(graphDataOnlyWords)
-        # M = nx.Graph(graphDataCombined)
-
         self.logMessage('\n')
 
 
+    def calculateLogBin(self, degrees, binCount):
+        minDegree = max(1, min(degrees))
+        maxDegree = degrees.max()
+        bins = np.logspace(np.log10(minDegree), np.log10(maxDegree), num=binCount)
+        hist, binEdges = np.histogram(degrees, bins=bins, density=True)
+        binCenters = (binEdges[:-1] + binEdges[1:]) / 2
+        nonzero = hist > 0
+        return hist[nonzero], binCenters[nonzero]
+
+
     def validateInputData(self):
-        self.networkButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
-        self.histogramOneButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
-        self.histogramTwoButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
-        self.outputValues.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
-
-
-    def collectInputDataInfo(self):
-        return f'Input Data...\nFile selected: {self.labelFileSelectPath.text()}\nLanguage: {self.selectedLanguage} \
-                \nSelected Punctuation: {self.selectedPunctuation}'
+        self.networkButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.histogramOneButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.histogramTwoButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.outputValues.Enable(bool(self.inputTextFile and self.selectedLanguage))
 
 
     def processTextFile(self, selectedPunctuation={}):
@@ -349,9 +296,9 @@ class App(QMainWindow):
         return graphDataDict, nodeCounter
 
 
-    def calculateValues(self, data, occurrenceData):
+    def calculateValues(self, graphData, occurrenceData):
         result = ['Network Values...']
-        G = nx.Graph(data)
+        G = nx.Graph(graphData)
         degrees = sorted(G.degree(), key=lambda x: x[1], reverse=True)
         degValues = [deg for _, deg in G.degree()]
         result.append(f'Number of nodes: {G.number_of_nodes()}')
@@ -366,19 +313,18 @@ class App(QMainWindow):
         return '\n'.join(result)
 
 
-    def exitApp(self):
-        self.logMessage('App terminated...')
-        QTimer.singleShot(500, self.close)
+    def collectInputDataInfo(self):
+        return f'Input Data...\nFile selected: {self.labelFileSelectPath.GetValue()}\nLanguage: {self.selectedLanguage} \
+            \nSelected Punctuation: {", ".join(self.selectedPunctuation.keys())}\n'
 
 
-
-def main():
-    print('Running the app...')
-    app = QApplication([])
-    window = App()
-    window.show()
-    app.exec()
+    def exitApp(self, event):
+        self.logMessage('Exiting application...')
+        self.Close()
 
 
 if __name__ == '__main__':
-    main()
+    app = wx.App(False)
+    frame = App()
+    frame.Show()
+    app.MainLoop()
