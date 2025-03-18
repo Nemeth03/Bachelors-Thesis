@@ -201,7 +201,8 @@ class App(wx.Frame):
         self.logMessage(self.collectInputDataInfo())
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphData, occurrenceData))  
-        self.logMessage('Plotting network...')
+        self.logMessage('Plotting network...\n')
+
         G = nx.Graph(graphData)
         pos = nx.spring_layout(G, iterations=35, seed=21)
         plt.figure(figsize=(8, 8))
@@ -210,14 +211,14 @@ class App(wx.Frame):
         plt.title('Word Association Network')
         plt.axis('off')
         plt.show()
-        self.logMessage('\n')
 
 
     def plotHistogramOne(self, event):
         self.logMessage(self.collectInputDataInfo())
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphData, occurrenceData)) 
-        self.logMessage('Plotting degree distribution histogram...')
+        self.logMessage('Plotting degree distribution histogram...\n')
+        
         G = nx.Graph(graphData)
         hist, binCenters = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
         plt.figure(figsize=(8, 8))
@@ -228,7 +229,6 @@ class App(wx.Frame):
         plt.title('Degree Distribution with Log-Binning')
         plt.legend()
         plt.show()
-        self.logMessage('\n')
 
 
     def plotHistogramTwo(self, event):
@@ -237,8 +237,22 @@ class App(wx.Frame):
         self.logMessage(self.calculateValues(graphDataOnlyWords, occurrenceDataOnlyWords))
         graphDataCombined, occurrenceDataCombined = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphDataCombined, occurrenceDataCombined))
-        self.logMessage('Plotting degree distribution comparison histogram...')
-        self.logMessage('\n')
+        self.logMessage('Plotting degree distribution comparison histogram...\n')
+    
+        G = nx.Graph(graphDataOnlyWords)
+        M = nx.Graph(graphDataCombined)
+        histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
+        histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 20)
+        plt.figure(figsize=(8, 8))
+        plt.scatter(binCentersG, histG, color='b', alpha=0.75, label='Words Only')
+        plt.scatter(binCentersM, histM, color='r', alpha=0.75, label='Words + Punctuation')
+        plt.loglog(binCentersG, histG, 'bo-', alpha=0.75)
+        plt.loglog(binCentersM, histM, 'ro-', alpha=0.75)
+        plt.xlabel('Degree')
+        plt.ylabel('Frequency')
+        plt.title('Degree Distribution Comparison with Log-Binning')
+        plt.legend()
+        plt.show()
 
 
     def calculateLogBin(self, degrees, binCount):
@@ -316,7 +330,7 @@ class App(wx.Frame):
 
     def collectInputDataInfo(self):
         return f'Input Data...\nFile selected: {self.labelFileSelectPath.GetValue()}\nLanguage: {self.selectedLanguage} \
-            \nSelected Punctuation: {", ".join(self.selectedPunctuation.keys())}\n'
+            \nSelected Punctuation: {", ".join(self.selectedPunctuation.keys())}'
 
 
     def exitApp(self, event):
