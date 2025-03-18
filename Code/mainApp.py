@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import re
 from collections import Counter
+import numpy as np
 
 
 class App(QMainWindow):
@@ -117,30 +118,41 @@ class App(QMainWindow):
         buttonLayout.addWidget(self.exitButton)
         buttonLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        # plotting buttons
+        # network button
         self.networkButton = QPushButton('Network', self)
         self.networkButton.clicked.connect(self.plotNetwork)
         self.networkButton.setFixedWidth(150)
         self.networkButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self.networkButton.setEnabled(False)
 
+        # histogram 1 button
         self.histogramOneButton = QPushButton('Histogram 1', self)
         self.histogramOneButton.clicked.connect(self.plotHistogramOne)
         self.histogramOneButton.setFixedWidth(150)
         self.histogramOneButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self.histogramOneButton.setEnabled(False)
 
+        # histogram 2 button
         self.histogramTwoButton = QPushButton('Histogram 2', self)
         self.histogramTwoButton.clicked.connect(self.plotHistogramTwo)
         self.histogramTwoButton.setFixedWidth(150)
         self.histogramTwoButton.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         self.histogramTwoButton.setEnabled(False)
 
+        # visualisation buttons layout
         visualisationButtonsLayout = QHBoxLayout()
         visualisationButtonsLayout.addWidget(self.networkButton)
         visualisationButtonsLayout.addWidget(self.histogramOneButton)
         visualisationButtonsLayout.addWidget(self.histogramTwoButton)
         visualisationButtonsLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # log print button
+        self.outputValues = QPushButton('Calculate Values', self)
+        self.outputValues.clicked.connect(self.logOutputValues)
+        self.outputValues.setFixedWidth(150)
+        self.outputValues.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        self.outputValues.setEnabled(False)
+        visualisationButtonsLayout.addWidget(self.outputValues)
 
         # log window
         self.logWindow = QTextEdit(self)
@@ -148,7 +160,6 @@ class App(QMainWindow):
         self.logWindow.setFixedHeight(275)
         self.logWindow.setStyleSheet("background-color: #f0f0f0; border: 1px solid #000000; padding: 5px;")
         
-
         # main layout
         layout = QVBoxLayout(self)
         layout.addWidget(self.labelFileSelect)
@@ -213,11 +224,20 @@ class App(QMainWindow):
                 checkbox.setChecked(False)
         self.validateInputData()
 
+    
+    def logOutputValues(self):
+        self.logMessage(self.collectInputDataInfo())
+        self.logMessage(self.calculateValues(*self.processData(self.selectedPunctuation)))
+        self.logMessage('\n')
+
+    
+    def processData(self, selectedPunctuation={}):
+        return self.createGraphData(self.processTextFile(selectedPunctuation))
+
 
     def plotNetwork(self):
         self.logMessage(self.collectInputDataInfo())
-        processedText = self.processTextFile(self.selectedPunctuation)
-        graphData, occurrenceData = self.createGraphData(processedText)
+        graphData, occurrenceData = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphData, occurrenceData))  
         self.logMessage('Plotting network...')
         G = nx.Graph(graphData)
@@ -233,23 +253,48 @@ class App(QMainWindow):
 
     def plotHistogramOne(self):
         self.logMessage(self.collectInputDataInfo())
-        processedText = self.processTextFile(self.selectedPunctuation)
-        graphData, occurrenceData = self.createGraphData(processedText)
-        self.logMessage(self.calculateValues(graphData, occurrenceData))
+        graphData, occurrenceData = self.processData(self.selectedPunctuation)
+        self.logMessage(self.calculateValues(graphData, occurrenceData)) 
         self.logMessage('Plotting degree distribution histogram...')
-        G = nx.Graph(graphData)
+
+        # G = nx.Graph(graphData)
+
+        # y = nx.degree_histogram(G)
+        # x = np.arange(0, len(y)).tolist()
+        # nNodes = G.number_of_nodes()
+        # for i in range(len(y)):
+        #     y[i] = y[i]/nNodes
+        # plt.xlabel('Degree\n(log scale)')
+        # plt.ylabel('Number of Nodes\n(log scale)')
+        # plt.xscale("log")
+        # plt.yscale("log")
+        # plt.plot(x, y, 'b-')
+        # ba_c = nx.degree_centrality(G)
+        # ba_c2 = dict(Counter(ba_c.values()))
+        # plt.figure(figsize=(8, 8))
+        # plt.xscale('log')
+        # plt.yscale('log')
+        # plt.scatter(ba_c2.keys(),ba_c2.values(),c='b',marker='x')
+        # plt.xlim((1e-4,1e-1))
+        # plt.ylim((.9,1e4))
+        # plt.xlabel('Degree')
+        # plt.ylabel('Frequency')
+        # plt.show()
+
         self.logMessage('\n')
 
 
     def plotHistogramTwo(self):
         self.logMessage(self.collectInputDataInfo())
-        processedTextOnlyWords = self.processTextFile()
-        processedTextCombined = self.processTextFile(self.selectedPunctuation)
-        graphDataOnlyWords, occurrenceDataOnlyWords = self.createGraphData(processedTextOnlyWords)
-        graphDataCombined, occurrenceDataCombined = self.createGraphData(processedTextCombined)
+        graphDataOnlyWords, occurrenceDataOnlyWords = self.processData()
         self.logMessage(self.calculateValues(graphDataOnlyWords, occurrenceDataOnlyWords))
+        graphDataCombined, occurrenceDataCombined = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphDataCombined, occurrenceDataCombined))
-        self.logMessage('Plotting histogram...')
+        self.logMessage('Plotting degree distribution comparison histogram...')
+
+        # G = nx.Graph(graphDataOnlyWords)
+        # M = nx.Graph(graphDataCombined)
+
         self.logMessage('\n')
 
 
@@ -257,6 +302,7 @@ class App(QMainWindow):
         self.networkButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
         self.histogramOneButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
         self.histogramTwoButton.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
+        self.outputValues.setEnabled(bool(self.inputTextFile and self.selectedLanguage))
 
 
     def collectInputDataInfo(self):
