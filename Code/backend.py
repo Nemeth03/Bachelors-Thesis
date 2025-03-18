@@ -4,6 +4,8 @@ import re
 import time
 from collections import Counter
 
+
+
 regexDictEng = {
     'wordsNumbers': r'[a-zA-Z0-9]+',
     'ellipsis': r'\.{3}',
@@ -160,15 +162,3 @@ if __name__ == "__main__":
 
     minutes, seconds = divmod(time.time() - startTime, 60)
     print(f"--- {int(minutes)} minutes, {seconds:.2f} seconds ---")
-
-
-
-### TODO ###
-
-# distribucia stupna uzlov, log binnig vizualizacia, degree histogram
-# ak bude mat zlom prelozit priamku v zlome v log log plote
-# z toho sa bude odcitavat skalovaci exponent
-
-# ked tak plot aj s aj bez punctuation do jedneho na porovnanie
-
-# spravit GUI
