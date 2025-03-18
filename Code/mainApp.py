@@ -4,7 +4,8 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
-
+from scipy.ndimage import gaussian_filter1d
+import powerlaw
 
 class App(wx.Frame):
     def __init__(self):
@@ -218,16 +219,23 @@ class App(wx.Frame):
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphData, occurrenceData)) 
         self.logMessage('Plotting degree distribution histogram...\n')
-        
+
         G = nx.Graph(graphData)
+
+        # degrees = [d for _, d in G.degree()]
+        # degree_count = Counter(degrees)
+        # self.logMessage(f'Degree distribution: {degree_count}')
+
         hist, binCenters = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
+
+        hist = gaussian_filter1d(hist, sigma=1)
+
         plt.figure(figsize=(8, 8))
-        plt.scatter(binCenters, hist, color='b', alpha=0.75, label='Binned Data')
-        plt.loglog(binCenters, hist, 'bo-', alpha=0.75, label='Smoothed Curve')
+        plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
+        plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8)
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
-        plt.legend()
         plt.show()
 
 
@@ -243,11 +251,15 @@ class App(wx.Frame):
         M = nx.Graph(graphDataCombined)
         histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
         histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 20)
+
+        histG = gaussian_filter1d(histG, sigma=1)
+        histM = gaussian_filter1d(histM, sigma=1)
+
         plt.figure(figsize=(8, 8))
-        plt.scatter(binCentersG, histG, color='b', alpha=0.75, label='Words Only')
-        plt.scatter(binCentersM, histM, color='r', alpha=0.75, label='Words + Punctuation')
-        plt.loglog(binCentersG, histG, 'bo-', alpha=0.75)
-        plt.loglog(binCentersM, histM, 'ro-', alpha=0.75)
+        plt.loglog(binCentersG, histG, '-', color='red', alpha=0.8, label='Words Only')
+        plt.loglog(binCentersM, histM, '-', color='blue', alpha=0.8, label='Words + Punctuation')
+        plt.loglog(binCentersG, histG, 'x', alpha=0.9, color='black')
+        plt.loglog(binCentersM, histM, 'x', alpha=0.9, color='black')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution Comparison with Log-Binning')
