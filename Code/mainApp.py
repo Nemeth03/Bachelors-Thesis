@@ -8,7 +8,8 @@ import numpy as np
 
 class App(wx.Frame):
     def __init__(self):
-        super().__init__(parent=None, title='Punctuation Marks Analysis', size=(700, 700))
+        super().__init__(parent=None, title='Punctuation Marks Analysis', size=(700, 700), \
+                         style=wx.DEFAULT_FRAME_STYLE & ~wx.RESIZE_BORDER)
         
         self.inputTextFile = None
         self.languageOptions = ['', 'English', 'German']
@@ -320,7 +321,7 @@ class App(wx.Frame):
 
     def exitApp(self, event):
         self.logMessage('Exiting application...')
-        self.Close()
+        wx.CallLater(500, self.Close)
 
 
 if __name__ == '__main__':
