@@ -364,3 +364,13 @@ if __name__ == '__main__':
     frame = App()
     frame.Show()
     app.MainLoop()
+
+## TODO
+
+# grafove (grafove algoritmy a veliciny) a jazykove (pocetnosti slov, znamienok, dvojic, atd..) analyzy
+# k vizualizacii grafov vyrezat loglog kde uz je optimalizovany
+# zmerat smernicu priamky co dostaneme v logbinningu ak je 3 tak ideal
+
+# (barabasi albert model, preferecne pripojenie) zacneme s trojuholnika a postupne pridavame uzly, vyskusat jej charakteristiky
+# ak je 3 tak ideal, predpokladane byva okolo 2.7
+# dorogovtsev-mendes model
