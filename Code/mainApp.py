@@ -218,25 +218,34 @@ class App(wx.Frame):
         self.logMessage(self.collectInputDataInfo())
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
         self.logMessage(self.calculateValues(graphData, occurrenceData)) 
-        self.logMessage('Plotting degree distribution histogram...\n')
+        self.logMessage('Plotting degree distribution histogram...')
 
         G = nx.Graph(graphData)
+        degrees = np.array([d for _, d in G.degree()])
 
         # degrees = [d for _, d in G.degree()]
         # degree_count = Counter(degrees)
         # self.logMessage(f'Degree distribution: {degree_count}')
 
-        hist, binCenters = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
+        hist, binCenters = self.calculateLogBin(degrees, 20)
+        # hist = gaussian_filter1d(hist, sigma=1)
 
-        hist = gaussian_filter1d(hist, sigma=1)
+        fit = powerlaw.Fit(degrees)
+        self.logMessage(f'Estimated power-law exponent (gamma): {fit.alpha:.3f}')
+        self.logMessage(f'Estimated Xmin: {fit.xmin}')
+        x_fit = np.linspace(min(binCenters), max(binCenters), 100)
+        y_fit = (x_fit / fit.xmin) ** -fit.alpha
 
         plt.figure(figsize=(8, 8))
         plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
-        plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8)
+        plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8, label='Log-Binned Data')
+        plt.loglog(x_fit, y_fit * max(hist) / max(y_fit), '--', color='red', label=f'Power-law Fit (γ={fit.alpha:.3f})')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
+        plt.legend()
         plt.show()
+        self.logMessage('\n')
 
 
     def plotHistogramTwo(self, event):
@@ -252,8 +261,8 @@ class App(wx.Frame):
         histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
         histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 20)
 
-        histG = gaussian_filter1d(histG, sigma=1)
-        histM = gaussian_filter1d(histM, sigma=1)
+        # histG = gaussian_filter1d(histG, sigma=1)
+        # histM = gaussian_filter1d(histM, sigma=1)
 
         plt.figure(figsize=(8, 8))
         plt.loglog(binCentersG, histG, '-', color='red', alpha=0.8, label='Words Only')
