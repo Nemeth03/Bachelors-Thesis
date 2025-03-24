@@ -368,8 +368,12 @@ if __name__ == '__main__':
 ## TODO
 
 # grafove (grafove algoritmy a veliciny) a jazykove (pocetnosti slov, znamienok, dvojic, atd..) analyzy
-# k vizualizacii grafov vyrezat loglog kde uz je optimalizovany
-# zmerat smernicu priamky co dostaneme v logbinningu ak je 3 tak ideal
+# treba navzorkovat text na vstupne velkosti 
+# na roznych vstupnych velkostiach, pocetnosti slov: 100, 500, 1000, 2000, 3000, 5000...
+# tak aby to zbehlo a ked uz sa to ustali, nebude velky rozdiel tak staci
+
+# k vizualizacii grafov vyrezat loglogbin kde uz je optimalizovany, bez malych a velkych stupnov ktore tvoria anomalie
+# zmerat smernicu priamky co dostaneme v logbinningu ak je 3 tak ideal, berieme do uvahy aj chybu
 
 # (barabasi albert model, preferecne pripojenie) zacneme s trojuholnika a postupne pridavame uzly, vyskusat jej charakteristiky
 # ak je 3 tak ideal, predpokladane byva okolo 2.7
