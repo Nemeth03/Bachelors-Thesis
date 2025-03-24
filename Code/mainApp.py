@@ -4,7 +4,6 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
-from scipy.ndimage import gaussian_filter1d
 import powerlaw
 
 class App(wx.Frame):
@@ -228,7 +227,6 @@ class App(wx.Frame):
         # self.logMessage(f'Degree distribution: {degree_count}')
 
         hist, binCenters = self.calculateLogBin(degrees, 20)
-        # hist = gaussian_filter1d(hist, sigma=1)
 
         fit = powerlaw.Fit(degrees)
         self.logMessage(f'Estimated power-law exponent (gamma): {fit.alpha:.3f}')
@@ -260,9 +258,6 @@ class App(wx.Frame):
         M = nx.Graph(graphDataCombined)
         histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
         histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 20)
-
-        # histG = gaussian_filter1d(histG, sigma=1)
-        # histM = gaussian_filter1d(histM, sigma=1)
 
         plt.figure(figsize=(8, 8))
         plt.loglog(binCentersG, histG, '-', color='red', alpha=0.8, label='Words Only')
@@ -364,6 +359,8 @@ if __name__ == '__main__':
     frame = App()
     frame.Show()
     app.MainLoop()
+
+
 
 ## TODO
 
