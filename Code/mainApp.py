@@ -216,7 +216,6 @@ class App(wx.Frame):
     def plotHistogramOne(self, event):
         self.logMessage(self.collectInputDataInfo())
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
-        # self.logMessage(self.calculateValues(graphData, occurrenceData)) 
         self.logMessage('Plotting degree distribution histogram...')
 
         G = nx.Graph(graphData)
@@ -249,9 +248,7 @@ class App(wx.Frame):
     def plotHistogramTwo(self, event):
         self.logMessage(self.collectInputDataInfo())
         graphDataOnlyWords, occurrenceDataOnlyWords = self.processData()
-        # self.logMessage(self.calculateValues(graphDataOnlyWords, occurrenceDataOnlyWords))
         graphDataCombined, occurrenceDataCombined = self.processData(self.selectedPunctuation)
-        # self.logMessage(self.calculateValues(graphDataCombined, occurrenceDataCombined))
         self.logMessage('Plotting degree distribution comparison histogram...\n')
     
         G = nx.Graph(graphDataOnlyWords)
@@ -336,15 +333,18 @@ class App(wx.Frame):
         result.append(f'Number of edges: {G.number_of_edges()}')
         result.append(f'Max degree: {degrees[0]}')
         result.append(f'Min degree: {degrees[-1]}')
-        result.append(f'Average degree: {sum(degValues)/len(degValues):.4f}')
-        result.append(f'Highest degrees: {degrees[:5]}')
+        result.append(f'Average degree: {sum(degValues)/len(degValues):.5f}')
         result.append(f'Network density: {nx.density(G):.4f}')
-        result.append(f'Average clustering coefficient: {nx.average_clustering(G):.4f}')
-        result.append(f'Average shortest path length: {nx.average_shortest_path_length(G):.4f}')
+        result.append(f'Average clustering coefficient: {nx.average_clustering(G):.5f}')
+        result.append(f'Average shortest path length: {nx.average_shortest_path_length(G):.5f}')
         result.append(f'Diameter: {nx.diameter(G)}')
 
-        result.append('\nJazyková analýza...')
-        # pocet slov, max a min a avg dlzka slova
+        result.append('Jazyková analýza...')
+        wordLengths = [len(word) for word in occurrenceData.keys()]
+        result.append(f'Number of words: {len(wordLengths)}')
+        result.append(f'Max word length: {max(wordLengths)}')
+        result.append(f'Min word length: {min(wordLengths)}')
+        result.append(f'Average word length: {(sum(wordLengths)/len(wordLengths)):.4f}')
         # pocet viet, max a min a avg dlzka vety
         # pocet dvojic slov
         return '\n'.join(result)
