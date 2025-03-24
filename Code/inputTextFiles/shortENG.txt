@@ -1,8 +1,0 @@
-"Wait... did you see that?" she asked. "It’s a once-in-a-lifetime event—absolutely unbelievable!"
-(I mean, really... who would have thought?) Scientists say: "This phenomenon happens every 100 years."
-Amazing, isn’t it? Numbers, like 42 or 99, appear everywhere.
-Look at these symbols: [brackets], {braces}, and (parentheses)—all in one place!
-Also, file paths use slashes, like "C:/Users/John_Doe/".
-Oh, and don’t forget hyphens, en dashes (5–10 years, 15–20 years), and em dashes—just like this!
-Just testing multiple uses of these brackets [], braces {} and parentheses ().
-Also some more under_score; ofcourse I forget semicolon;.
