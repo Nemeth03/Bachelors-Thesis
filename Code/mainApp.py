@@ -227,16 +227,16 @@ class App(wx.Frame):
 
         hist, binCenters = self.calculateLogBin(degrees, 20)
 
-        fit = powerlaw.Fit(degrees)
-        self.logMessage(f'Estimated power-law exponent (gamma): {fit.alpha:.3f}')
-        self.logMessage(f'Estimated Xmin: {fit.xmin}')
-        x_fit = np.linspace(min(binCenters), max(binCenters), 100)
-        y_fit = (x_fit / fit.xmin) ** -fit.alpha
+        # fit = powerlaw.Fit(degrees)
+        # self.logMessage(f'Estimated power-law exponent (gamma): {fit.alpha:.3f}')
+        # self.logMessage(f'Estimated Xmin: {fit.xmin}')
+        # x_fit = np.linspace(min(binCenters), max(binCenters), 100)
+        # y_fit = (x_fit / fit.xmin) ** -fit.alpha
 
         plt.figure(figsize=(8, 8))
         plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
         plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8, label='Log-Binned Data')
-        plt.loglog(x_fit, y_fit * max(hist) / max(y_fit), '--', color='red', label=f'Power-law Fit (γ={fit.alpha:.3f})')
+        # plt.loglog(x_fit, y_fit * max(hist) / max(y_fit), '--', color='red', label=f'Power-law Fit (γ={fit.alpha:.3f})')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
@@ -371,9 +371,8 @@ if __name__ == '__main__':
 ## TODO
 
 # grafove (grafove algoritmy a veliciny) a jazykove (pocetnosti slov, znamienok, dvojic, atd..) analyzy
-# treba navzorkovat text na vstupne velkosti 
-# na roznych vstupnych velkostiach, pocetnosti slov: 100, 500, 1000, 2000, 3000, 5000...
-# tak aby to zbehlo a ked uz sa to ustali, nebude velky rozdiel tak staci
+# na roznych vstupnych velkostiach, pocetnosti slov
+# ked uz sa to ustali, nebude velky rozdiel tak staci
 
 # k vizualizacii grafov vyrezat loglogbin kde uz je optimalizovany, bez malych a velkych stupnov ktore tvoria anomalie
 # zmerat smernicu priamky co dostaneme v logbinningu ak je 3 tak ideal, berieme do uvahy aj chybu
