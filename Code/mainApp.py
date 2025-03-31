@@ -404,10 +404,6 @@ if __name__ == '__main__':
 
 ## TODO
 
-# grafove (grafove algoritmy a veliciny) a jazykove (pocetnosti slov, znamienok, dvojic, atd..) analyzy
-# na roznych vstupnych velkostiach, pocetnosti slov
-# ked uz sa to ustali, nebude velky rozdiel tak staci
-
 # k vizualizacii grafov vyrezat loglogbin kde uz je optimalizovany, bez malych a velkych stupnov ktore tvoria anomalie
 # zmerat smernicu priamky co dostaneme v logbinningu ak je 3 tak ideal, berieme do uvahy aj chybu
 
