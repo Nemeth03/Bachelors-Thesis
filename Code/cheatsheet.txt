@@ -1,0 +1,99 @@
+Number of Nodes
+Total number of nodes in the graph.
+
+Number of Edges
+Total number of edges in the graph.
+
+Max Degree
+Node with the highest number of connections.
+
+Min Degree
+Node with the lowest number of connections.
+
+Average Degree
+Average number of connections per node.
+
+Network Density
+Measures how connected the graph is.
+A value between 0 and 1.
+0: The graph is completely disconnected (no edges).
+1: The graph is fully connected (every node is connected to every other node).
+
+Correlation (Degree vs Closeness)
+This measures the relationship between degree centrality (how many direct connections a node has) 
+and closeness centrality (how close a node is to all other nodes in terms of shortest paths).
+Expected return:
+A value between -1 and 1.
+High positive correlation (close to 1): Nodes with many connections are also closer to other nodes in the network.
+Low or negative correlation: Nodes with many connections are not necessarily closer to others.
+
+Correlation (Degree vs Betweenness)
+This measures the relationship between degree centrality (number of direct connections) 
+and betweenness centrality (how often a node lies on the shortest paths between other nodes).
+Expected return:
+A value between -1 and 1.
+High positive correlation (close to 1): Nodes with many connections also act as bridges or intermediaries in the network.
+Low or negative correlation: Highly connected nodes do not necessarily play a bridging role.
+
+Correlation (Closeness vs Betweenness)
+This measures the relationship between closeness centrality (proximity to other nodes) 
+and betweenness centrality (importance as a bridge between nodes).
+Expected return:
+A value between -1 and 1.
+High positive correlation (close to 1): Nodes that are closer to others also act as important intermediaries.
+Low or negative correlation: Nodes close to others do not necessarily play a bridging role in the network.
+
+Average Clustering Coefficient
+The clustering coefficient measures the likelihood that a node's neighbors are also connected to each other, forming a triangle (or cluster). 
+The average clustering coefficient is the mean of the clustering coefficients of all nodes in the graph.
+A value between 0 and 1.
+0: No clustering (nodes' neighbors are not connected).
+1: Perfect clustering (all neighbors of a node are connected to each other).
+
+Average Shortest Path Length
+The shortest path length between two nodes is the minimum number of edges required to travel from one node to the other. 
+The average shortest path length is the mean of these shortest path lengths for all pairs of nodes in the graph.
+A positive number representing the average number of steps between nodes.
+Small value: Indicates a highly connected graph where nodes are close to each other.
+Large value: Indicates a sparse graph where nodes are far apart.
+
+Diameter
+Longest shortest path in the graph.
+
+Number of Words
+Total number of unique words in the text.
+
+Max/Min Word Length
+Longest and shortest word lengths.
+
+Average Word Length
+Average length of words.
+
+Number of Sentences
+Total number of sentences in the text.
+
+Max/Min Sentence Length
+Longest and shortest sentence lengths (in words).
+
+Average Sentence Length
+Average number of words per sentence.
+
+Number of Bigrams
+A bigram is a sequence of two consecutive words in a text. 
+The number of bigrams refers to the total count of unique two-word combinations found in the text.
+
+Max/Min Bigram Frequency
+Most and least frequent bigram occurrences.
+
+Average Bigram Frequency
+Average frequency of bigrams.
+
+Number of Trigrams
+A trigram is a sequence of three consecutive words in a text. 
+The number of trigrams refers to the total count of unique three-word combinations found in the text.
+
+Max/Min Trigram Frequency
+Most and least frequent trigram occurrences.
+
+Average Trigram Frequency
+Average frequency of trigrams.
