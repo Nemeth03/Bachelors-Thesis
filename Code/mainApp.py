@@ -4,7 +4,6 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
-import nltk
 
 class App(wx.Frame):
     def __init__(self):
