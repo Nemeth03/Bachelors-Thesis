@@ -4,7 +4,7 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
-import powerlaw
+import nltk
 
 class App(wx.Frame):
     def __init__(self):
@@ -56,7 +56,7 @@ class App(wx.Frame):
         self.regexDictGer = self.regexDictEng
         self.regexDictGer['wordsNumbers'] = r'[a-zA-ZäöüÄÖÜß0-9]+'
         self.regexDictGer['quotation'] = r'["„“«»]'
-        self.regexDictGer['apostrophe'] = r'[\'’‚‘]'
+        self.regexDictGer['apostrophe'] = r'[\'’‘]'
         self.initGUI()
 
 
@@ -227,16 +227,9 @@ class App(wx.Frame):
 
         hist, binCenters = self.calculateLogBin(degrees, 20)
 
-        # fit = powerlaw.Fit(degrees)
-        # self.logMessage(f'Estimated power-law exponent (gamma): {fit.alpha:.3f}')
-        # self.logMessage(f'Estimated Xmin: {fit.xmin}')
-        # x_fit = np.linspace(min(binCenters), max(binCenters), 100)
-        # y_fit = (x_fit / fit.xmin) ** -fit.alpha
-
         plt.figure(figsize=(8, 8))
         plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
         plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8, label='Log-Binned Data')
-        # plt.loglog(x_fit, y_fit * max(hist) / max(y_fit), '--', color='red', label=f'Power-law Fit (γ={fit.alpha:.3f})')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
@@ -345,8 +338,39 @@ class App(wx.Frame):
         result.append(f'Max word length: {max(wordLengths)}')
         result.append(f'Min word length: {min(wordLengths)}')
         result.append(f'Average word length: {(sum(wordLengths)/len(wordLengths)):.4f}')
-        # pocet viet, max a min a avg dlzka vety
-        # pocet dvojic slov
+
+        processedSentences = self.processTextFile({'period': '.', 'exclamation': '!', 
+                                              'question': '?', 'ellipsis': '...', 'apostrophe': '\'’‘'})
+        i = 0
+        while i < len(processedSentences):
+            if processedSentences[i] in ['\'', '’', '‘'] and i > 0 and i < len(processedSentences)-1:
+                processedSentences[i-1:i+2] = [''.join(processedSentences[i-1:i+2])]
+            else:
+                i += 1
+        sentences = []
+        subList = []
+        sentencelengths = []
+        for element in processedSentences:
+            if element in ['.', '!', '?', '...'] and subList:
+                sentences.append(subList)
+                sentencelengths.append(len(subList))
+                subList = []
+            else:
+                subList.append(element)
+
+        result.append(f'Number of sentences: {len(sentences)}')
+        result.append(f'Max sentence length: {max(sentencelengths)}')
+        result.append(f'Min sentence length: {min(sentencelengths)}')
+        result.append(f'Average sentence length: {(sum(sentencelengths)/len(sentencelengths)):.4f}')
+
+        data = self.processTextFile(self.selectedPunctuation)
+        bigramCounter = Counter(zip(data[:-1], data[1:]))
+        result.append(f'Number of bigrams: {len(bigramCounter)}')
+        bigramFrequencies = [count for _, count in bigramCounter.items()]
+        result.append(f'Max bigram frequency: {max(bigramFrequencies)}')
+        result.append(f'Min bigram frequency: {min(bigramFrequencies)}')
+        result.append(f'Average bigram frequency: {sum(bigramFrequencies)/len(bigramFrequencies):.4f}')
+
         return '\n'.join(result)
 
 
