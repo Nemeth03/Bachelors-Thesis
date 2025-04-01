@@ -4,7 +4,6 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
-import powerlaw
 
 class App(wx.Frame):
     def __init__(self):
@@ -113,13 +112,13 @@ class App(wx.Frame):
         self.networkButton.Bind(wx.EVT_BUTTON, self.plotNetwork)
         self.networkButton.Enable(False)
 
-        self.histogramOneButton = wx.Button(panel, label='Visualize Analysis')
-        self.histogramOneButton.Bind(wx.EVT_BUTTON, self.visualizeAnalysis)
-        self.histogramOneButton.Enable(False)
+        self.visualizeAnalysisButton = wx.Button(panel, label='Visualize Analysis')
+        self.visualizeAnalysisButton.Bind(wx.EVT_BUTTON, self.visualizeAnalysis)
+        self.visualizeAnalysisButton.Enable(False)
 
-        self.histogramTwoButton = wx.Button(panel, label='Compare Distributions')
-        self.histogramTwoButton.Bind(wx.EVT_BUTTON, self.compareDistributions)
-        self.histogramTwoButton.Enable(False)
+        self.compareDistributionsButton = wx.Button(panel, label='Compare Distributions')
+        self.compareDistributionsButton.Bind(wx.EVT_BUTTON, self.compareDistributions)
+        self.compareDistributionsButton.Enable(False)
 
         self.outputValues = wx.Button(panel, label='Calculate Analysis Data')
         self.outputValues.Bind(wx.EVT_BUTTON, self.logOutputValues)
@@ -128,8 +127,8 @@ class App(wx.Frame):
         # Buttons Layout
         buttonLayout = wx.BoxSizer(wx.HORIZONTAL)
         buttonLayout.Add(self.networkButton, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.histogramOneButton, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.histogramTwoButton, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.visualizeAnalysisButton, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.compareDistributionsButton, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.outputValues, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.exitButton, flag=wx.LEFT, border=10)
 
@@ -216,43 +215,49 @@ class App(wx.Frame):
         self.logMessage('Visualizing Analysis...')
 
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
+        # create graph from graphData
         G = nx.Graph()
         for node, neighbors in graphData.items():
             for neighbor in neighbors:
                 G.add_edge(node, neighbor)
         degrees = [G.degree(n) for n in G.nodes()]
         unique, counts = np.unique(degrees, return_counts=True)
-        deg = np.array([d for _, d in G.degree()])
 
+        # create Barabasi-Albert model, with same number of nodes and edges as my data
         baNodes = len(G.nodes())
-        baEdges = int(np.mean(degrees) / 2)
+        baEdges = int(np.mean(degrees)/2)
         BA_G = nx.barabasi_albert_graph(baNodes, baEdges)
         baDegrees = [BA_G.degree(n) for n in BA_G.nodes()]
         baUnique, baCounts = np.unique(baDegrees, return_counts=True)
-        baDeg = np.array([d for _, d in BA_G.degree()])
 
+        # set my data raw degree distribution to be same range as in ba model
         start, end = baUnique[0], baUnique[-1]
         mask = (unique >= start) & (unique <= end)
         unique = unique[mask]
         counts = counts[mask]
 
-        binCenters, hist = self.calculateLogBin(deg, 20)
-        startWN, endWN = self.longestDecreasingSlice(hist)
-        hist = hist[startWN: endWN + 1]
-        binCenters = binCenters[startWN: endWN + 1]
+        # my data, log binning, selecting only the longest decreasing slice
+        binCenters, binValues = self.calculateLogBin(np.array(degrees), 20)
+        start, end = self.longestDecreasingSlice(binValues)
+        binValues = binValues[start: end+1]
+        binCenters = binCenters[start: end+1]
 
-        baBinCenters, baHist = self.calculateLogBin(baDeg, 20)
-        # startBA, endBA = self.longestDecreasingSlice(baHist)
-        # baHist = baHist[startBA: endBA + 1]
-        # baBinCenters = baBinCenters[startBA: endBA + 1]
+        # ba model, log binning, selecting only the longest decreasing slice
+        baBinCenters, baBinValues = self.calculateLogBin(np.array(baDegrees), 20)
+        # baStart, baEnd = self.longestDecreasingSlice(baBinValues)
+        # baBinValues = baBinValues[baStart: baEnd+1]
+        # baBinCenters = baBinCenters[baStart: baEnd+1]
 
-        slope = self.calculateLogLogSlope(binCenters, hist)
-        baSlope = self.calculateLogLogSlope(baBinCenters, baHist)
+        # calculate slopes
+        slope = self.calculateLogLogSlope(binCenters, binValues)
+        baSlope = self.calculateLogLogSlope(baBinCenters, baBinValues)
 
+        # calculate Zipf's law on my data and slope
         wordFrequencies = sorted(occurrenceData.values(), reverse=True)
         ranks = np.arange(1, len(wordFrequencies) + 1)
         zipfSlope = self.calculateLogLogSlope(ranks, wordFrequencies)
 
+        # plotting
         plt.figure(figsize=(12, 10))
 
         plt.subplot(3, 1, 1)
@@ -264,10 +269,10 @@ class App(wx.Frame):
         plt.legend()
         
         plt.subplot(3, 1, 2)
-        plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
-        plt.loglog(binCenters, hist, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
-        plt.loglog(baBinCenters, baHist, 'x', color='black', alpha=0.9)
-        plt.loglog(baBinCenters, baHist, '-', color='red', alpha=0.8, label=f'BA Model, Slope={baSlope:.5f}')
+        plt.loglog(binCenters, binValues, 'x', color='black', alpha=0.9)
+        plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
+        plt.loglog(baBinCenters, baBinValues, 'x', color='black', alpha=0.9)
+        plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'BA Model, Slope={baSlope:.5f}')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
@@ -292,32 +297,59 @@ class App(wx.Frame):
         graphDataOnlyWords, occurrenceDataOnlyWords = self.processData()
         graphDataCombined, occurrenceDataCombined = self.processData(self.selectedPunctuation)
         self.logMessage('Plotting degree distribution comparison histogram...\n')
-    
-        G = nx.Graph(graphDataOnlyWords)
-        M = nx.Graph(graphDataCombined)
-        binCentersG, histG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
-        binCentersM, histM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 20)
 
-        startG, endG = self.longestDecreasingSlice(histG)
-        startM, endM = self.longestDecreasingSlice(histM)
-        if endG-startG < endM-startM:
-            startG, endG = startM, endM
-        if endG-startG > endM-startM:
-            startM, endM = startG, endG
-        histG = histG[startG: endG + 1]
-        histM = histM[startG: endG + 1]
-        binCentersG = binCentersG[startG: endG + 1]
-        binCentersM = binCentersM[startG: endG + 1]
+        # graph without punctuation
+        G = nx.Graph()
+        for node, neighbors in graphDataOnlyWords.items():
+            for neighbor in neighbors:
+                G.add_edge(node, neighbor)
+        gDegrees = [G.degree(n) for n in G.nodes()]
+        gUnique, gCounts = np.unique(gDegrees, return_counts=True)
 
-        plt.figure(figsize=(8, 6))
-        plt.loglog(binCentersG, histG, '-', color='red', alpha=0.8, label='Words Only')
-        plt.loglog(binCentersM, histM, '-', color='blue', alpha=0.8, label='Words + Punctuation')
-        plt.loglog(binCentersG, histG, 'x', alpha=0.9, color='black')
-        plt.loglog(binCentersM, histM, 'x', alpha=0.9, color='black')
+        # graph with punctuation
+        M = nx.Graph()
+        for node, neighbors in graphDataCombined.items():
+            for neighbor in neighbors:
+                M.add_edge(node, neighbor)
+        mDegrees = [M.degree(n) for n in M.nodes()]
+        mUnique, mCounts = np.unique(mDegrees, return_counts=True)
+
+        # log binning
+        gBinCenters, gBinValues = self.calculateLogBin(np.array(gDegrees), 20)
+        mBinCenters, mBinValues = self.calculateLogBin(np.array(mDegrees), 20)
+
+        # selecting longest decreasing slice, same range for both
+        gStart, gEnd = self.longestDecreasingSlice(gBinValues)
+        mStart, mEnd = self.longestDecreasingSlice(mBinValues)
+        if gEnd-gStart < mEnd-mStart:
+            gStart, gEnd = mStart, mEnd
+        if gEnd-gStart > mEnd-mStart:
+            mStart, mEnd = gStart, gEnd
+        gBinValues = gBinValues[gStart: gEnd + 1]
+        mBinValues = mBinValues[gStart: gEnd + 1]
+        gBinCenters = gBinCenters[gStart: gEnd + 1]
+        mBinCenters = mBinCenters[gStart: gEnd + 1]
+
+        plt.figure(figsize=(12, 10))
+
+        plt.subplot(2, 1, 1)
+        plt.loglog(gUnique, gCounts, 'bo', markersize=4, label='Words')
+        plt.loglog(mUnique, mCounts, 'ro', markersize=4, label='Words + Punctuation')
+        plt.xlabel("Degree (k)")
+        plt.ylabel("P(k)")
+        plt.title("Degree Distribution Comparison")
+        plt.legend()
+
+        plt.subplot(2, 1, 2)
+        plt.loglog(gBinCenters, gBinValues, '-', color='red', alpha=0.8, label='Words Only')
+        plt.loglog(mBinCenters, mBinValues, '-', color='blue', alpha=0.8, label='Words + Punctuation')
+        plt.loglog(gBinCenters, gBinValues, 'x', alpha=0.9, color='black')
+        plt.loglog(mBinCenters, mBinValues, 'x', alpha=0.9, color='black')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution Comparison with Log-Binning')
         plt.legend()
+
         plt.show()
 
 
@@ -351,8 +383,8 @@ class App(wx.Frame):
 
     def validateInputData(self):
         self.networkButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
-        self.histogramOneButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
-        self.histogramTwoButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.visualizeAnalysisButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.compareDistributionsButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
         self.outputValues.Enable(bool(self.inputTextFile and self.selectedLanguage))
 
 
