@@ -295,8 +295,8 @@ class App(wx.Frame):
     
         G = nx.Graph(graphDataOnlyWords)
         M = nx.Graph(graphDataCombined)
-        histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 15)
-        histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 15)
+        binCentersG, histG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
+        binCentersM, histM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 20)
 
         startG, endG = self.longestDecreasingSlice(histG)
         startM, endM = self.longestDecreasingSlice(histM)
