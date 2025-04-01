@@ -231,21 +231,24 @@ class App(wx.Frame):
         baUnique, baCounts = np.unique(baDegrees, return_counts=True)
         baDeg = np.array([d for _, d in BA_G.degree()])
 
+        start, end = baUnique[0], baUnique[-1]
+        mask = (unique >= start) & (unique <= end)
+        unique = unique[mask]
+        counts = counts[mask]
+
         binCenters, hist = self.calculateLogBin(deg, 20)
         startWN, endWN = self.longestDecreasingSlice(hist)
         hist = hist[startWN: endWN + 1]
         binCenters = binCenters[startWN: endWN + 1]
-        slope = self.calculateLogLogSlope(binCenters, hist)
 
         baBinCenters, baHist = self.calculateLogBin(baDeg, 20)
-        startBA, endBA = self.longestDecreasingSlice(baHist)
-        baHist = baHist[startBA: endBA + 1]
-        baBinCenters = baBinCenters[startBA: endBA + 1]
+        # startBA, endBA = self.longestDecreasingSlice(baHist)
+        # baHist = baHist[startBA: endBA + 1]
+        # baBinCenters = baBinCenters[startBA: endBA + 1]
 
         slope = self.calculateLogLogSlope(binCenters, hist)
         baSlope = self.calculateLogLogSlope(baBinCenters, baHist)
 
-        # Zipf's Law Analysis
         wordFrequencies = sorted(occurrenceData.values(), reverse=True)
         ranks = np.arange(1, len(wordFrequencies) + 1)
         zipfSlope = self.calculateLogLogSlope(ranks, wordFrequencies)
@@ -261,18 +264,18 @@ class App(wx.Frame):
         plt.legend()
         
         plt.subplot(3, 1, 2)
-        plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9, label=f'Word Network, Slope={slope:.5f}')
-        plt.loglog(binCenters, hist, '-', color='blue', alpha=0.8)
-        plt.loglog(baBinCenters, baHist, 'x', color='black', alpha=0.9, label=f'BA Model, Slope={baSlope:.5f}')
-        plt.loglog(baBinCenters, baHist, '-', color='red', alpha=0.8)
+        plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
+        plt.loglog(binCenters, hist, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
+        plt.loglog(baBinCenters, baHist, 'x', color='black', alpha=0.9)
+        plt.loglog(baBinCenters, baHist, '-', color='red', alpha=0.8, label=f'BA Model, Slope={baSlope:.5f}')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
         plt.legend()
 
         plt.subplot(3, 1, 3)
-        plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9, label=f'Zipf\'s Law, Slope={zipfSlope:.5f}')
-        plt.loglog(ranks, wordFrequencies, '-', color='green', alpha=0.8)
+        plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9)
+        plt.loglog(ranks, wordFrequencies, '-', color='black', alpha=0.8, label=f'Zipf\'s Law, Slope={zipfSlope:.5f}')
         plt.xlabel('Rank')
         plt.ylabel('Frequency')
         plt.title('Zipf\'s Law Analysis')
@@ -280,7 +283,7 @@ class App(wx.Frame):
 
         plt.tight_layout()
         plt.show()
-        
+
         self.logMessage('\n')
 
 
