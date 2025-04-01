@@ -4,6 +4,7 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
+import powerlaw
 
 class App(wx.Frame):
     def __init__(self):
@@ -215,36 +216,71 @@ class App(wx.Frame):
         self.logMessage('Visualizing Analysis...')
 
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
-        G = nx.Graph(graphData)
+        G = nx.Graph()
+        for node, neighbors in graphData.items():
+            for neighbor in neighbors:
+                G.add_edge(node, neighbor)
+        degrees = [G.degree(n) for n in G.nodes()]
+        unique, counts = np.unique(degrees, return_counts=True)
+        deg = np.array([d for _, d in G.degree()])
 
-        degrees = np.array([d for _, d in G.degree()])
-        hist, binCenters = self.calculateLogBin(degrees, 15)
-        start, end = self.longestDecreasingSlice(hist)
-        hist = hist[start: end + 1]
-        binCenters = binCenters[start: end + 1]
+        baNodes = len(G.nodes())
+        baEdges = int(np.mean(degrees) / 2)
+        BA_G = nx.barabasi_albert_graph(baNodes, baEdges)
+        baDegrees = [BA_G.degree(n) for n in BA_G.nodes()]
+        baUnique, baCounts = np.unique(baDegrees, return_counts=True)
+        baDeg = np.array([d for _, d in BA_G.degree()])
+
+        binCenters, hist = self.calculateLogBin(deg, 20)
+        startWN, endWN = self.longestDecreasingSlice(hist)
+        hist = hist[startWN: endWN + 1]
+        binCenters = binCenters[startWN: endWN + 1]
         slope = self.calculateLogLogSlope(binCenters, hist)
 
-        plt.figure(figsize=(8, 6))
-        plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
-        plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8, label=f'Log-Binned Data Slope={slope:.5f}')
+        baBinCenters, baHist = self.calculateLogBin(baDeg, 20)
+        startBA, endBA = self.longestDecreasingSlice(baHist)
+        baHist = baHist[startBA: endBA + 1]
+        baBinCenters = baBinCenters[startBA: endBA + 1]
+
+        slope = self.calculateLogLogSlope(binCenters, hist)
+        baSlope = self.calculateLogLogSlope(baBinCenters, baHist)
+
+        # Zipf's Law Analysis
+        wordFrequencies = sorted(occurrenceData.values(), reverse=True)
+        ranks = np.arange(1, len(wordFrequencies) + 1)
+        zipfSlope = self.calculateLogLogSlope(ranks, wordFrequencies)
+
+        plt.figure(figsize=(12, 10))
+
+        plt.subplot(3, 1, 1)
+        plt.loglog(unique, counts, 'bo', markersize=4, label='Word Network')
+        plt.loglog(baUnique, baCounts, 'ro', markersize=4, label='BA Model')
+        plt.xlabel("Degree (k)")
+        plt.ylabel("P(k)")
+        plt.title("Degree Distribution Comparison")
+        plt.legend()
+        
+        plt.subplot(3, 1, 2)
+        plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9, label=f'Word Network, Slope={slope:.5f}')
+        plt.loglog(binCenters, hist, '-', color='blue', alpha=0.8)
+        plt.loglog(baBinCenters, baHist, 'x', color='black', alpha=0.9, label=f'BA Model, Slope={baSlope:.5f}')
+        plt.loglog(baBinCenters, baHist, '-', color='red', alpha=0.8)
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
         plt.legend()
-        plt.show()
 
-        wordFrequencies = sorted(occurrenceData.values(), reverse=True)
-        ranks = np.arange(1, len(wordFrequencies) + 1)
-        slopeZipf = self.calculateLogLogSlope(ranks, wordFrequencies)
-        plt.figure(figsize=(8, 6))
-        plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9)
-        plt.loglog(ranks, wordFrequencies, '-', color='green', alpha=0.8, label=f'Zipf\'s Law Slope={slopeZipf:.5f}')
+        plt.subplot(3, 1, 3)
+        plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9, label=f'Zipf\'s Law, Slope={zipfSlope:.5f}')
+        plt.loglog(ranks, wordFrequencies, '-', color='green', alpha=0.8)
         plt.xlabel('Rank')
         plt.ylabel('Frequency')
         plt.title('Zipf\'s Law Analysis')
         plt.legend()
-        plt.show()
 
+        plt.tight_layout()
+        plt.show()
+        
         self.logMessage('\n')
 
 
@@ -256,8 +292,8 @@ class App(wx.Frame):
     
         G = nx.Graph(graphDataOnlyWords)
         M = nx.Graph(graphDataCombined)
-        histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 25)
-        histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 25)
+        histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 15)
+        histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 15)
 
         startG, endG = self.longestDecreasingSlice(histG)
         startM, endM = self.longestDecreasingSlice(histM)
@@ -289,7 +325,7 @@ class App(wx.Frame):
         hist, binEdges = np.histogram(degrees, bins=bins, density=True)
         binCenters = (binEdges[:-1] + binEdges[1:]) / 2
         nonzero = hist > 0
-        return hist[nonzero], binCenters[nonzero]
+        return binCenters[nonzero], hist[nonzero]
     
 
     def calculateLogLogSlope(self, x, y):
