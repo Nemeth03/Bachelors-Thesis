@@ -217,11 +217,13 @@ class App(wx.Frame):
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
         G = nx.Graph(graphData)
 
-        degrees = np.array([d for _, d in G.degree()])        
-        hist, binCenters = self.calculateLogBin(degrees, 25)
-        hist = hist[4:-5]
-        binCenters = binCenters[4:-5]
+        degrees = np.array([d for _, d in G.degree()])
+        hist, binCenters = self.calculateLogBin(degrees, 15)
+        start, end = self.longestDecreasingSlice(hist)
+        hist = hist[start: end + 1]
+        binCenters = binCenters[start: end + 1]
         slope = self.calculateLogLogSlope(binCenters, hist)
+
         plt.figure(figsize=(8, 6))
         plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
         plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8, label=f'Log-Binned Data Slope={slope:.5f}')
@@ -257,10 +259,16 @@ class App(wx.Frame):
         histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 25)
         histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 25)
 
-        histG = histG[4:-5]
-        histM = histM[4:-5]
-        binCentersG = binCentersG[4:-5]
-        binCentersM = binCentersM[4:-5]
+        startG, endG = self.longestDecreasingSlice(histG)
+        startM, endM = self.longestDecreasingSlice(histM)
+        if endG-startG < endM-startM:
+            startG, endG = startM, endM
+        if endG-startG > endM-startM:
+            startM, endM = startG, endG
+        histG = histG[startG: endG + 1]
+        histM = histM[startG: endG + 1]
+        binCentersG = binCentersG[startG: endG + 1]
+        binCentersM = binCentersM[startG: endG + 1]
 
         plt.figure(figsize=(8, 6))
         plt.loglog(binCentersG, histG, '-', color='red', alpha=0.8, label='Words Only')
@@ -289,7 +297,18 @@ class App(wx.Frame):
         logY = np.log10(y)
         slope, _ = np.polyfit(logX, logY, 1)
         return slope
-
+    
+    
+    def longestDecreasingSlice(self, data):
+        sliceStart, sliceEnd = 0, 0
+        currentStart = 0
+        for i in range(1, len(data)):
+            if data[i] >= data[i-1]:
+                currentStart = i
+            elif i - currentStart > sliceEnd - sliceStart:
+                sliceStart, sliceEnd = currentStart, i
+        return sliceStart, sliceEnd
+    
 
     def validateInputData(self):
         self.networkButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
