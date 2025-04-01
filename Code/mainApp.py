@@ -108,19 +108,19 @@ class App(wx.Frame):
         self.exitButton = wx.Button(panel, label='Exit')
         self.exitButton.Bind(wx.EVT_BUTTON, self.exitApp)
 
-        self.networkButton = wx.Button(panel, label='Network')
+        self.networkButton = wx.Button(panel, label='Network Graph')
         self.networkButton.Bind(wx.EVT_BUTTON, self.plotNetwork)
         self.networkButton.Enable(False)
 
-        self.histogramOneButton = wx.Button(panel, label='Histogram 1')
-        self.histogramOneButton.Bind(wx.EVT_BUTTON, self.plotHistogramOne)
+        self.histogramOneButton = wx.Button(panel, label='Visualize Analysis')
+        self.histogramOneButton.Bind(wx.EVT_BUTTON, self.visualizeAnalysis)
         self.histogramOneButton.Enable(False)
 
-        self.histogramTwoButton = wx.Button(panel, label='Histogram 2')
-        self.histogramTwoButton.Bind(wx.EVT_BUTTON, self.plotHistogramTwo)
+        self.histogramTwoButton = wx.Button(panel, label='Compare Distributions')
+        self.histogramTwoButton.Bind(wx.EVT_BUTTON, self.compareDistributions)
         self.histogramTwoButton.Enable(False)
 
-        self.outputValues = wx.Button(panel, label='Calculate Values')
+        self.outputValues = wx.Button(panel, label='Calculate Analysis Data')
         self.outputValues.Bind(wx.EVT_BUTTON, self.logOutputValues)
         self.outputValues.Enable(False)
 
@@ -198,13 +198,11 @@ class App(wx.Frame):
 
     def plotNetwork(self, event):
         self.logMessage(self.collectInputDataInfo())
-        graphData, occurrenceData = self.processData(self.selectedPunctuation)
-        # self.logMessage(self.calculateValues(graphData, occurrenceData))  
         self.logMessage('Plotting network...\n')
 
-        G = nx.Graph(graphData)
+        G = nx.Graph(self.processData(self.selectedPunctuation)[0])
         pos = nx.spring_layout(G, iterations=35, seed=21)
-        plt.figure(figsize=(8, 8))
+        plt.figure(figsize=(8, 6))
         nx.draw_networkx_nodes(G, pos, node_size=1, node_color='black', alpha=1)
         nx.draw_networkx_edges(G, pos, width=0.6, alpha=0.5, edge_color='black')
         plt.title('Word Association Network')
@@ -212,32 +210,43 @@ class App(wx.Frame):
         plt.show()
 
 
-    def plotHistogramOne(self, event):
+    def visualizeAnalysis(self, event):
         self.logMessage(self.collectInputDataInfo())
+        self.logMessage('Visualizing Analysis...')
+
         graphData, occurrenceData = self.processData(self.selectedPunctuation)
-        self.logMessage('Plotting degree distribution histogram...')
-
         G = nx.Graph(graphData)
-        degrees = np.array([d for _, d in G.degree()])
 
-        # degrees = [d for _, d in G.degree()]
-        # degree_count = Counter(degrees)
-        # self.logMessage(f'Degree distribution: {degree_count}')
-
-        hist, binCenters = self.calculateLogBin(degrees, 20)
-
-        plt.figure(figsize=(8, 8))
+        degrees = np.array([d for _, d in G.degree()])        
+        hist, binCenters = self.calculateLogBin(degrees, 25)
+        hist = hist[4:-5]
+        binCenters = binCenters[4:-5]
+        slope = self.calculateLogLogSlope(binCenters, hist)
+        plt.figure(figsize=(8, 6))
         plt.loglog(binCenters, hist, 'x', color='black', alpha=0.9)
-        plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8, label='Log-Binned Data')
+        plt.loglog(binCenters, hist, '-', color='orange', alpha=0.8, label=f'Log-Binned Data Slope={slope:.5f}')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
         plt.legend()
         plt.show()
+
+        wordFrequencies = sorted(occurrenceData.values(), reverse=True)
+        ranks = np.arange(1, len(wordFrequencies) + 1)
+        slopeZipf = self.calculateLogLogSlope(ranks, wordFrequencies)
+        plt.figure(figsize=(8, 6))
+        plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9)
+        plt.loglog(ranks, wordFrequencies, '-', color='green', alpha=0.8, label=f'Zipf\'s Law Slope={slopeZipf:.5f}')
+        plt.xlabel('Rank')
+        plt.ylabel('Frequency')
+        plt.title('Zipf\'s Law Analysis')
+        plt.legend()
+        plt.show()
+
         self.logMessage('\n')
 
 
-    def plotHistogramTwo(self, event):
+    def compareDistributions(self, event):
         self.logMessage(self.collectInputDataInfo())
         graphDataOnlyWords, occurrenceDataOnlyWords = self.processData()
         graphDataCombined, occurrenceDataCombined = self.processData(self.selectedPunctuation)
@@ -245,10 +254,15 @@ class App(wx.Frame):
     
         G = nx.Graph(graphDataOnlyWords)
         M = nx.Graph(graphDataCombined)
-        histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 20)
-        histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 20)
+        histG, binCentersG = self.calculateLogBin(np.array([d for _, d in G.degree()]), 25)
+        histM, binCentersM = self.calculateLogBin(np.array([d for _, d in M.degree()]), 25)
 
-        plt.figure(figsize=(8, 8))
+        histG = histG[4:-5]
+        histM = histM[4:-5]
+        binCentersG = binCentersG[4:-5]
+        binCentersM = binCentersM[4:-5]
+
+        plt.figure(figsize=(8, 6))
         plt.loglog(binCentersG, histG, '-', color='red', alpha=0.8, label='Words Only')
         plt.loglog(binCentersM, histM, '-', color='blue', alpha=0.8, label='Words + Punctuation')
         plt.loglog(binCentersG, histG, 'x', alpha=0.9, color='black')
@@ -268,6 +282,13 @@ class App(wx.Frame):
         binCenters = (binEdges[:-1] + binEdges[1:]) / 2
         nonzero = hist > 0
         return hist[nonzero], binCenters[nonzero]
+    
+
+    def calculateLogLogSlope(self, x, y):
+        logX = np.log10(x)
+        logY = np.log10(y)
+        slope, _ = np.polyfit(logX, logY, 1)
+        return slope
 
 
     def validateInputData(self):
@@ -399,14 +420,3 @@ if __name__ == '__main__':
     frame = App()
     frame.Show()
     app.MainLoop()
-
-
-
-## TODO
-
-# k vizualizacii grafov vyrezat loglogbin kde uz je optimalizovany, bez malych a velkych stupnov ktore tvoria anomalie
-# zmerat smernicu priamky co dostaneme v logbinningu ak je 3 tak ideal, berieme do uvahy aj chybu
-
-# (barabasi albert model, preferecne pripojenie) zacneme s trojuholnika a postupne pridavame uzly, vyskusat jej charakteristiky
-# ak je 3 tak ideal, predpokladane byva okolo 2.7
-# dorogovtsev-mendes model
