@@ -330,6 +330,10 @@ class App(wx.Frame):
         gBinCenters = gBinCenters[gStart: gEnd + 1]
         mBinCenters = mBinCenters[gStart: gEnd + 1]
 
+        # calculate slopes
+        gSlope = self.calculateLogLogSlope(gBinCenters, gBinValues)
+        mSlope = self.calculateLogLogSlope(mBinCenters, mBinValues)
+
         plt.figure(figsize=(12, 10))
 
         plt.subplot(2, 1, 1)
@@ -341,8 +345,8 @@ class App(wx.Frame):
         plt.legend()
 
         plt.subplot(2, 1, 2)
-        plt.loglog(gBinCenters, gBinValues, '-', color='red', alpha=0.8, label='Words Only')
-        plt.loglog(mBinCenters, mBinValues, '-', color='blue', alpha=0.8, label='Words + Punctuation')
+        plt.loglog(gBinCenters, gBinValues, '-', color='red', alpha=0.8, label=f'Words Only, Slope={gSlope:.5f}')
+        plt.loglog(mBinCenters, mBinValues, '-', color='blue', alpha=0.8, label=f'Words + Punctuation, Slope={mSlope:.5f}')
         plt.loglog(gBinCenters, gBinValues, 'x', alpha=0.9, color='black')
         plt.loglog(mBinCenters, mBinValues, 'x', alpha=0.9, color='black')
         plt.xlabel('Degree')
