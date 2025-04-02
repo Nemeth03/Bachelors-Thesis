@@ -4,6 +4,8 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
+import pickle
+from scipy.stats import linregress
 
 class App(wx.Frame):
     def __init__(self):
@@ -224,11 +226,20 @@ class App(wx.Frame):
         unique, counts = np.unique(degrees, return_counts=True)
 
         # create Barabasi-Albert model, with same number of nodes and edges as my data
-        baNodes = len(G.nodes())
-        baEdges = int(np.mean(degrees)/2)
-        BA_G = nx.barabasi_albert_graph(baNodes, baEdges)
+        numNodes = len(G.nodes())
+        numEdges = int(np.mean(degrees)/2)
+        BA_G = nx.barabasi_albert_graph(numNodes, numEdges)
         baDegrees = [BA_G.degree(n) for n in BA_G.nodes()]
         baUnique, baCounts = np.unique(baDegrees, return_counts=True)
+
+        # create Dorogovtsev-Goltsev-Mendes model, with same number of nodes as my data
+        # dgm_graph_10000_edges.gpickle
+        # dgm_graph_20000_edges.gpickle
+        # dgm_graph_30000_edges.gpickle
+        with open('dgm_graph_30000_edges.gpickle', 'rb') as f:
+            DGM_G = pickle.load(f)
+        dgmDegrees = [DGM_G.degree(n) for n in DGM_G.nodes()]
+        dgmUnique, dgmCounts = np.unique(dgmDegrees, return_counts=True)
 
         # set my data raw degree distribution to be same range as in ba model
         start, end = baUnique[0], baUnique[-1]
@@ -242,15 +253,22 @@ class App(wx.Frame):
         binValues = binValues[start: end+1]
         binCenters = binCenters[start: end+1]
 
-        # ba model, log binning, selecting only the longest decreasing slice
+        # simulated ba model, log binning, selecting only the longest decreasing slice
         baBinCenters, baBinValues = self.calculateLogBin(np.array(baDegrees), 20)
-        # baStart, baEnd = self.longestDecreasingSlice(baBinValues)
-        # baBinValues = baBinValues[baStart: baEnd+1]
-        # baBinCenters = baBinCenters[baStart: baEnd+1]
+        baStart, baEnd = self.longestDecreasingSlice(baBinValues)
+        baBinValues = baBinValues[baStart: baEnd+1]
+        baBinCenters = baBinCenters[baStart: baEnd+1]
+
+        # simulated dmg model, log binning, selecting only the longest decreasing slice
+        dgmBinCenters, dgmBinValues = self.log_bin_data(np.array(dgmDegrees), 1.01)
+        # dgmStart, dgmEnd = self.longestDecreasingSlice(dgmBinValues)
+        # dgmBinValues = dgmBinValues[dgmStart: dgmEnd+1]
+        # dgmBinCenters = dgmBinCenters[dgmStart: dgmEnd+1]
 
         # calculate slopes
         slope = self.calculateLogLogSlope(binCenters, binValues)
         baSlope = self.calculateLogLogSlope(baBinCenters, baBinValues)
+        dgmSlope = self.calculateLogLogSlope(dgmBinCenters, dgmBinValues)
 
         # calculate Zipf's law on my data and slope
         wordFrequencies = sorted(occurrenceData.values(), reverse=True)
@@ -261,8 +279,9 @@ class App(wx.Frame):
         plt.figure(figsize=(12, 10))
 
         plt.subplot(3, 1, 1)
-        plt.loglog(unique, counts, 'bo', markersize=4, label='Word Network')
-        plt.loglog(baUnique, baCounts, 'ro', markersize=4, label='BA Model')
+        plt.loglog(unique, counts, 'bo', markersize=4, label=f'Word Network')
+        plt.loglog(baUnique, baCounts, 'ro', markersize=4, label=f'BA Model')
+        plt.loglog(dgmUnique, dgmCounts, 'go', markersize=4, label=f'DGM Model')
         plt.xlabel("Degree (k)")
         plt.ylabel("P(k)")
         plt.title("Degree Distribution Comparison")
@@ -272,7 +291,9 @@ class App(wx.Frame):
         plt.loglog(binCenters, binValues, 'x', color='black', alpha=0.9)
         plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
         plt.loglog(baBinCenters, baBinValues, 'x', color='black', alpha=0.9)
-        plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'BA Model, Slope={baSlope:.5f}')
+        plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'Simulated BA Model, Slope={baSlope:.5f}')
+        plt.loglog(dgmBinCenters, dgmBinValues, 'x', color='black', alpha=0.9)
+        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model, Slope={dgmSlope:.5f}')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
@@ -367,10 +388,23 @@ class App(wx.Frame):
         return binCenters[nonzero], hist[nonzero]
     
 
+    def log_bin_data(self, raw_degrees, bin_base=1.1):
+        bins = [bin_base ** i for i in range(int(np.log(max(raw_degrees)) / np.log(bin_base)) + 1)]
+        binned_degrees = []
+        binned_counts = []
+        for i in range(len(bins) - 1):
+            bin_min, bin_max = bins[i], bins[i + 1]
+            bin_mask = (raw_degrees >= bin_min) & (raw_degrees < bin_max)
+            if np.any(bin_mask):
+                binned_degrees.append(np.mean(raw_degrees[bin_mask]))
+                binned_counts.append(np.sum(bin_mask))
+        return np.array(binned_degrees), np.array(binned_counts)
+    
+
     def calculateLogLogSlope(self, x, y):
-        logX = np.log10(x)
-        logY = np.log10(y)
-        slope, _ = np.polyfit(logX, logY, 1)
+        log_degrees = np.log10(x)
+        log_counts = np.log10(y)
+        slope, intercept, r_value, p_value, std_err = linregress(log_degrees, log_counts)
         return slope
     
     
