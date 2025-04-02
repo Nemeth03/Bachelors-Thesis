@@ -557,4 +557,3 @@ if __name__ == '__main__':
 # porozumiet dgm modelu
 # gephi
 # viacero textov pre analyzu
-# zmenit nazov na textAnalyzer
