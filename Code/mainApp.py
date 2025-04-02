@@ -236,7 +236,8 @@ class App(wx.Frame):
         # dgm_graph_10000_edges.gpickle
         # dgm_graph_20000_edges.gpickle
         # dgm_graph_30000_edges.gpickle
-        with open('dgm_graph_30000_edges.gpickle', 'rb') as f:
+        # dgm_graph_70000_edges.gpickle
+        with open('dgm_graph_70000_edges.gpickle', 'rb') as f:
             DGM_G = pickle.load(f)
         dgmDegrees = [DGM_G.degree(n) for n in DGM_G.nodes()]
         dgmUnique, dgmCounts = np.unique(dgmDegrees, return_counts=True)
