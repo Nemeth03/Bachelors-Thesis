@@ -1,0 +1,15 @@
+\babel@toc {USenglish}{}\relax 
+\babel@toc {USenglish}{}\relax 
+\babel@toc {slovak}{}\relax 
+\babel@toc {USenglish}{}\relax 
+\babel@toc {USenglish}{}\relax 
+\babel@toc {USenglish}{}\relax 
+\contentsline {chapter}{Introduction}{1}{chapter*.8}%
+\contentsline {chapter}{\numberline {1}Terminology}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Algorithms}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Bruteforce}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Backtracking}{5}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Results}{7}{chapter.3}%
+\contentsline {chapter}{Conclusion}{9}{chapter*.9}%
+\contentsline {chapter}{\numberline {A}Myproject source code}{13}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Benchmarking results}{15}{appendix.B}%

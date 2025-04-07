@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{moore_hard_tiling}
+C.~Moore and J.~M. Robson.
+\newblock Hard tiling problems with simple tiles.
+\newblock {\em Discrete {\&} Computational Geometry}, 26(4):573--590, January
+  2001.
+
+\bibitem{golomb_polyomino_book}
+S.~W. Golomb.
+\newblock {\em Polyominoes: Puzzles, patterns, problems, and packings}.
+\newblock Princeton University Press, 2nd edition, 1994.
+
+\bibitem{cadical_github}
+A.~Biere.
+\newblock {CaDiCaL} {S}implified {S}atisfiability {S}olver.
+\newblock \url{https://github.com/arminbiere/cadical}.
+\newblock Retrieved May 5, 2022.
+
+\bibitem{sage}
+{The Sage Developers}.
+\newblock {\em {S}ageMath, the {S}age {M}athematics {S}oftware {S}ystem
+  ({V}ersion 9.4)}, 2021.
+\newblock \url{https://www.sagemath.org}.
+
+\end{thebibliography}
