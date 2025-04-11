@@ -271,6 +271,20 @@ class App(wx.Frame):
         ranks = np.arange(1, len(wordFrequencies) + 1)
         zipfSlope = self.calculateLogLogSlope(ranks, wordFrequencies)
 
+
+        # Ensure both distributions are of the same length by padding with zeros
+        wordDegrees = degrees.copy()
+        dmDegrees = dgmDegrees.copy()
+        max_len = max(len(wordDegrees), len(dmDegrees))
+        wordDegrees += [0] * (max_len - len(wordDegrees))
+        dmDegrees += [0] * (max_len - len(dmDegrees))
+
+        word_degrees_normalized = np.array(wordDegrees) / max(wordDegrees)
+        dm_degrees_normalized = np.array(dmDegrees) / max(dmDegrees)
+        mse_normalized = np.mean((word_degrees_normalized - dm_degrees_normalized)**2)
+        print(f"Normalized Degree Distribution MSE: {mse_normalized:.5f}")
+
+
         # plotting
         plt.figure(figsize=(12, 10))
 
