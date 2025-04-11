@@ -233,12 +233,7 @@ class App(wx.Frame):
         baUnique, baCounts = np.unique(baDegrees, return_counts=True)
 
         # create Dorogovtsev-Goltsev-Mendes model, with same number of nodes as my data
-        # dgm_graph_10000_edges.gpickle
-        # dgm_graph_20000_edges.gpickle
-        # dgm_graph_30000_edges.gpickle
-        # dgm_graph_70000_edges.gpickle
-        with open('dgm_graph_70000_edges.gpickle', 'rb') as f:
-            DGM_G = pickle.load(f)
+        DGM_G = nx.dorogovtsev_goltsev_mendes_graph(10)
         dgmDegrees = [DGM_G.degree(n) for n in DGM_G.nodes()]
         dgmUnique, dgmCounts = np.unique(dgmDegrees, return_counts=True)
 
@@ -261,7 +256,7 @@ class App(wx.Frame):
         baBinCenters = baBinCenters[baStart: baEnd+1]
 
         # simulated dmg model, log binning, selecting only the longest decreasing slice
-        dgmBinCenters, dgmBinValues = self.log_bin_data(np.array(dgmDegrees), 1.01)
+        dgmBinCenters, dgmBinValues = self.calculateLogBin(np.array(dgmDegrees), 20)
         # dgmStart, dgmEnd = self.longestDecreasingSlice(dgmBinValues)
         # dgmBinValues = dgmBinValues[dgmStart: dgmEnd+1]
         # dgmBinCenters = dgmBinCenters[dgmStart: dgmEnd+1]
