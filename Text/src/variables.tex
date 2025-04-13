@@ -1,8 +1,8 @@
 % Use values that are applicable to you and your thesis.
 
 \newif\ifenglish{}
-\englishtrue{} % english language
-% \englishfalse{} % slovak language
+% \englishtrue{} % english language
+\englishfalse{} % slovak language
 
 \newif\ifbachelor{}
 \bachelortrue{} % bachelor's thesis
@@ -21,15 +21,15 @@
 \logoFMFIfalse{} % no logo
 
 % The year in which you plan to turn the thesis in.
-\newcommand{\thesisyear}{2022}
+\newcommand{\thesisyear}{2025}
 
 % Tip - use the `\\` to split a long thesis name nicely.
-\newcommand{\thesisname}{Extraordinarily Long Example Name \\ of My Awesome Project}
+\newcommand{\thesisname}{Analýza~interpunkčných~znamienok~v\\rôznojazyčných~textoch}
 
 % If you are writing a master's thesis, don't forget to add Bc. here.
-\newcommand{\thesisauthor}{Adam~Fiktívny}
+\newcommand{\thesisauthor}{Zdenko~Németh}
 
-\newcommand{\thesissupervisor}{doc.~RNDr.~Boris~Fiktívny,~PhD.}
+\newcommand{\thesissupervisor}{doc.~RNDr.~Mária~Markošová,~PhD.}
 
 \ifconsultant{}
     \newcommand{\thesisconsultant}{doc.~RNDr.~Cyril~Fiktívny,~PhD.}
@@ -52,16 +52,16 @@
 \newcommand{\thesiskeywordsen}{English, keywords, here}
 
 \newcommand{\thesischapters}{
-    \input chapters/00-introduction.tex
-    \input chapters/10-terminology.tex
-    \input chapters/20-algorithms.tex
-    \input chapters/30-results.tex
-    \input chapters/90-conclusion.tex
+    \input chapters/00-uvod.tex
+    \input chapters/10-teoria.tex
+    % \input chapters/20-algorithms.tex
+    % \input chapters/30-results.tex
+    % \input chapters/90-conclusion.tex
 }
 
 \newcommand{\thesisappendices}{
-    \input chapters/91-appendixA.tex
-    \input chapters/92-appendixB.tex
+    % \input chapters/91-appendixA.tex
+    % \input chapters/92-appendixB.tex
 }
 
 % Thesis type, field, programme and department are set here automatically, but please check that
@@ -93,12 +93,12 @@
     \fi
     \ifcompsci{}
         \newcommand{\thesisfield}{Informatika}
-        \newcommand{\thesisprogramme}{Informatika}
+        \newcommand{\thesisprogramme}{Aplikovaná Informatika}
     \else
         \newcommand{\thesisfield}{Informatika a Biológia}
         \newcommand{\thesisprogramme}{Bioinformatika}
     \fi
-    \newcommand{\thesisdepartment}{Katedra informatiky}
+    \newcommand{\thesisdepartment}{Katedra aplikovanej informatiky}
     \newcommand{\thesisfaculty}{Fakulta matematiky, fyziky a informatiky}
     \newcommand{\thesisuniversity}{Univerzita Komenského v Bratislave}
 \fi
