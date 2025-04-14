@@ -1,0 +1,57 @@
+Slide 1
+Zdravim vas, moje meno je zdenko nemeth a pripravil som si pre vas prezentaciu ohladom mojej bc prace,
+analyza interpunkcnych znamienok v roznojazycnych textoch.
+
+Slide 2
+Prejdeme si problematiku, comu sa praca venuje, co mam hotove, co ma este caka a aky je ciel.
+
+Slide 3
+Moja praca sa venuje analyze textu ktory je spracovany do tzv. word adjacency networks co znamena ze
+zo vstupneho textu treba vytvorit graf, slova (vratane interpunkcie ak je dane) su uzly hrana je ak su 
+vedla seba v texte. 
+
+Slide 4
+Tuto cast mam naprogramovanu, pouzivam regex, pre vyber, ci chcem iba slova, alebo
+aj nejaku danu interpunkciu.
+
+Slide 5
+Dalej analyza vytvorenej siete, to ma tiez uz naprogramovane pomocou NetworkX, ktora ma v sebe zabudovane
+vsetky tieto algoritmy pre vypocet vlastnosti grafov..
+
+Slide 6
+Zipf's law je charakteristika ktora opisuje frekvenčné rozdelenie slov v závislosti od ich 
+poradia v zozname. Napríklad najčastejšie slovo sa vyskytuje približne dvakrát častejšie ako druhé 
+najčastejšie, trikrát častejšie ako tretie a tak ďalej.
+
+Slide 7
+Distribucia stupnov vrcholov power law log binnig si ukazeme na obrazku, 
+porovnanie mojej sieti s vygenerovanymi modelmi 
+
+Slide 8
+Na hornom grafe vidíme pôvodné distribúcie stupňov na log-log mierke. Každý bod predstavuje počet uzlov (slov), 
+ktoré majú určitý počet spojení (stupeň). moja siet modra, dorogovtsev mendes zelene, barabasi albert cervene
+Na dolnom grafe používame log-binning pre vyhladenie, je technika, ktorá zahŕňa rozdelenie hodnôt dát do rôznych 
+intervalov na základe logaritmickej škály.
+
+mojou ulohou teraz je zistit ci moja siet nasleduje nejake mocninove rozdelenie (power law)
+ak ano tak priradit k nej jeden z tychto modelov vdaka comu budem vediet o tej sieti viac povedat
+to este nemam nastudovane
+Barabási–Albert Model 2.7-3.0
+Dorogovtsev–Mendes Model 2.0-2.2
+moja siet cca 2.1
+
+existuju uz prace ktore sa tomuto venovali analyze takychto sieti
+a zipf law ale nie pre priradenie modelu pomocou power law
+
+mojim cielom bude priradit k sieti pravdepodobne DM model a skumat ci zahrnutie interpunkcie tam robi nejaky rozdiel
+
+este si budem musiet najst viacero textov na ktorych vykonat analyzu (kniha, roman)
+funguje v jazyku ENG a GER
+
+Slide 9
+
+Ukazka mojho GUI
+
+
+
+
