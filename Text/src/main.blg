@@ -5,46 +5,44 @@ Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: unsrt.bst
 Reallocating 'name_of_file' (item size: 1) to 11 items.
 Database file #1: references.bib
-Warning--empty year in markovsovadynamika
 You've used 6 entries,
             1791 wiz_defined-function locations,
-            485 strings with 4294 characters,
-and the built_in function-call counts, 1218 in all, are:
-= -- 109
+            487 strings with 4305 characters,
+and the built_in function-call counts, 1391 in all, are:
+= -- 131
 > -- 42
-< -- 0
+< -- 1
 + -- 17
 - -- 11
-* -- 81
-:= -- 200
+* -- 89
+:= -- 216
 add.period$ -- 18
 call.type$ -- 6
 change.case$ -- 5
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 55
-empty$ -- 128
+cite$ -- 6
+duplicate$ -- 65
+empty$ -- 143
 format.name$ -- 11
-if$ -- 266
+if$ -- 316
 int.to.chr$ -- 0
 int.to.str$ -- 6
 missing$ -- 8
 newline$ -- 33
 num.names$ -- 6
-pop$ -- 18
+pop$ -- 17
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 18
+skip$ -- 30
 stack$ -- 0
-substring$ -- 80
-swap$ -- 6
-text.length$ -- 0
+substring$ -- 108
+swap$ -- 15
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 11
+warning$ -- 0
+while$ -- 13
 width$ -- 7
-write$ -- 67
-(There was 1 warning)
+write$ -- 69
