@@ -1,6 +1,6 @@
 \chapter{Prehľad~problematiky}\label{ch:terminology}
 
-write a short introduction to the chapter, what is the goal of this chapter, what will be covered in this chapter
+...
 
 \section{Teória~grafov}\label{sec:graph-theory}
 
@@ -22,7 +22,7 @@ na poradí vrcholov v usporiadanej dvojici, prvý vrchol dvojice predstavuje uzo
 druhý vrchol dvojice predstavuje uzol, do ktorého hrana smeruje. Ak hrana nemá určený smer, tak sa jedná o 
 neorientovanú hranu a poradie vrcholov v usporiadanej dvojici nie je dôležité. Hranu, ktorá má začiatok a koniec 
 v rovnakom vrchole, nazývame slučka. Pojem viacnásobná hrana označuje prípad, kedy medzi dvoma vrcholmi existuje viac ako jedna hrana. 
-Rôzne typy hrán je možné vidieť na ilustračnom obrázku \ref{obr:edges}.
+Rôzne typy hrán je možné vidieť na ilustračnom obrázku č. \ref{obr:edges}.
 
 \begin{figure}
     \centerline{\includegraphics[width=0.5\textwidth]{images/edges.png}}
@@ -57,7 +57,7 @@ Grafy sa dajú reprezentovať rôznymi spôsobmi. Najčastejšia matematická re
 Nech $G = (V, E)$ je graf s $n = |V|$ vrcholmi a $m = |E|$ hranami. Matica susedností $A$ je $n \times n$ matica, kde každý prvok $a_{ij}$
 predstavuje počet hrán medzi vrcholmi $v_i$ a $u_j$. Incidenčná matica $B$ je $n \times m$ matica, kde pre každý prvok platí $b_{ij} = 1$,
 ak je hrana $e_j$ incidentná s vrcholom $v_i$, inak $b_{ij} = 0$.
-Príklad matice susedností a incidenčnej matice spolu s ilustračným grafom je zobrazený na obrázku \ref{obr:matrices}.
+Príklad matice susedností a incidenčnej matice spolu s ilustračným grafom je zobrazený na obrázku č. \ref{obr:matrices}.
 
 \begin{figure}
     \centerline{\includegraphics[width=0.8\textwidth]{images/matrices.png}}
@@ -136,16 +136,46 @@ Pre graf s počtom vrcholov $n$ a počtom vrcholov s $k$ susedmi $n_k$ je distri
 \end{equation}
 kde $p_k$ je distribúcia stupňov, $n_k$ je počet vrcholov s $k$ susedmi, $n$ je počet vrcholov grafu.
 
+\section{Modely~sietí}\label{sec:network-models}
 
+\subsection{Náhodná~sieť}\label{sec:random-network}
 
+\subsection{Bezškálová~sieť}\label{sec:scale-free-network}
+
+\subsection{Dorogovtsev~Goltsev~Mendes model}\label{sec:dgm-model}
 
 \section{Slovné~siete}\label{sec:word-networks}
 
-Text ohľadom slovných sietí.
+Slovné siete predstavujú efektívny spôsob reprezentácie a analýzy jazyka a jeho štruktúry za pomoci teórie grafov.
+V takýchto sieťach sú jednotlivé slová reprezentované ako uzly a vzťahy medzi slovami, ktoré sa navzájom ovplyvňujú alebo súvisia
+tvoria hrany\cite{motter2002topology}. Podľa metód reprezentácie vzťahov medzi slovami dokážeme slovné siete rozlišovať.
+V sémantických slovných sieťach vznikajú prepojenia medzi slovami na základe ich významovej podobnosti. Narozdiel od sémantických
+slovných sietí, v syntaktických slovných sieťach sú interakcie medzi slovami založené na slovnej štruktúre a gramatických pravidlách.
 
-\section{Modely~sietí}\label{sec:network-models}
+Špecifický typ slovnej siete, ktorej sa budeme venovať v tejto práci sa nazýva pozičná slovná sieť. Táto sieť je zameraná na štruktúru
+a pozície slov v texte. V pozičnej slovnej sieti uzly tvoria jednotlivé slová a hrany sú vytvorené na základe toho, či sa slová nachádzajú
+vedľa seba v texte, susedia. Ukážku takejto siete vidíme na obrázku č. \ref{obr:wan}.
 
-Text ohľadom modelov sietí.
+Tieto siete majú niekoľko zaujímavých vlastností. Koeficient zhlukovania, ktorý nám určuje, do akej
+miery slová tvoria skupiny alebo často používané frázy. Distribúcia stupňov uzlov, ktorá sa často podobá na rozdelenie 
+typu mocninného zákona, čo znamená, že väčšina slov má veľmi nízky stupeň, zatiaľ čo malý podiel slov má veľmi vysoký stupeň\cite{dorogovtsev2001language}.
+Toto rozdelenie je typické pre bezškálové siete. Na obrázku č. \ref{obr:degdist} je zobrazená distribúcia stupňov uzlov s dvomi
+rôznymi priemernými exponentami $y = -1.5$ a $y = -2.7$. Exponent $y = -2.7$ sa blíži k exponentu pre Barabási-Albertov model, ktorý je
+$y_{BA} = -3$\cite{cancho2001small}.
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{images/wan.png}}
+    \caption[Pozičná slovná sieť.]{Pozičná slovná sieť z viet: „Auto je rýchle. Auto je čierne. Majiteľ je Zdenko.“.}
+    \label{obr:wan}
+\end{figure}
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{images/degdist.png}}
+    \caption[Distribúcia stupňov vrcholov.]{Distribúcia stupňov vrcholov pre dve siete, body zoskupené mocninou dvoch\cite{cancho2001small}.}
+    \label{obr:degdist}
+\end{figure}
+
+\clearpage
 
 \section{NetworkX}\label{sec:networkx}
 

@@ -6,45 +6,45 @@ The style file: unsrt.bst
 Reallocating 'name_of_file' (item size: 1) to 11 items.
 Database file #1: references.bib
 Warning--empty year in markovsovadynamika
-You've used 3 entries,
+You've used 6 entries,
             1791 wiz_defined-function locations,
-            462 strings with 3784 characters,
-and the built_in function-call counts, 458 in all, are:
-= -- 38
-> -- 12
+            485 strings with 4294 characters,
+and the built_in function-call counts, 1218 in all, are:
+= -- 109
+> -- 42
 < -- 0
-+ -- 6
-- -- 3
-* -- 17
-:= -- 81
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 2
++ -- 17
+- -- 11
+* -- 81
+:= -- 200
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 5
 chr.to.int$ -- 0
-cite$ -- 4
-duplicate$ -- 28
-empty$ -- 53
-format.name$ -- 3
-if$ -- 102
+cite$ -- 7
+duplicate$ -- 55
+empty$ -- 128
+format.name$ -- 11
+if$ -- 266
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 5
-newline$ -- 18
-num.names$ -- 3
-pop$ -- 15
+int.to.str$ -- 6
+missing$ -- 8
+newline$ -- 33
+num.names$ -- 6
+pop$ -- 18
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 7
+skip$ -- 18
 stack$ -- 0
-substring$ -- 0
-swap$ -- 3
+substring$ -- 80
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 3
-width$ -- 4
-write$ -- 34
+while$ -- 11
+width$ -- 7
+write$ -- 67
 (There was 1 warning)

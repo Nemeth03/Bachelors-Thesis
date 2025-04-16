@@ -424,6 +424,22 @@ INPUT .\images\matrices.png
 INPUT .\images\matrices.png
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathex.enc
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
+INPUT .\images\wan.png
+INPUT .\images\wan.png
+INPUT .\images\wan.png
+INPUT .\images\wan.png
+INPUT .\images\wan.png
+INPUT .\images\wan.png
+INPUT .\images\wan.png
+INPUT .\images\degdist.png
+INPUT .\images\degdist.png
+INPUT .\images\degdist.png
+INPUT .\images\degdist.png
+INPUT .\images\degdist.png
+INPUT .\images\degdist.png
+INPUT .\images\degdist.png
 INPUT .\main.bbl
 INPUT .\main.bbl
 INPUT main.bbl

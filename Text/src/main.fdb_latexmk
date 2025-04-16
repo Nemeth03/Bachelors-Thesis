@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1744575101.40456 "main.aux" "main.bbl" "main" 1744575361.24594 0
-  "./references.bib" 1744552887 678 f1dca170b683354ba53831dabeb1968f ""
+["bibtex main"] 1744812991.48349 "main.aux" "main.bbl" "main" 1744812994.23525 0
+  "./references.bib" 1744812860 1630 971a99dc9f13c237f9571b3e2b5da1b5 ""
   "C:/Program Files/MiKTeX/bibtex/bst/bibtex/unsrt.bst" 1291864736 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "main.aux" 1744575360 4136 b3122c60c6382212f3cac564a2f8622e "pdflatex"
+  "main.aux" 1744812993 5866 3563ac769634f89474d62a75d37f1d46 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1744575358.76415 "c:/Users/megam/Desktop/Bachelors-Thesis/Text/src/main.tex" "main.pdf" "main" 1744575361.24656 0
+["pdflatex"] 1744812991.76046 "c:/Users/megam/Desktop/Bachelors-Thesis/Text/src/main.tex" "main.pdf" "main" 1744812994.23583 0
   "C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
   "C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc" 1256929440 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc" 1256929440 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -226,17 +226,19 @@
   "C:/Users/megam/AppData/Roaming/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "c:/Users/megam/Desktop/Bachelors-Thesis/Text/src/main.tex" 1744534235 4830 9b536a8ff7bc90211a734ed519315229 ""
   "chapters/00-uvod.tex" 1744547552 111 08a40cb7669fd0fc7323f4c2b29125ad ""
-  "chapters/10-teoria.tex" 1744575358 9437 a7f97ad5bb3a529b03f0012e2a75c476 ""
+  "chapters/10-teoria.tex" 1744812985 11831 9e83dffe5c5c1175854620237da779cf ""
   "definitions.tex" 1744027781 1641 cbb814dceb994c3d965844392568ecd2 ""
   "images/assignment-sk.pdf" 1740216334 338241 087d4e2613b27a27106558425e60a3be ""
+  "images/degdist.png" 1744809424 32797 20bba36107d4750bbdb18e6004f62b63 ""
   "images/edges.png" 1744551381 5541 f041a1986f1b52834d10b9f166ac3ca7 ""
   "images/matrices.png" 1744563166 74298 ca4d699f03153b674d117fe6626b6abe ""
-  "main.aux" 1744575360 4136 b3122c60c6382212f3cac564a2f8622e "pdflatex"
-  "main.bbl" 1744575101 486 5ccedbb3996446b00ce6639b9b4a308a "bibtex main"
-  "main.lof" 1744575360 433 3a69470c660f92ba457868867f12a2f8 "pdflatex"
-  "main.out" 1744575360 675 5a21ef0c6de817be81252b1283bf3c3a "pdflatex"
+  "images/wan.png" 1744806772 4949 d371a2f3b76bf192f623fab29aeba0a1 ""
+  "main.aux" 1744812993 5866 3563ac769634f89474d62a75d37f1d46 "pdflatex"
+  "main.bbl" 1744812991 1217 848c2faf8f0fa6954f8f10d92229f319 "bibtex main"
+  "main.lof" 1744812993 650 80a99be8e90f9312647625d3e6ccd811 "pdflatex"
+  "main.out" 1744812993 1189 8f1264fb3d16c2ae2c25751c6028e36d "pdflatex"
   "main.tex" 1744534235 4830 9b536a8ff7bc90211a734ed519315229 ""
-  "main.toc" 1744575360 592 e469af7fab2371f0cb02f593259d4e9b "pdflatex"
+  "main.toc" 1744812993 868 7ed136a545304f151d25f66cdfa85531 "pdflatex"
   "variables.tex" 1744547555 4251 384ac446c37c8191c8c134d2114cf654 ""
   (generated)
   "main.aux"
