@@ -53,6 +53,21 @@
     \excludecomment{table}\let\endtable\relax
 \fi
 
+% Add this to the preamble
+\usepackage{listings}
+\renewcommand{\lstlistlistingname}{Algoritmy}
+
+% Define the appearance of code snippets (optional)
+\lstset{
+    basicstyle=\ttfamily\small, % Use a monospaced font
+    numbers=left,              % Line numbers on the left
+    numberstyle=\tiny,         % Line number style
+    frame=single,              % Add a frame around the code
+    captionpos=b,              % Caption position (bottom)
+    breaklines=true,           % Allow line breaking
+    tabsize=4                  % Set tab size
+}
+
 \begin{document}
 
 \ifenglish{}
@@ -186,6 +201,9 @@
 
 \newpage
 \listoffigures
+
+\newpage
+\lstlistoflistings
 
 % CONTENTS
 \mainmatter{}

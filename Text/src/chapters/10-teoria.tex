@@ -140,9 +140,114 @@ kde $p_k$ je distribúcia stupňov, $n_k$ je počet vrcholov s $k$ susedmi, $n$ 
 
 \subsection{Náhodná~sieť}\label{sec:random-network}
 
+Náhodná sieť predstavuje jeden zo základných konceptov v teórií sietí. Definujú sa dva základné modely náhodných sietí.
+
+Prvý z nich je Erdős-Rényiho model, $G_{N,L}$, kde $N$ je množina vrcholov a $L$ je množina náhodne vybraných hrán \cite{erdos1959random}\cite{barabasi2016network}.
+Tento model generuje náhodnú sieť tak, že začne s $n = |N|$ izolovanými vrcholmi a následne náhodne pridáva $m = |L|$ rôznych hrán medzi nimi,
+ktoré sa vyberajú z $\frac{n*n-1}{2}$ všetkých možných hrán.
+
+Druhý model je Gilbertov model, $G_{N,p}$, takisto obsahuje $n = |N|$ vrcholov, však hrany nie sú pridelené pevným počtom,
+ale nezávisle s pravdepodobnosťou $p$ \cite{gilbert1959random}\cite{barabasi2016network}. Model začína s $n$ izolovanými vrcholmi a následne pre každú dvojicu vrcholov
+$u$ a $v$ pridá hranu medzi nimi s pravdepodobnosťou $p$, pričom výsledný počet hrán je náhodný a závisí od hodnoty $p$.
+
+Priemerný stupeň vrchola v náhodnej sieti pre model $G_{N,L}$ vieme vypočítať jednoduchým vzorcom:
+\begin{equation}
+    \bar{d} = \frac{2m}{n},
+    \label{eq:avg_degree_random}
+\end{equation}
+keďže poznáme počet všetkých hrán m, aj vrcholov n\cite{barabasi2016network}. Pre výpočet priemerného stupňa vrchola
+v Gilbertovom modeli $G_{N,p}$ môžeme použiť vzorec\cite{barabasi2016network}:
+
+\begin{equation}
+    \bar{d} = \frac{2<L>}{n} = p(n-1),
+    \label{eq:avg_degree_gilbert}
+\end{equation}
+
+kde $<L>$ nám definuje súčin pravdepodobnosti $p$ a počtu párov, ktoré sa snažíme spojiť\cite{barabasi2016network}:
+\begin{equation}
+    <L> = p\frac{n(n-1)}{2}.
+    \label{eq:avg_edges_gilbert}
+\end{equation}
+
+Na tvorbu náhodných sietí nemáme veľký vplyv, preto nastáva, že niektoré vrcholy majú veľmi vysoký stupeň, 
+zatiaľ čo iné majú veľmi nízky stupeň, dokonca aj nulový. Tieto rozdiely je možné pozorovať na distribúcii
+stupňov vrcholov $p_k$, ako je vidieť na obrázku č. \ref{obr:randomdegdist} \cite{barabasi2016network}.
+
+Distribúcia stupňov vrcholov v náhodnej sieti sa riadi binomickou distribúciou, ktorá je definovaná ako \cite{barabasi2016network}:
+\begin{equation}
+    p_k = \binom{n-1}{k} p^k (1-p)^{n-1-k},
+    \label{eq:binomial_distribution}        
+\end{equation}
+
+pričom tvar binomickej distribúcie je daný počtom vrcholov $n$, počtom hrán $m$ a pravdepodobnosťou $p$.
+Distribúcia stupňov vrcholov v náhodnej sieti sa dá priblížiť Poissonovou distribúciou, ak má veľký počet vrcholov,
+ktorá je definovaná ako \cite{barabasi2016network}:
+\begin{equation}
+    p_k = \frac{\lambda^k e^{-\lambda}}{k!},
+    \label{eq:poisson_distribution}
+\end{equation}
+
+$\lambda$ je priemerný stupeň vrchola, ktorý je daný vzorcom \ref{eq:avg_degree_gilbert}.
+
+Koeficient zhlukovania v náhodnej sieti je veľmi nízky, pretože väčšina vrcholov je izolovaných a nie sú prepojené.
+Vieme ho jednoducho vypočítať ako:
+\begin{equation}
+    C = p = \frac{\bar{d}}{n},
+    \label{eq:clustering_coefficient_random}
+\end{equation}
+
+predstavuje pravdepodobnosť, že dva náhodne vybrané vrcholy sú prepojené\cite{barabasi2016network}.
+
+\clearpage
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{images/randomdegdist.png}}
+    \caption[Binomická vs. Poissonová distribúcia stupňov.]{Binomická vs. Poissonová distribúcia stupňov.
+    Presná forma distribúcie náhodnej siete je binomická distribúcia (ľavá strana), pri veľkom počte vrcholov sa
+    dá priblížiť Poissonovou distribúciou (pravá strana)\cite{barabasi2016network}.}
+    \label{obr:randomdegdist}
+\end{figure}
+
 \subsection{Bezškálová~sieť}\label{sec:scale-free-network}
 
-\subsection{Dorogovtsev~Goltsev~Mendes model}\label{sec:dgm-model}
+Pri bezškálových sieťach sa jedná o špecifický typ grafu, ktorý sa vyznačuje tým, že existuje niekoľko uzlov
+s extrémne vysokým počtom prepojení a väčšina má malý počet prepojení. Tento typ siete sa
+v reálnom živote vyskytuje oveľa častejšie ako náhodné siete, najmä v kontextoch ako internet,
+biologické siete alebo sociálne siete\cite{barabasi1999emergence}\cite{barabasi2016network}.
+
+Na rozdiel od náhodných sietí, kde sú stupne vrcholov rozdelené podľa binomickej alebo Poissonovej distribúcie, ako je vidno na obrázku č. \ref{obr:randomdegdist},
+bezškálové siete dodržujú tzv. mocninové rozdelenie (power-law distribution):
+
+\begin{equation}
+    p_k \sim k^{-\gamma},
+    \label{eq:power_law_distribution_scale_free}
+\end{equation}
+
+kde $\gamma$ je škálovací exponent v rozmedzí $2 < \gamma < 3$, ktorý určuje tvar \cite{barabasi2016network}. Pri tomto rozdelení nás najviac zaujíma
+rozdelenie stupňov vrcholov, zobrazené v dvojitej logaritimickej mierke, kde produkuje priamku, ako je vidieť na obrázku č. \ref{obr:powerlaw}.
+
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{images/powerlaw.png}}
+    \caption[Distribúcia stupňov vrcholov v bezškálovej sieti.]{Distribúcia stupňov vrcholov v bezškálovej sieti \cite{inproceedings}.}
+    \label{obr:powerlaw}
+\end{figure}
+
+Najznámejší model na generovanie bezškálových sietí je Barabási–Albertov model, označovaný ako $G_{BA}(n, m)$, ktorý má
+škálovací exponent $\gamma = -3$. Pri generovaní využíva princíp preferenčného pripájania. Začína s malým počtom počiatočných uzlov a v každom kroku sa pridá nový uzol,
+ktorý sa pripojí k $m$ už existujúcim uzlom. Pravdepodobnosť prepojenia nového uzla so starým závisí od stupňa starého uzla \cite{barabasi2016network}:
+\begin{equation}
+    p(k_i) = \frac{k_i}{\sum_j k_j},
+    \label{eq:preferential_attachment}
+\end{equation}
+
+Alternatívou k Barabási–Albertovmu modelu je Dorogovtsev–Mendesov model, ktorý taktiež generuje bezškálové siete, avšak na základe iného princípu rastu.
+Tento model začína s jednoduchým trojuholníkom, tri uzly spojené metódou každý s každým. V každom kroku sa do grafu pridá nový uzol, ktorý nevyužije preferenčné
+pripájanie, ale náhodne sa zvolia dva uzly, ku ktorým sa spojí hranou, čím vznikne nový trojuholník. Tento proces podporuje vysokú klasterizáciu siete,
+čo odlišuje tento model od Barabási–Albertovho \cite{dorogovtsev2002evolution}. 
+
+Zvýšený koeficient zhlukovania sa vyskytuje najmä pri analýze slovných sietí, kde sa rovnaké slová často vyskytujú v blízkosti seba a vytvárajú frázy,
+prirodzene sa zhlukujú do skupín. Práve preto je Dorogovtsev-Mendes model vhodný na analýzu jazykových dát, keďže dokáže simulovať podobné vlastnosti, štruktúru
+ako majú slovné siete vytvorené na reálnych jazykových dátach. 
 
 \section{Slovné~siete}\label{sec:word-networks}
 
@@ -174,9 +279,3 @@ $y_{BA} = -3$\cite{cancho2001small}.
     \caption[Distribúcia stupňov vrcholov.]{Distribúcia stupňov vrcholov pre dve siete, body zoskupené mocninou dvoch\cite{cancho2001small}.}
     \label{obr:degdist}
 \end{figure}
-
-\clearpage
-
-\section{NetworkX}\label{sec:networkx}
-
-Text ohľadom knižnice NetworkX.

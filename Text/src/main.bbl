@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{diestel2017graph}
 Reinhard Diestel.
@@ -16,6 +16,33 @@ Albert-László Barabási.
 \newblock {\em Network Science}.
 \newblock Cambridge University Press, Cambridge, UK, 2016.
 
+\bibitem{erdos1959random}
+A.~Rényi P.~Erdős.
+\newblock On random graphs.
+\newblock {\em I. Publicationes Mathematicae (Debrecen)}, 6:290--297, 1959.
+
+\bibitem{gilbert1959random}
+Edgar~N Gilbert.
+\newblock Random graphs.
+\newblock {\em The Annals of Mathematical Statistics}, 30(4):1141--1144, 1959.
+
+\bibitem{barabasi1999emergence}
+Albert-L{\'a}szl{\'o} Barab{\'a}si and R{\'e}ka Albert.
+\newblock Emergence of scaling in random networks.
+\newblock {\em science}, 286(5439):509--512, 1999.
+
+\bibitem{inproceedings}
+Akhlaq Ahmad, Mohamed~Ridza Wahiddin, Abdur Rahman, Imad Afyouni, Bilal Sadiq,
+  Faizan Rehman, and Sohaib Ghani.
+\newblock Scale free network analysis of a large crowd through their
+  spatio-temporal activities.
+\newblock 12 2015.
+
+\bibitem{dorogovtsev2002evolution}
+Sergey~N Dorogovtsev and José~FF Mendes.
+\newblock Evolution of networks.
+\newblock {\em Advances in Physics}, 51(4):1079--1187, 2002.
+
 \bibitem{motter2002topology}
 Adilson~E Motter, Alessandro~PS De~Moura, Ying-Cheng Lai, and Partha Dasgupta.
 \newblock Topology of the conceptual network of language.
@@ -32,5 +59,12 @@ Ramon Ferrer~I Cancho and Richard~V Sol{\'e}.
 \newblock The small world of human language.
 \newblock {\em Proceedings of the Royal Society of London. Series B: Biological
   Sciences}, 268(1482):2261--2265, 2001.
+
+\bibitem{networkx}
+Aric~A. Hagberg, Daniel~A. Schult, and Pieter~J. Swart.
+\newblock Exploring network structure, dynamics, and function using networkx.
+\newblock In Ga\"el Varoquaux, Travis Vaught, and Jarrod Millman, editors, {\em
+  Proceedings of the 7th Python in Science Conference}, pages 11 -- 15,
+  Pasadena, CA USA, 2008.
 
 \end{thebibliography}

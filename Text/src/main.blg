@@ -5,44 +5,46 @@ Reallocating 'name_of_file' (item size: 1) to 6 items.
 The style file: unsrt.bst
 Reallocating 'name_of_file' (item size: 1) to 11 items.
 Database file #1: references.bib
-You've used 6 entries,
+Warning--empty booktitle in inproceedings
+You've used 12 entries,
             1791 wiz_defined-function locations,
-            487 strings with 4305 characters,
-and the built_in function-call counts, 1391 in all, are:
-= -- 131
-> -- 42
-< -- 1
-+ -- 17
-- -- 11
-* -- 89
-:= -- 216
-add.period$ -- 18
-call.type$ -- 6
-change.case$ -- 5
+            529 strings with 5320 characters,
+and the built_in function-call counts, 3005 in all, are:
+= -- 277
+> -- 111
+< -- 2
++ -- 42
+- -- 30
+* -- 208
+:= -- 465
+add.period$ -- 36
+call.type$ -- 12
+change.case$ -- 11
 chr.to.int$ -- 0
-cite$ -- 6
-duplicate$ -- 65
-empty$ -- 143
-format.name$ -- 11
-if$ -- 316
+cite$ -- 13
+duplicate$ -- 133
+empty$ -- 302
+format.name$ -- 30
+if$ -- 675
 int.to.chr$ -- 0
-int.to.str$ -- 6
-missing$ -- 8
-newline$ -- 33
-num.names$ -- 6
-pop$ -- 17
+int.to.str$ -- 12
+missing$ -- 14
+newline$ -- 63
+num.names$ -- 14
+pop$ -- 35
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 30
+skip$ -- 60
 stack$ -- 0
-substring$ -- 108
-swap$ -- 15
-text.length$ -- 1
+substring$ -- 248
+swap$ -- 30
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 13
-width$ -- 7
-write$ -- 69
+warning$ -- 1
+while$ -- 30
+width$ -- 14
+write$ -- 134
+(There was 1 warning)
