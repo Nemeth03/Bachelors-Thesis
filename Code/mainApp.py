@@ -311,9 +311,9 @@ class App(wx.Frame):
         plt.loglog(binCenters, binValues, 'x', color='black', alpha=0.9)
         plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
         # plt.loglog(baBinCenters, baBinValues, 'x', color='black', alpha=0.9)
-        # plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'Simulated BA Model, Slope={baSlope:.5f}')
+        # plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'Simulated BA Model')
         plt.loglog(dgmBinCenters, dgmBinValues, 'x', color='black', alpha=0.9)
-        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model, Slope={dgmSlope:.5f}')
+        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model')
         plt.xlabel('Degree')
         plt.ylabel('Frequency')
         plt.title('Degree Distribution with Log-Binning')
@@ -568,3 +568,10 @@ if __name__ == '__main__':
     frame = App()
     frame.Show()
     app.MainLoop()
+
+# vizualizaciu ako by som chcel prezentovat grafy
+# upravit a popisat viac text, teoreticku pracu
+# cytospace
+
+# graf, krivku, ako vznika ten graf, kde sa uz ustali, ostal pracovat s takou velkostou
+# aj power law, aj analyza grafova slovna
