@@ -202,14 +202,24 @@ class App(wx.Frame):
         self.logMessage(self.collectInputDataInfo())
         self.logMessage('Plotting network...\n')
 
-        G = nx.Graph(self.processData(self.selectedPunctuation)[0])
-        pos = nx.spring_layout(G, iterations=35, seed=21)
-        plt.figure(figsize=(8, 6))
-        nx.draw_networkx_nodes(G, pos, node_size=1, node_color='black', alpha=1)
-        nx.draw_networkx_edges(G, pos, width=0.6, alpha=0.5, edge_color='black')
-        plt.title('Word Association Network')
-        plt.axis('off')
-        plt.show()
+        N = nx.Graph(self.processData(self.selectedPunctuation)[0])
+        if self.selectedPunctuation:
+            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml"
+            print(f"Saving graph to {graph_name}")
+            nx.write_graphml(N, f'{graph_name}')
+        else:
+            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml"
+            print(f"Saving graph to {graph_name}")
+            nx.write_graphml(N, graph_name)
+
+        # G = nx.Graph(self.processData(self.selectedPunctuation)[0])
+        # pos = nx.spring_layout(G, iterations=35, seed=21)
+        # plt.figure(figsize=(8, 6))
+        # nx.draw_networkx_nodes(G, pos, node_size=1, node_color='black', alpha=1)
+        # nx.draw_networkx_edges(G, pos, width=0.6, alpha=0.5, edge_color='black')
+        # plt.title('Word Association Network')
+        # plt.axis('off')
+        # plt.show()
 
 
     def visualizeAnalysis(self, event):
@@ -225,7 +235,7 @@ class App(wx.Frame):
         degrees = [G.degree(n) for n in G.nodes()]
         unique, counts = np.unique(degrees, return_counts=True)
 
-        # create Barabasi-Albert model, with same number of nodes and edges as my data
+        # # create Barabasi-Albert model, with same number of nodes and edges as my data
         numNodes = len(G.nodes())
         numEdges = int(np.mean(degrees)/2)
         BA_G = nx.barabasi_albert_graph(numNodes, numEdges)
@@ -279,10 +289,10 @@ class App(wx.Frame):
         wordDegrees += [0] * (max_len - len(wordDegrees))
         dmDegrees += [0] * (max_len - len(dmDegrees))
 
-        word_degrees_normalized = np.array(wordDegrees) / max(wordDegrees)
-        dm_degrees_normalized = np.array(dmDegrees) / max(dmDegrees)
-        mse_normalized = np.mean((word_degrees_normalized - dm_degrees_normalized)**2)
-        print(f"Normalized Degree Distribution MSE: {mse_normalized:.5f}")
+        wordDegreesNormalized = np.array(wordDegrees) / max(wordDegrees)
+        dmDegreesNormalized = np.array(dmDegrees) / max(dmDegrees)
+        mseNormalized = np.mean((wordDegreesNormalized - dmDegreesNormalized)**2)
+        print(f"Normalized Degree Distribution MSE: {mseNormalized:.5f}")
 
 
         # plotting
@@ -290,7 +300,7 @@ class App(wx.Frame):
 
         plt.subplot(3, 1, 1)
         plt.loglog(unique, counts, 'bo', markersize=4, label=f'Word Network')
-        plt.loglog(baUnique, baCounts, 'ro', markersize=4, label=f'BA Model')
+        # plt.loglog(baUnique, baCounts, 'ro', markersize=4, label=f'BA Model')
         plt.loglog(dgmUnique, dgmCounts, 'go', markersize=4, label=f'DGM Model')
         plt.xlabel("Degree (k)")
         plt.ylabel("P(k)")
@@ -300,8 +310,8 @@ class App(wx.Frame):
         plt.subplot(3, 1, 2)
         plt.loglog(binCenters, binValues, 'x', color='black', alpha=0.9)
         plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
-        plt.loglog(baBinCenters, baBinValues, 'x', color='black', alpha=0.9)
-        plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'Simulated BA Model, Slope={baSlope:.5f}')
+        # plt.loglog(baBinCenters, baBinValues, 'x', color='black', alpha=0.9)
+        # plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'Simulated BA Model, Slope={baSlope:.5f}')
         plt.loglog(dgmBinCenters, dgmBinValues, 'x', color='black', alpha=0.9)
         plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model, Slope={dgmSlope:.5f}')
         plt.xlabel('Degree')
