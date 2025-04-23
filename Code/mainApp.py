@@ -568,11 +568,3 @@ if __name__ == '__main__':
     frame = App()
     frame.Show()
     app.MainLoop()
-
-
-
-# vypocitat chybu medzi mojou sietou chybou
-# zacat pisat teoriu
-# porozumiet dgm modelu
-# gephi
-# viacero textov pre analyzu
