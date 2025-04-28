@@ -4,10 +4,10 @@ import networkx as nx
 import re
 from collections import Counter
 import numpy as np
-import pickle
 from scipy.stats import linregress
 
 class App(wx.Frame):
+
     def __init__(self):
         super().__init__(parent=None, title='Punctuation Marks Analysis', size=(700, 700), \
                          style=wx.DEFAULT_FRAME_STYLE & ~wx.RESIZE_BORDER)
@@ -61,11 +61,7 @@ class App(wx.Frame):
         self.initGUI()
 
 
-    def readTextFile(self, path):
-        with open(path, 'r', encoding='utf-8') as f:
-            return f.read().strip()
-
-
+    # Initialize the GUI components 
     def initGUI(self):
         panel = wx.Panel(self)
         vbox = wx.BoxSizer(wx.VERTICAL)
@@ -110,28 +106,33 @@ class App(wx.Frame):
         self.exitButton = wx.Button(panel, label='Exit')
         self.exitButton.Bind(wx.EVT_BUTTON, self.exitApp)
 
-        self.networkButton = wx.Button(panel, label='Network Graph')
-        self.networkButton.Bind(wx.EVT_BUTTON, self.plotNetwork)
-        self.networkButton.Enable(False)
+        self.saveNetworkButton = wx.Button(panel, label='Save Network')
+        self.saveNetworkButton.Bind(wx.EVT_BUTTON, self.saveNetwork)
+        self.saveNetworkButton.Enable(False)
 
-        self.visualizeAnalysisButton = wx.Button(panel, label='Visualize Analysis')
-        self.visualizeAnalysisButton.Bind(wx.EVT_BUTTON, self.visualizeAnalysis)
-        self.visualizeAnalysisButton.Enable(False)
+        self.distributionAnalysisButton = wx.Button(panel, label='Power-Law Analysis')
+        self.distributionAnalysisButton.Bind(wx.EVT_BUTTON, self.distributionAnalysis)
+        self.distributionAnalysisButton.Enable(False)
 
         self.compareDistributionsButton = wx.Button(panel, label='Compare Distributions')
         self.compareDistributionsButton.Bind(wx.EVT_BUTTON, self.compareDistributions)
         self.compareDistributionsButton.Enable(False)
 
-        self.outputValues = wx.Button(panel, label='Calculate Analysis Data')
+        self.outputValues = wx.Button(panel, label='Calculate Analysis')
         self.outputValues.Bind(wx.EVT_BUTTON, self.logOutputValues)
         self.outputValues.Enable(False)
 
+        self.growthGamma = wx.Button(panel, label='Growth Gamma')
+        self.growthGamma.Bind(wx.EVT_BUTTON, self.growthGammaPlot)
+        self.growthGamma.Enable(False)
+
         # Buttons Layout
         buttonLayout = wx.BoxSizer(wx.HORIZONTAL)
-        buttonLayout.Add(self.networkButton, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.visualizeAnalysisButton, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.saveNetworkButton, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.distributionAnalysisButton, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.compareDistributionsButton, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.outputValues, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.growthGamma, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.exitButton, flag=wx.LEFT, border=10)
 
         # Layout
@@ -148,10 +149,7 @@ class App(wx.Frame):
         self.Centre()
 
 
-    def logMessage(self, message):
-        self.logWindow.AppendText(f'{message}\n')
-
-
+    # Input file selection event handler and validate data
     def selectInputFile(self, event):
         fileDialog = wx.FileDialog(self, 'Open Text File', wildcard='Text files (*.txt)|*.txt', style=wx.FD_OPEN)
         if fileDialog.ShowModal() == wx.ID_OK:
@@ -159,12 +157,25 @@ class App(wx.Frame):
             self.labelFileSelectPath.SetValue(self.inputTextFile)
             self.validateInputData()
 
-
+    
+    # Language selection event handler and validate data
     def languageChange(self, event):
         self.selectedLanguage = self.languageOptions[self.languageDropdown.GetSelection()]
         self.validateInputData()
 
 
+    # Select or deselect all punctuation checkboxes and validate data
+    def selectAllPunctuation(self, event):
+        checked = event.IsChecked()
+        self.selectedPunctuation.clear()
+        for label, checkbox in self.punctuationCheckboxes.items():
+            checkbox.SetValue(checked)
+            if checked:
+                self.selectedPunctuation[label] = self.punctuation[label]
+        self.validateInputData()
+
+
+    # Update selected punctuation based on checkbox state and validate data
     def updateSelectedPunctuation(self, event):
         sender = event.GetEventObject()
         punctuationCheckboxLabel = sender.GetLabel().split()[0]
@@ -178,274 +189,26 @@ class App(wx.Frame):
         self.validateInputData()
 
 
-    def selectAllPunctuation(self, event):
-        checked = event.IsChecked()
-        self.selectedPunctuation.clear()
-        for label, checkbox in self.punctuationCheckboxes.items():
-            checkbox.SetValue(checked)
-            if checked:
-                self.selectedPunctuation[label] = self.punctuation[label]
-        self.validateInputData()
+    # Log messages to the log window
+    def logMessage(self, message):
+        self.logWindow.AppendText(f'{message}\n')
 
-
-    def logOutputValues(self, event):
-        self.logMessage(self.collectInputDataInfo())
-        self.logMessage(self.calculateValues(*self.processData(self.selectedPunctuation)))
-        self.logMessage('\n')
-
-
-    def processData(self, selectedPunctuation={}):
-        return self.createGraphData(self.processTextFile(selectedPunctuation))
-
-
-    def plotNetwork(self, event):
-        self.logMessage(self.collectInputDataInfo())
-        self.logMessage('Plotting network...\n')
-
-        N = nx.Graph(self.processData(self.selectedPunctuation)[0])
-        if self.selectedPunctuation:
-            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml"
-            print(f"Saving graph to {graph_name}")
-            nx.write_graphml(N, f'{graph_name}')
-        else:
-            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml"
-            print(f"Saving graph to {graph_name}")
-            nx.write_graphml(N, graph_name)
-
-        # G = nx.Graph(self.processData(self.selectedPunctuation)[0])
-        # pos = nx.spring_layout(G, iterations=35, seed=21)
-        # plt.figure(figsize=(8, 6))
-        # nx.draw_networkx_nodes(G, pos, node_size=1, node_color='black', alpha=1)
-        # nx.draw_networkx_edges(G, pos, width=0.6, alpha=0.5, edge_color='black')
-        # plt.title('Word Association Network')
-        # plt.axis('off')
-        # plt.show()
-
-
-    def visualizeAnalysis(self, event):
-        self.logMessage(self.collectInputDataInfo())
-        self.logMessage('Visualizing Analysis...')
-
-        graphData, occurrenceData = self.processData(self.selectedPunctuation)
-        # create graph from graphData
-        G = nx.Graph()
-        for node, neighbors in graphData.items():
-            for neighbor in neighbors:
-                G.add_edge(node, neighbor)
-        degrees = [G.degree(n) for n in G.nodes()]
-        unique, counts = np.unique(degrees, return_counts=True)
-
-        # # create Barabasi-Albert model, with same number of nodes and edges as my data
-        numNodes = len(G.nodes())
-        numEdges = int(np.mean(degrees)/2)
-        BA_G = nx.barabasi_albert_graph(numNodes, numEdges)
-        baDegrees = [BA_G.degree(n) for n in BA_G.nodes()]
-        baUnique, baCounts = np.unique(baDegrees, return_counts=True)
-
-        # create Dorogovtsev-Goltsev-Mendes model, with same number of nodes as my data
-        DGM_G = nx.dorogovtsev_goltsev_mendes_graph(10)
-        dgmDegrees = [DGM_G.degree(n) for n in DGM_G.nodes()]
-        dgmUnique, dgmCounts = np.unique(dgmDegrees, return_counts=True)
-
-        # set my data raw degree distribution to be same range as in ba model
-        start, end = baUnique[0], baUnique[-1]
-        mask = (unique >= start) & (unique <= end)
-        unique = unique[mask]
-        counts = counts[mask]
-
-        # my data, log binning, selecting only the longest decreasing slice
-        binCenters, binValues = self.calculateLogBin(np.array(degrees), 20)
-        start, end = self.longestDecreasingSlice(binValues)
-        binValues = binValues[start: end+1]
-        binCenters = binCenters[start: end+1]
-
-        # simulated ba model, log binning, selecting only the longest decreasing slice
-        baBinCenters, baBinValues = self.calculateLogBin(np.array(baDegrees), 20)
-        baStart, baEnd = self.longestDecreasingSlice(baBinValues)
-        baBinValues = baBinValues[baStart: baEnd+1]
-        baBinCenters = baBinCenters[baStart: baEnd+1]
-
-        # simulated dmg model, log binning, selecting only the longest decreasing slice
-        dgmBinCenters, dgmBinValues = self.calculateLogBin(np.array(dgmDegrees), 20)
-        # dgmStart, dgmEnd = self.longestDecreasingSlice(dgmBinValues)
-        # dgmBinValues = dgmBinValues[dgmStart: dgmEnd+1]
-        # dgmBinCenters = dgmBinCenters[dgmStart: dgmEnd+1]
-
-        # calculate slopes
-        slope = self.calculateLogLogSlope(binCenters, binValues)
-        baSlope = self.calculateLogLogSlope(baBinCenters, baBinValues)
-        dgmSlope = self.calculateLogLogSlope(dgmBinCenters, dgmBinValues)
-
-        # calculate Zipf's law on my data and slope
-        wordFrequencies = sorted(occurrenceData.values(), reverse=True)
-        ranks = np.arange(1, len(wordFrequencies) + 1)
-        zipfSlope = self.calculateLogLogSlope(ranks, wordFrequencies)
-
-
-        # Ensure both distributions are of the same length by padding with zeros
-        wordDegrees = degrees.copy()
-        dmDegrees = dgmDegrees.copy()
-        max_len = max(len(wordDegrees), len(dmDegrees))
-        wordDegrees += [0] * (max_len - len(wordDegrees))
-        dmDegrees += [0] * (max_len - len(dmDegrees))
-
-        wordDegreesNormalized = np.array(wordDegrees) / max(wordDegrees)
-        dmDegreesNormalized = np.array(dmDegrees) / max(dmDegrees)
-        mseNormalized = np.mean((wordDegreesNormalized - dmDegreesNormalized)**2)
-        print(f"Normalized Degree Distribution MSE: {mseNormalized:.5f}")
-
-
-        # plotting
-        plt.figure(figsize=(12, 10))
-
-        plt.subplot(3, 1, 1)
-        plt.loglog(unique, counts, 'bo', markersize=4, label=f'Word Network')
-        # plt.loglog(baUnique, baCounts, 'ro', markersize=4, label=f'BA Model')
-        plt.loglog(dgmUnique, dgmCounts, 'go', markersize=4, label=f'DGM Model')
-        plt.xlabel("Degree (k)")
-        plt.ylabel("P(k)")
-        plt.title("Degree Distribution Comparison")
-        plt.legend()
-        
-        plt.subplot(3, 1, 2)
-        plt.loglog(binCenters, binValues, 'x', color='black', alpha=0.9)
-        plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
-        # plt.loglog(baBinCenters, baBinValues, 'x', color='black', alpha=0.9)
-        # plt.loglog(baBinCenters, baBinValues, '-', color='red', alpha=0.8, label=f'Simulated BA Model')
-        plt.loglog(dgmBinCenters, dgmBinValues, 'x', color='black', alpha=0.9)
-        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model')
-        plt.xlabel('Degree')
-        plt.ylabel('Frequency')
-        plt.title('Degree Distribution with Log-Binning')
-        plt.legend()
-
-        plt.subplot(3, 1, 3)
-        plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9)
-        plt.loglog(ranks, wordFrequencies, '-', color='black', alpha=0.8, label=f'Zipf\'s Law, Slope={zipfSlope:.5f}')
-        plt.xlabel('Rank')
-        plt.ylabel('Frequency')
-        plt.title('Zipf\'s Law Analysis')
-        plt.legend()
-
-        plt.tight_layout()
-        plt.show()
-
-        self.logMessage('\n')
-
-
-    def compareDistributions(self, event):
-        self.logMessage(self.collectInputDataInfo())
-        graphDataOnlyWords, occurrenceDataOnlyWords = self.processData()
-        graphDataCombined, occurrenceDataCombined = self.processData(self.selectedPunctuation)
-        self.logMessage('Plotting degree distribution comparison histogram...\n')
-
-        # graph without punctuation
-        G = nx.Graph()
-        for node, neighbors in graphDataOnlyWords.items():
-            for neighbor in neighbors:
-                G.add_edge(node, neighbor)
-        gDegrees = [G.degree(n) for n in G.nodes()]
-        gUnique, gCounts = np.unique(gDegrees, return_counts=True)
-
-        # graph with punctuation
-        M = nx.Graph()
-        for node, neighbors in graphDataCombined.items():
-            for neighbor in neighbors:
-                M.add_edge(node, neighbor)
-        mDegrees = [M.degree(n) for n in M.nodes()]
-        mUnique, mCounts = np.unique(mDegrees, return_counts=True)
-
-        # log binning
-        gBinCenters, gBinValues = self.calculateLogBin(np.array(gDegrees), 20)
-        mBinCenters, mBinValues = self.calculateLogBin(np.array(mDegrees), 20)
-
-        # selecting longest decreasing slice, same range for both
-        gStart, gEnd = self.longestDecreasingSlice(gBinValues)
-        mStart, mEnd = self.longestDecreasingSlice(mBinValues)
-        if gEnd-gStart < mEnd-mStart:
-            gStart, gEnd = mStart, mEnd
-        if gEnd-gStart > mEnd-mStart:
-            mStart, mEnd = gStart, gEnd
-        gBinValues = gBinValues[gStart: gEnd + 1]
-        mBinValues = mBinValues[gStart: gEnd + 1]
-        gBinCenters = gBinCenters[gStart: gEnd + 1]
-        mBinCenters = mBinCenters[gStart: gEnd + 1]
-
-        # calculate slopes
-        gSlope = self.calculateLogLogSlope(gBinCenters, gBinValues)
-        mSlope = self.calculateLogLogSlope(mBinCenters, mBinValues)
-
-        plt.figure(figsize=(12, 10))
-
-        plt.subplot(2, 1, 1)
-        plt.loglog(gUnique, gCounts, 'bo', markersize=4, label='Words')
-        plt.loglog(mUnique, mCounts, 'ro', markersize=4, label='Words + Punctuation')
-        plt.xlabel("Degree (k)")
-        plt.ylabel("P(k)")
-        plt.title("Degree Distribution Comparison")
-        plt.legend()
-
-        plt.subplot(2, 1, 2)
-        plt.loglog(gBinCenters, gBinValues, '-', color='red', alpha=0.8, label=f'Words Only, Slope={gSlope:.5f}')
-        plt.loglog(mBinCenters, mBinValues, '-', color='blue', alpha=0.8, label=f'Words + Punctuation, Slope={mSlope:.5f}')
-        plt.loglog(gBinCenters, gBinValues, 'x', alpha=0.9, color='black')
-        plt.loglog(mBinCenters, mBinValues, 'x', alpha=0.9, color='black')
-        plt.xlabel('Degree')
-        plt.ylabel('Frequency')
-        plt.title('Degree Distribution Comparison with Log-Binning')
-        plt.legend()
-
-        plt.show()
-
-
-    def calculateLogBin(self, degrees, binCount):
-        minDegree = max(1, min(degrees))
-        maxDegree = degrees.max()
-        bins = np.logspace(np.log10(minDegree), np.log10(maxDegree), num=binCount)
-        hist, binEdges = np.histogram(degrees, bins=bins, density=True)
-        binCenters = (binEdges[:-1] + binEdges[1:]) / 2
-        nonzero = hist > 0
-        return binCenters[nonzero], hist[nonzero]
-    
-
-    def log_bin_data(self, raw_degrees, bin_base=1.1):
-        bins = [bin_base ** i for i in range(int(np.log(max(raw_degrees)) / np.log(bin_base)) + 1)]
-        binned_degrees = []
-        binned_counts = []
-        for i in range(len(bins) - 1):
-            bin_min, bin_max = bins[i], bins[i + 1]
-            bin_mask = (raw_degrees >= bin_min) & (raw_degrees < bin_max)
-            if np.any(bin_mask):
-                binned_degrees.append(np.mean(raw_degrees[bin_mask]))
-                binned_counts.append(np.sum(bin_mask))
-        return np.array(binned_degrees), np.array(binned_counts)
-    
-
-    def calculateLogLogSlope(self, x, y):
-        log_degrees = np.log10(x)
-        log_counts = np.log10(y)
-        slope, intercept, r_value, p_value, std_err = linregress(log_degrees, log_counts)
-        return slope
-    
-    
-    def longestDecreasingSlice(self, data):
-        sliceStart, sliceEnd = 0, 0
-        currentStart = 0
-        for i in range(1, len(data)):
-            if data[i] >= data[i-1]:
-                currentStart = i
-            elif i - currentStart > sliceEnd - sliceStart:
-                sliceStart, sliceEnd = currentStart, i
-        return sliceStart, sliceEnd
-    
-
+    # Enable or disable buttons based on input data
     def validateInputData(self):
-        self.networkButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
-        self.visualizeAnalysisButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.saveNetworkButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.distributionAnalysisButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
         self.compareDistributionsButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
         self.outputValues.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.growthGamma.Enable(bool(self.inputTextFile and self.selectedLanguage))
 
 
+    # Read text file and return its content
+    def readTextFile(self, path):
+        with open(path, 'r', encoding='utf-8') as f:
+            return f.read().strip()
+        
+
+    # Tokenize text file and return a list
     def processTextFile(self, selectedPunctuation={}):
         if self.selectedLanguage == 'English':
             regexDict = self.regexDictEng
@@ -462,6 +225,7 @@ class App(wx.Frame):
         return [word.lower() for word in data]
 
 
+    # Create dict, word adjacency network and count word occurrences
     def createGraphData(self, data):
         if self.selectedLanguage == 'English':
             regexDict = self.regexDictEng
@@ -485,6 +249,224 @@ class App(wx.Frame):
         return graphDataDict, nodeCounter
 
 
+    # Log input data info and data analysis values and validate data
+    def logOutputValues(self, event):
+        self.logMessage(self.collectInputDataInfo())
+        self.logMessage(self.calculateValues(*self.createGraphData(self.processTextFile(self.selectedPunctuation))))
+        self.logMessage('\n')
+
+
+    # Save the network as a graphml file
+    def saveNetwork(self, event):
+        self.logMessage(self.collectInputDataInfo())
+        self.logMessage('Saving network...\n')
+
+        N = nx.Graph(self.createGraphData(self.processTextFile(self.selectedPunctuation))[0])
+        if self.selectedPunctuation:
+            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml"
+            print(f"Saving graph to {graph_name}")
+            nx.write_graphml(N, f'{graph_name}')
+        else:
+            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml"
+            print(f"Saving graph to {graph_name}")
+            nx.write_graphml(N, graph_name)
+
+
+    # Distribution analysis and visualization, comparison to Dorogovtsev-Goltsev-Mendes model
+    def distributionAnalysis(self, event):
+        self.logMessage(self.collectInputDataInfo())
+        self.logMessage('Visualizing Analysis...')
+
+        graphData, occurrenceData = self.createGraphData(self.processTextFile(self.selectedPunctuation))
+        # create graph from graphData
+        G = nx.Graph()
+        for node, neighbors in graphData.items():
+            for neighbor in neighbors:
+                G.add_edge(node, neighbor)
+        degrees = [G.degree(n) for n in G.nodes()]
+        unique, counts = np.unique(degrees, return_counts=True)
+
+        # create Dorogovtsev-Goltsev-Mendes model, with same number of nodes as my data
+        DGM_G = nx.dorogovtsev_goltsev_mendes_graph(10)
+        dgmDegrees = [DGM_G.degree(n) for n in DGM_G.nodes()]
+        dgmUnique, dgmCounts = np.unique(dgmDegrees, return_counts=True)
+
+        # my data, log binning, selecting only the longest decreasing slice
+        binCenters, binValues = self.calculateLogBin(np.array(degrees), 20)
+        start, end = self.longestDecreasingSlice(binValues)
+        binValues = binValues[start: end+1]
+        binCenters = binCenters[start: end+1]
+
+        # simulated dmg model, log binning, selecting only the longest decreasing slice
+        dgmBinCenters, dgmBinValues = self.calculateLogBin(np.array(dgmDegrees), 20)
+        # dgmStart, dgmEnd = self.longestDecreasingSlice(dgmBinValues)
+        # dgmBinValues = dgmBinValues[dgmStart: dgmEnd+1]
+        # dgmBinCenters = dgmBinCenters[dgmStart: dgmEnd+1]
+
+        # calculate slopes
+        slope = self.calculateLogLogSlope(binCenters, binValues)
+
+        # calculate Zipf's law on my data and slope
+        wordFrequencies = sorted(occurrenceData.values(), reverse=True)
+        ranks = np.arange(1, len(wordFrequencies) + 1)
+        zipfSlope = self.calculateLogLogSlope(ranks, wordFrequencies)
+
+        # Ensure both distributions are of the same length by padding with zeros
+        wordDegrees = degrees.copy()
+        dmDegrees = dgmDegrees.copy()
+        max_len = max(len(wordDegrees), len(dmDegrees))
+        wordDegrees += [0] * (max_len - len(wordDegrees))
+        dmDegrees += [0] * (max_len - len(dmDegrees))
+
+        wordDegreesNormalized = np.array(wordDegrees) / max(wordDegrees)
+        dmDegreesNormalized = np.array(dmDegrees) / max(dmDegrees)
+        mseNormalized = np.mean((wordDegreesNormalized - dmDegreesNormalized)**2)
+        print(f"Normalized Degree Distribution MSE: {mseNormalized:.5f}")
+
+        plt.figure(figsize=(8, 6))
+        plt.loglog(unique, counts, 'bo', markersize=4, label=f'Word Network')
+        plt.loglog(dgmUnique, dgmCounts, 'go', markersize=4, label=f'DGM Model')
+        plt.xlabel("Degree")
+        plt.ylabel("Frequency")
+        plt.title("Degree Distribution Comparison")
+        plt.legend()
+        
+        plt.figure(figsize=(8, 6))
+        plt.loglog(binCenters, binValues, 'x', color='black', alpha=0.9)
+        plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
+        plt.loglog(dgmBinCenters, dgmBinValues, 'x', color='black', alpha=0.9)
+        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model')
+        plt.xlabel('Degree')
+        plt.ylabel('Frequency')
+        plt.title('Degree Distribution with Log-Binning')
+        plt.legend()
+
+        plt.figure(figsize=(8, 6))
+        plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9)
+        plt.loglog(ranks, wordFrequencies, '-', color='black', alpha=0.8, label=f'Zipf\'s Law, Slope={zipfSlope:.5f}')
+        plt.xlabel('Rank')
+        plt.ylabel('Frequency')
+        plt.title('Zipf\'s Law Analysis')
+        plt.legend()
+
+        plt.show()
+        self.logMessage('\n')
+
+
+    # Compare distributions of words and words + punctuation
+    def compareDistributions(self, event):
+        self.logMessage(self.collectInputDataInfo())
+        graphDataOnlyWords, occurrenceDataOnlyWords = self.createGraphData(self.processTextFile())
+        graphDataCombined, occurrenceDataCombined = self.createGraphData(self.processTextFile(self.selectedPunctuation))
+        self.logMessage('Plotting degree distribution comparison histogram...\n')
+
+        # graph without punctuation
+        G = nx.Graph()
+        for node, neighbors in graphDataOnlyWords.items():
+            for neighbor in neighbors:
+                G.add_edge(node, neighbor)
+        gDegrees = [G.degree(n) for n in G.nodes()]
+        gUnique, gCounts = np.unique(gDegrees, return_counts=True)
+
+        # graph with punctuation
+        M = nx.Graph()
+        for node, neighbors in graphDataCombined.items():
+            for neighbor in neighbors:
+                M.add_edge(node, neighbor)
+        mDegrees = [M.degree(n) for n in M.nodes()]
+        mUnique, mCounts = np.unique(mDegrees, return_counts=True)
+
+        # create Dorogovtsev-Goltsev-Mendes model, with same number of nodes as my data
+        n = 1
+        DGM_G = nx.dorogovtsev_goltsev_mendes_graph(n)
+        while DGM_G.number_of_nodes() < len(gDegrees):
+            n += 1
+            DGM_G = nx.dorogovtsev_goltsev_mendes_graph(n)
+        dgmDegrees = [DGM_G.degree(n) for n in DGM_G.nodes()]
+        dgmUnique, dgmCounts = np.unique(dgmDegrees, return_counts=True)
+
+        # log binning
+        gBinCenters, gBinValues = self.calculateLogBin(np.array(gDegrees), 20)
+        mBinCenters, mBinValues = self.calculateLogBin(np.array(mDegrees), 20)
+        dgmBinCenters, dgmBinValues = self.calculateLogBin(np.array(dgmDegrees), 20)
+
+        # selecting longest decreasing slice, same range
+        gStart, gEnd = self.longestDecreasingSlice(gBinValues)
+        mStart, mEnd = self.longestDecreasingSlice(mBinValues)
+        overlapStart = max(gStart, mStart)
+        overlapEnd = min(gEnd, mEnd)
+        gBinValues = gBinValues[overlapStart: overlapEnd]
+        gBinCenters = gBinCenters[overlapStart: overlapEnd]
+        mBinValues = mBinValues[overlapStart: overlapEnd]
+        mBinCenters = mBinCenters[overlapStart: overlapEnd]
+
+
+        # calculate slopes
+        gSlope = self.calculateLogLogSlope(gBinCenters, gBinValues)
+        mSlope = self.calculateLogLogSlope(mBinCenters, mBinValues)
+
+        plt.figure(figsize=(8, 6))
+        plt.loglog(gUnique, gCounts, 'bo', markersize=4, label='Words')
+        plt.loglog(mUnique, mCounts, 'ro', markersize=4, label='Words + Punctuation')
+        plt.loglog(dgmUnique, dgmCounts, 'go', markersize=4, label='DGM Model')
+        plt.xlabel("Degree")
+        plt.ylabel("Frequency")
+        plt.title("Degree Distribution Comparison")
+        plt.legend()
+
+        plt.figure(figsize=(8, 6))
+        plt.loglog(gBinCenters, gBinValues, '-', color='red', alpha=0.8, label=f'Words Only, Slope={gSlope:.5f}')
+        plt.loglog(mBinCenters, mBinValues, '-', color='blue', alpha=0.8, label=f'Words + Punctuation, Slope={mSlope:.5f}')
+        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label='DGM Model')
+        plt.loglog(gBinCenters, gBinValues, 'x', alpha=0.9, color='black')
+        plt.loglog(mBinCenters, mBinValues, 'x', alpha=0.9, color='black')
+        plt.loglog(dgmBinCenters, dgmBinValues, 'x', alpha=0.9, color='black')
+        plt.xlabel('Degree')
+        plt.ylabel('Frequency')
+        plt.title('Degree Distribution Comparison with Log-Binning')
+        plt.legend()
+
+        plt.show()
+
+    
+    # Plot growth gamma analysis
+    def growthGammaPlot(self, event):
+        self.logMessage(self.collectInputDataInfo())
+        self.logMessage('Plotting growth gamma...')
+
+
+    # Calculate log binning for degree distribution
+    def calculateLogBin(self, degrees, binCount):
+        minDegree = max(1, min(degrees))
+        maxDegree = degrees.max()
+        bins = np.logspace(np.log10(minDegree), np.log10(maxDegree), num=binCount)
+        hist, binEdges = np.histogram(degrees, bins=bins, density=True)
+        binCenters = (binEdges[:-1] + binEdges[1:]) / 2
+        nonzero = hist > 0
+        return binCenters[nonzero], hist[nonzero]
+    
+
+    # Calculate log-log slope for the given x and y values
+    def calculateLogLogSlope(self, x, y):
+        log_degrees = np.log10(x)
+        log_counts = np.log10(y)
+        slope, intercept, r_value, p_value, std_err = linregress(log_degrees, log_counts)
+        return slope
+    
+
+    # Calculate the longest decreasing slice of the data
+    def longestDecreasingSlice(self, data):
+        sliceStart, sliceEnd = 0, 0
+        currentStart = 0
+        for i in range(1, len(data)):
+            if data[i] >= data[i-1]:
+                currentStart = i
+            elif i - currentStart > sliceEnd - sliceStart:
+                sliceStart, sliceEnd = currentStart, i
+        return sliceStart, sliceEnd
+
+
+    # Calculate values for the graph and language analysis
     def calculateValues(self, graphData, occurrenceData):
         result = ['Grafová analýza...']
         G = nx.Graph(graphData)
@@ -551,13 +533,15 @@ class App(wx.Frame):
         result.append(f'Average trigram frequency: {sum(trigramFrequencies)/len(trigramFrequencies):.5f}')
 
         return '\n'.join(result)
+    
 
-
+    # Collect input data info
     def collectInputDataInfo(self):
         return f'Input Data...\nFile selected: {self.labelFileSelectPath.GetValue()}\nLanguage: {self.selectedLanguage} \
             \nSelected Punctuation: {", ".join(self.selectedPunctuation.keys())}'
 
 
+    # Exit the application
     def exitApp(self, event):
         self.logMessage('Exiting application...')
         wx.CallLater(500, self.Close)
