@@ -466,9 +466,12 @@ class App(wx.Frame):
                 gammas.append(0)
             numberOfNodes.append(G.number_of_nodes())
 
+        for i in range(100):
+            self.logMessage(f'Slice {i+1}: {len(slicedTokens[i])} words, {numberOfNodes[i]} nodes, gamma={gammas[i]:.5f}')
+
         plt.figure(figsize=(8, 6))
         plt.plot(numberOfNodes, gammas, marker='o', linestyle='-', color='black', alpha=0.8)
-        plt.xlim(min(numberOfNodes), min(max(numberOfNodes)+500, 8000))
+        plt.xlim(min(numberOfNodes), min(max(numberOfNodes)+500, 5000))
         plt.ylim(min(gammas)-0.5, max(gammas)+0.5)
         plt.xlabel('Number of Nodes')
         plt.ylabel('Gamma (Power-Law Exponent)')
