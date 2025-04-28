@@ -466,6 +466,15 @@ class App(wx.Frame):
                 gammas.append(0)
             numberOfNodes.append(G.number_of_nodes())
 
+        
+        
+        # graph72 = graphObjects[12]
+        # graph72_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graph72.graphml"
+        # nx.write_graphml(graph72, graph72_name)
+        # self.logMessage(f"Graph at index 72 saved as {graph72_name}")
+
+
+
         for i in range(100):
             self.logMessage(f'Slice {i+1}: {len(slicedTokens[i])} words, {numberOfNodes[i]} nodes, gamma={gammas[i]:.5f}')
 
@@ -604,4 +613,4 @@ if __name__ == '__main__':
 # 3500 nodes je dostacujuce
 # spravit vystrizky textu podla slices aby sa mohol analyzovat
 # screenshots grafov pre analyzu
-# grafova a jazykova analyza 
+# grafova a jazykova analyza skusit pouzit networkx nahrat ulozeny sliced graph
