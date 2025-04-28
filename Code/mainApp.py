@@ -598,6 +598,10 @@ if __name__ == '__main__':
     frame.Show()
     app.MainLoop()
 
-# vizualizaciu ako by som chcel prezentovat grafy
-# upravit a popisat viac text, teoreticku pracu
-# cytospace
+
+###
+
+# 3500 nodes je dostacujuce
+# spravit vystrizky textu podla slices aby sa mohol analyzovat
+# screenshots grafov pre analyzu
+# grafova a jazykova analyza 
