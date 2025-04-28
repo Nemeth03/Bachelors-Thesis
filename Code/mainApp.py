@@ -131,8 +131,8 @@ class App(wx.Frame):
         buttonLayout.Add(self.saveNetworkButton, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.distributionAnalysisButton, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.compareDistributionsButton, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.outputValues, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.growthGamma, flag=wx.LEFT, border=10)
+        buttonLayout.Add(self.outputValues, flag=wx.LEFT, border=10)
         buttonLayout.Add(self.exitButton, flag=wx.LEFT, border=10)
 
         # Layout
@@ -434,6 +434,48 @@ class App(wx.Frame):
         self.logMessage(self.collectInputDataInfo())
         self.logMessage('Plotting growth gamma...')
 
+        tokens = self.processTextFile(self.selectedPunctuation)
+
+        sliceSize = len(tokens) // 100
+        slicedTokens = [tokens[:(i + 1) * sliceSize] for i in range(100)]
+        if len(tokens) % 100 != 0:
+            slicedTokens[-1] = tokens
+
+        graphObjects = []
+        for slice in slicedTokens:
+            G = nx.Graph()
+            for node, neighbors in self.createGraphData(slice)[0].items():
+                for neighbor in neighbors:
+                    G.add_edge(node, neighbor)
+            graphObjects.append(G)
+            
+        gammas = []
+        numberOfNodes = []
+        for G in graphObjects:
+            degrees = [deg for _, deg in G.degree()]
+            binCenters, binValues = [], []
+            if len(degrees) > 1:
+                binCenters, binValues = self.calculateLogBin(np.array(degrees), 20)
+            if len(binCenters) > 1 and len(binValues) > 1:
+                gStart, gEnd = self.longestDecreasingSlice(binValues)
+                binValues = binValues[gStart: gEnd]
+                binCenters = binCenters[gStart: gEnd]
+                slope = self.calculateLogLogSlope(binCenters, binValues)
+                gammas.append(-slope)
+            else:
+                gammas.append(0)
+            numberOfNodes.append(G.number_of_nodes())
+
+        plt.figure(figsize=(8, 6))
+        plt.plot(numberOfNodes, gammas, marker='o', linestyle='-', color='black', alpha=0.8)
+        plt.xlim(min(numberOfNodes), min(max(numberOfNodes)+500, 8000))
+        plt.ylim(min(gammas)-0.5, max(gammas)+0.5)
+        plt.xlabel('Number of Nodes')
+        plt.ylabel('Gamma (Power-Law Exponent)')
+        plt.title('Change in Gamma with Growing Number of Nodes')
+        plt.grid(True)
+        plt.show()
+
 
     # Calculate log binning for degree distribution
     def calculateLogBin(self, degrees, binCount):
@@ -556,6 +598,3 @@ if __name__ == '__main__':
 # vizualizaciu ako by som chcel prezentovat grafy
 # upravit a popisat viac text, teoreticku pracu
 # cytospace
-
-# graf, krivku, ako vznika ten graf, kde sa uz ustali, ostal pracovat s takou velkostou
-# aj power law, aj analyza grafova slovna
