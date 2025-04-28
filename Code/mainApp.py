@@ -610,5 +610,6 @@ if __name__ == '__main__':
 
 ###
 
+# pridat moznost nahratia ulozeneho grafu pre analyzu
 # screenshots grafov pre analyzu
 # grafova a jazykova analyza skusit pouzit networkx nahrat ulozeny sliced graph
