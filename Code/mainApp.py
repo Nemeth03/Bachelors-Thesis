@@ -610,7 +610,5 @@ if __name__ == '__main__':
 
 ###
 
-# 3500 nodes je dostacujuce
-# spravit vystrizky textu podla slices aby sa mohol analyzovat
 # screenshots grafov pre analyzu
 # grafova a jazykova analyza skusit pouzit networkx nahrat ulozeny sliced graph
