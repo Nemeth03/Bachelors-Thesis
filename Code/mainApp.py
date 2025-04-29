@@ -390,15 +390,13 @@ class App(wx.Frame):
         mBinCenters, mBinValues = self.calculateLogBin(np.array(mDegrees), 20)
         dgmBinCenters, dgmBinValues = self.calculateLogBin(np.array(dgmDegrees), 20)
 
-        # selecting longest decreasing slice, same range
+        # # selecting longest decreasing slice, same range
         gStart, gEnd = self.longestDecreasingSlice(gBinValues)
         mStart, mEnd = self.longestDecreasingSlice(mBinValues)
-        overlapStart = max(gStart, mStart)
-        overlapEnd = min(gEnd, mEnd)
-        gBinValues = gBinValues[overlapStart: overlapEnd]
-        gBinCenters = gBinCenters[overlapStart: overlapEnd]
-        mBinValues = mBinValues[overlapStart: overlapEnd]
-        mBinCenters = mBinCenters[overlapStart: overlapEnd]
+        gBinValues = gBinValues[gStart: gEnd]
+        gBinCenters = gBinCenters[gStart: gEnd]
+        mBinValues = mBinValues[mStart: mEnd]
+        mBinCenters = mBinCenters[mStart: mEnd]
 
 
         # calculate slopes
@@ -468,10 +466,18 @@ class App(wx.Frame):
 
         
         
+        # # Save graph at index 72 as a GraphML file
         # graph72 = graphObjects[12]
         # graph72_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graph72.graphml"
         # nx.write_graphml(graph72, graph72_name)
         # self.logMessage(f"Graph at index 72 saved as {graph72_name}")
+
+        # # Save the corresponding slice of tokens as a text file
+        # slice72 = slicedTokens[12]
+        # slice72_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_selectionNoPunct.txt"
+        # with open(slice72_name, 'w', encoding='utf-8') as f:
+        #     f.write('\n'.join(slice72))
+        # self.logMessage(f"Slice at index 72 saved as {slice72_name}")
 
 
 
@@ -526,9 +532,9 @@ class App(wx.Frame):
         G = nx.Graph(graphData)
         degrees = sorted(G.degree(), key=lambda x: x[1], reverse=True)
         degValues = [deg for _, deg in G.degree()]
-        correlationDegreeCloseness = np.corrcoef(list(nx.degree_centrality(G).values()), list(nx.closeness_centrality(G).values()))[0, 1]
-        correlationDegreeBetweenness = np.corrcoef(list(nx.degree_centrality(G).values()), list(nx.betweenness_centrality(G).values()))[0, 1]
-        correlationClosenessBetweenness = np.corrcoef(list(nx.closeness_centrality(G).values()), list(nx.betweenness_centrality(G).values()))[0, 1]
+        # correlationDegreeCloseness = np.corrcoef(list(nx.degree_centrality(G).values()), list(nx.closeness_centrality(G).values()))[0, 1]
+        # correlationDegreeBetweenness = np.corrcoef(list(nx.degree_centrality(G).values()), list(nx.betweenness_centrality(G).values()))[0, 1]
+        # correlationClosenessBetweenness = np.corrcoef(list(nx.closeness_centrality(G).values()), list(nx.betweenness_centrality(G).values()))[0, 1]
         
         result.append(f'Number of nodes: {G.number_of_nodes()}')
         result.append(f'Number of edges: {G.number_of_edges()}')
@@ -536,55 +542,55 @@ class App(wx.Frame):
         result.append(f'Min degree: {degrees[-1]}')
         result.append(f'Average degree: {sum(degValues)/len(degValues):.5f}')
         result.append(f'Network density: {nx.density(G):.5f}')
-        result.append(f'Correlation (Degree vs Closeness): {correlationDegreeCloseness:.5f}')
-        result.append(f'Correlation (Degree vs Betweenness): {correlationDegreeBetweenness:.5f}')
-        result.append(f'Correlation (Closeness vs Betweenness): {correlationClosenessBetweenness:.5f}')
+        # result.append(f'Correlation (Degree vs Closeness): {correlationDegreeCloseness:.5f}')
+        # result.append(f'Correlation (Degree vs Betweenness): {correlationDegreeBetweenness:.5f}')
+        # result.append(f'Correlation (Closeness vs Betweenness): {correlationClosenessBetweenness:.5f}')
         result.append(f'Average clustering coefficient: {nx.average_clustering(G):.5f}')
         result.append(f'Average shortest path length: {nx.average_shortest_path_length(G):.5f}')
         result.append(f'Diameter: {nx.diameter(G)}')
 
-        result.append('Jazyková analýza...')
-        wordLengths = [len(word) for word in occurrenceData.keys()]
-        processedSentences = self.processTextFile({'period': '.', 'exclamation': '!', 
-                                              'question': '?', 'ellipsis': '...', 'apostrophe': '\'’‘'})
-        i = 0
-        while i < len(processedSentences):
-            if processedSentences[i] in ['\'', '’', '‘'] and i > 0 and i < len(processedSentences)-1:
-                processedSentences[i-1:i+2] = [''.join(processedSentences[i-1:i+2])]
-            else:
-                i += 1
-        sentences = []
-        subList = []
-        sentencelengths = []
-        for element in processedSentences:
-            if element in ['.', '!', '?', '...'] and subList:
-                sentences.append(subList)
-                sentencelengths.append(len(subList))
-                subList = []
-            else:
-                subList.append(element)
-        data = self.processTextFile(self.selectedPunctuation)
-        bigramCounter = Counter(zip(data[:-1], data[1:]))
-        bigramFrequencies = [count for _, count in bigramCounter.items()]
-        trigramCounter = Counter(zip(data[:-2], data[1:-1], data[2:]))
-        trigramFrequencies = [count for _, count in trigramCounter.items()]
+        # result.append('Jazyková analýza...')
+        # wordLengths = [len(word) for word in occurrenceData.keys()]
+        # processedSentences = self.processTextFile({'period': '.', 'exclamation': '!', 
+        #                                       'question': '?', 'ellipsis': '...', 'apostrophe': '\'’‘'})
+        # i = 0
+        # while i < len(processedSentences):
+        #     if processedSentences[i] in ['\'', '’', '‘'] and i > 0 and i < len(processedSentences)-1:
+        #         processedSentences[i-1:i+2] = [''.join(processedSentences[i-1:i+2])]
+        #     else:
+        #         i += 1
+        # sentences = []
+        # subList = []
+        # sentencelengths = []
+        # for element in processedSentences:
+        #     if element in ['.', '!', '?', '...'] and subList:
+        #         sentences.append(subList)
+        #         sentencelengths.append(len(subList))
+        #         subList = []
+        #     else:
+        #         subList.append(element)
+        # data = self.processTextFile(self.selectedPunctuation)
+        # bigramCounter = Counter(zip(data[:-1], data[1:]))
+        # bigramFrequencies = [count for _, count in bigramCounter.items()]
+        # trigramCounter = Counter(zip(data[:-2], data[1:-1], data[2:]))
+        # trigramFrequencies = [count for _, count in trigramCounter.items()]
 
-        result.append(f'Number of words: {len(wordLengths)}')
-        result.append(f'Max word length: {max(wordLengths)}')
-        result.append(f'Min word length: {min(wordLengths)}')
-        result.append(f'Average word length: {(sum(wordLengths)/len(wordLengths)):.5f}')
-        result.append(f'Number of sentences: {len(sentences)}')
-        result.append(f'Max sentence length: {max(sentencelengths)}')
-        result.append(f'Min sentence length: {min(sentencelengths)}')
-        result.append(f'Average sentence length: {(sum(sentencelengths)/len(sentencelengths)):.5f}')
-        result.append(f'Number of bigrams: {len(bigramCounter)}')
-        result.append(f'Max bigram frequency: {max(bigramFrequencies)}')
-        result.append(f'Min bigram frequency: {min(bigramFrequencies)}')
-        result.append(f'Average bigram frequency: {sum(bigramFrequencies)/len(bigramFrequencies):.5f}')
-        result.append(f'Number of trigrams: {len(trigramCounter)}')
-        result.append(f'Max trigram frequency: {max(trigramFrequencies)}')
-        result.append(f'Min trigram frequency: {min(trigramFrequencies)}')
-        result.append(f'Average trigram frequency: {sum(trigramFrequencies)/len(trigramFrequencies):.5f}')
+        # result.append(f'Number of words: {len(wordLengths)}')
+        # result.append(f'Max word length: {max(wordLengths)}')
+        # result.append(f'Min word length: {min(wordLengths)}')
+        # result.append(f'Average word length: {(sum(wordLengths)/len(wordLengths)):.5f}')
+        # result.append(f'Number of sentences: {len(sentences)}')
+        # result.append(f'Max sentence length: {max(sentencelengths)}')
+        # result.append(f'Min sentence length: {min(sentencelengths)}')
+        # result.append(f'Average sentence length: {(sum(sentencelengths)/len(sentencelengths)):.5f}')
+        # result.append(f'Number of bigrams: {len(bigramCounter)}')
+        # result.append(f'Max bigram frequency: {max(bigramFrequencies)}')
+        # result.append(f'Min bigram frequency: {min(bigramFrequencies)}')
+        # result.append(f'Average bigram frequency: {sum(bigramFrequencies)/len(bigramFrequencies):.5f}')
+        # result.append(f'Number of trigrams: {len(trigramCounter)}')
+        # result.append(f'Max trigram frequency: {max(trigramFrequencies)}')
+        # result.append(f'Min trigram frequency: {min(trigramFrequencies)}')
+        # result.append(f'Average trigram frequency: {sum(trigramFrequencies)/len(trigramFrequencies):.5f}')
 
         return '\n'.join(result)
     
