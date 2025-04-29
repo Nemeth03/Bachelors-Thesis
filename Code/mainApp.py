@@ -344,7 +344,7 @@ class App(wx.Frame):
         dgmCountsScaled = dgmCounts * scalingFactor
 
         plt.figure(figsize=(8, 6))
-        plt.loglog(unique, counts, 'bo', markersize=4, label=f'Word Network')
+        plt.loglog(unique, counts, 'bo', markersize=4, label='Vytvorená sieť')
         plt.loglog(dgmUnique, dgmCountsScaled, 'go', markersize=4, label=f'DGM Model')
         plt.xlabel('Stupne')
         plt.ylabel('Frekvencia')
@@ -353,9 +353,9 @@ class App(wx.Frame):
         
         plt.figure(figsize=(8, 6))
         plt.loglog(binCenters, binValues, 'x', color='black', alpha=0.9)
-        plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
+        plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Vytvorená sieť, gamma={slope:.5f}')
         plt.loglog(dgmBinCenters, dgmBinValues, 'x', color='black', alpha=0.9)
-        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model')
+        plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'DGM Model')
         plt.xlabel('Stupne')
         plt.ylabel('Frekvencia')
         plt.title('Názov... \n Rozdelenie stupňov vrcholov s logaritmickým zoskupovaním')
@@ -363,7 +363,7 @@ class App(wx.Frame):
 
         plt.figure(figsize=(8, 6))
         plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9)
-        plt.loglog(ranks, wordFrequencies, '-', color='black', alpha=0.8, label=f'Zipf\'s Law, Slope={zipfSlope:.5f}')
+        plt.loglog(ranks, wordFrequencies, '-', color='black', alpha=0.8, label=f'Zipfov zákon {zipfSlope:.5f}')
         plt.xlabel('Rank')
         plt.ylabel('Frekvencia')
         plt.title('Názov... \n Zipfov zákon')
@@ -718,10 +718,3 @@ if __name__ == '__main__':
     frame = App()
     frame.Show()
     app.MainLoop()
-
-
-###
-
-# pridat moznost nahratia ulozeneho grafu pre analyzu
-# screenshots grafov pre analyzu
-# grafova a jazykova analyza skusit pouzit networkx nahrat ulozeny sliced graph
