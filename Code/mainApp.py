@@ -681,6 +681,10 @@ class App(wx.Frame):
         trigramCounter = Counter(zip(data[:-2], data[1:-1], data[2:]))
         trigramFrequencies = [count for _, count in trigramCounter.items()]
 
+        punctuationCounts = Counter([char for char in data if char in self.punctuation.values()])
+        result.append(f'Number of punctuation marks: {sum(punctuationCounts.values())}')
+        result.append(f'Most common punctuation: {punctuationCounts.most_common(1)[0] if punctuationCounts else "None"}')
+        result.append(f'Least common punctuation: {punctuationCounts.most_common()[-1] if punctuationCounts else "None"}')
         result.append(f'Number of words: {len(wordLengths)}')
         result.append(f'Max word length: {max(wordLengths)}')
         result.append(f'Min word length: {min(wordLengths)}')
