@@ -126,14 +126,29 @@ class App(wx.Frame):
         self.growthGamma.Bind(wx.EVT_BUTTON, self.growthGammaPlot)
         self.growthGamma.Enable(False)
 
-        # Buttons Layout
-        buttonLayout = wx.BoxSizer(wx.HORIZONTAL)
-        buttonLayout.Add(self.saveNetworkButton, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.distributionAnalysisButton, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.compareDistributionsButton, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.growthGamma, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.outputValues, flag=wx.LEFT, border=10)
-        buttonLayout.Add(self.exitButton, flag=wx.LEFT, border=10)
+        self.growthComparison = wx.Button(panel, label='Growth Comparison')
+        self.growthComparison.Bind(wx.EVT_BUTTON, self.growthComparisonPlot)
+        self.growthComparison.Enable(False)
+
+        # Buttons Layout with 3 rows
+        buttonLayout = wx.BoxSizer(wx.VERTICAL)
+
+        rowOne = wx.BoxSizer(wx.HORIZONTAL)
+        rowOne.Add(self.saveNetworkButton, flag=wx.LEFT, border=10)
+        rowOne.Add(self.distributionAnalysisButton, flag=wx.LEFT, border=10)
+        rowOne.Add(self.compareDistributionsButton, flag=wx.LEFT, border=10)
+
+        rowTwo = wx.BoxSizer(wx.HORIZONTAL)
+        rowTwo.Add(self.growthGamma, flag=wx.LEFT, border=10)
+        rowTwo.Add(self.growthComparison, flag=wx.LEFT, border=10)
+        rowTwo.Add(self.outputValues, flag=wx.LEFT, border=10)
+
+        rowThree = wx.BoxSizer(wx.HORIZONTAL)
+        rowThree.Add(self.exitButton, flag=wx.LEFT, border=10)
+
+        buttonLayout.Add(rowOne, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
+        buttonLayout.Add(rowTwo, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
+        buttonLayout.Add(rowThree, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
 
         # Layout
         vbox.Add(self.labelFileSelect, flag=wx.EXPAND | wx.LEFT | wx.TOP, border=10)
@@ -200,6 +215,7 @@ class App(wx.Frame):
         self.compareDistributionsButton.Enable(bool(self.inputTextFile and self.selectedLanguage))
         self.outputValues.Enable(bool(self.inputTextFile and self.selectedLanguage))
         self.growthGamma.Enable(bool(self.inputTextFile and self.selectedLanguage))
+        self.growthComparison.Enable(bool(self.inputTextFile and self.selectedLanguage))
 
 
     # Read text file and return its content
@@ -263,12 +279,12 @@ class App(wx.Frame):
 
         N = nx.Graph(self.createGraphData(self.processTextFile(self.selectedPunctuation))[0])
         if self.selectedPunctuation:
-            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml"
-            print(f"Saving graph to {graph_name}")
+            graph_name = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml'
+            print(f'Saving graph to {graph_name}')
             nx.write_graphml(N, f'{graph_name}')
         else:
-            graph_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml"
-            print(f"Saving graph to {graph_name}")
+            graph_name = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml'
+            print(f'Saving graph to {graph_name}')
             nx.write_graphml(N, graph_name)
 
 
@@ -321,14 +337,18 @@ class App(wx.Frame):
         wordDegreesNormalized = np.array(wordDegrees) / max(wordDegrees)
         dmDegreesNormalized = np.array(dmDegrees) / max(dmDegrees)
         mseNormalized = np.mean((wordDegreesNormalized - dmDegreesNormalized)**2)
-        print(f"Normalized Degree Distribution MSE: {mseNormalized:.5f}")
+        print(f'Normalized Degree Distribution MSE: {mseNormalized:.5f}')
+
+        # normalize dgm raw degree distribution
+        scalingFactor = max(counts) / max(dgmCounts)
+        dgmCountsScaled = dgmCounts * scalingFactor
 
         plt.figure(figsize=(8, 6))
         plt.loglog(unique, counts, 'bo', markersize=4, label=f'Word Network')
-        plt.loglog(dgmUnique, dgmCounts, 'go', markersize=4, label=f'DGM Model')
-        plt.xlabel("Degree")
-        plt.ylabel("Frequency")
-        plt.title("Degree Distribution Comparison")
+        plt.loglog(dgmUnique, dgmCountsScaled, 'go', markersize=4, label=f'DGM Model')
+        plt.xlabel('Stupne')
+        plt.ylabel('Frekvencia')
+        plt.title('Názov... \n Rozdelenie stupňov vrcholov')
         plt.legend()
         
         plt.figure(figsize=(8, 6))
@@ -336,17 +356,17 @@ class App(wx.Frame):
         plt.loglog(binCenters, binValues, '-', color='blue', alpha=0.8, label=f'Word Network, Slope={slope:.5f}')
         plt.loglog(dgmBinCenters, dgmBinValues, 'x', color='black', alpha=0.9)
         plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label=f'Simulated DGM Model')
-        plt.xlabel('Degree')
-        plt.ylabel('Frequency')
-        plt.title('Degree Distribution with Log-Binning')
+        plt.xlabel('Stupne')
+        plt.ylabel('Frekvencia')
+        plt.title('Názov... \n Rozdelenie stupňov vrcholov s logaritmickým zoskupovaním')
         plt.legend()
 
         plt.figure(figsize=(8, 6))
         plt.loglog(ranks, wordFrequencies, 'x', color='black', alpha=0.9)
         plt.loglog(ranks, wordFrequencies, '-', color='black', alpha=0.8, label=f'Zipf\'s Law, Slope={zipfSlope:.5f}')
         plt.xlabel('Rank')
-        plt.ylabel('Frequency')
-        plt.title('Zipf\'s Law Analysis')
+        plt.ylabel('Frekvencia')
+        plt.title('Názov... \n Zipfov zákon')
         plt.legend()
 
         plt.show()
@@ -390,38 +410,43 @@ class App(wx.Frame):
         mBinCenters, mBinValues = self.calculateLogBin(np.array(mDegrees), 20)
         dgmBinCenters, dgmBinValues = self.calculateLogBin(np.array(dgmDegrees), 20)
 
-        # # selecting longest decreasing slice, same range
+        # selecting longest decreasing slice, same range
         gStart, gEnd = self.longestDecreasingSlice(gBinValues)
         mStart, mEnd = self.longestDecreasingSlice(mBinValues)
         gBinValues = gBinValues[gStart: gEnd]
         gBinCenters = gBinCenters[gStart: gEnd]
         mBinValues = mBinValues[mStart: mEnd]
         mBinCenters = mBinCenters[mStart: mEnd]
-
+        dgmBinValues = dgmBinValues[:]
+        dgmBinCenters = dgmBinCenters[:]
 
         # calculate slopes
         gSlope = self.calculateLogLogSlope(gBinCenters, gBinValues)
         mSlope = self.calculateLogLogSlope(mBinCenters, mBinValues)
 
+        # normalize dgm raw degree distribution
+        scalingFactor = max(gCounts) / max(dgmCounts)
+        dgmCountsScaled = dgmCounts * scalingFactor
+
         plt.figure(figsize=(8, 6))
-        plt.loglog(gUnique, gCounts, 'bo', markersize=4, label='Words')
-        plt.loglog(mUnique, mCounts, 'ro', markersize=4, label='Words + Punctuation')
-        plt.loglog(dgmUnique, dgmCounts, 'go', markersize=4, label='DGM Model')
-        plt.xlabel("Degree")
-        plt.ylabel("Frequency")
-        plt.title("Degree Distribution Comparison")
+        plt.loglog(gUnique, gCounts, 'bo', markersize=4, label='Slová')
+        plt.loglog(mUnique, mCounts, 'ro', markersize=4, label='Slová + Interpunkcia')
+        plt.loglog(dgmUnique, dgmCountsScaled, 'go', markersize=4, label='DGM Model')
+        plt.xlabel('Stupne')
+        plt.ylabel('Frekvencia')
+        plt.title('Názov... \n Rozdelenie stupňov vrcholov')
         plt.legend()
 
         plt.figure(figsize=(8, 6))
-        plt.loglog(gBinCenters, gBinValues, '-', color='red', alpha=0.8, label=f'Words Only, Slope={gSlope:.5f}')
-        plt.loglog(mBinCenters, mBinValues, '-', color='blue', alpha=0.8, label=f'Words + Punctuation, Slope={mSlope:.5f}')
+        plt.loglog(gBinCenters, gBinValues, '-', color='red', alpha=0.8, label=f'Slová, gamma={gSlope:.5f}')
+        plt.loglog(mBinCenters, mBinValues, '-', color='blue', alpha=0.8, label=f'Slová + Interpunkcia, gamma={mSlope:.5f}')
         plt.loglog(dgmBinCenters, dgmBinValues, '-', color='green', alpha=0.8, label='DGM Model')
         plt.loglog(gBinCenters, gBinValues, 'x', alpha=0.9, color='black')
         plt.loglog(mBinCenters, mBinValues, 'x', alpha=0.9, color='black')
         plt.loglog(dgmBinCenters, dgmBinValues, 'x', alpha=0.9, color='black')
-        plt.xlabel('Degree')
-        plt.ylabel('Frequency')
-        plt.title('Degree Distribution Comparison with Log-Binning')
+        plt.xlabel('Stupne')
+        plt.ylabel('Frekvencia')
+        plt.title('Názov... \n Rozdelenie stupňov vrcholov s logaritmickým zoskupovaním')
         plt.legend()
 
         plt.show()
@@ -465,35 +490,116 @@ class App(wx.Frame):
             numberOfNodes.append(G.number_of_nodes())
 
         
-        
         # # Save graph at index 72 as a GraphML file
         # graph72 = graphObjects[12]
-        # graph72_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graph72.graphml"
+        # graph72_name = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graph72.graphml'
         # nx.write_graphml(graph72, graph72_name)
-        # self.logMessage(f"Graph at index 72 saved as {graph72_name}")
+        # self.logMessage(f'Graph at index 72 saved as {graph72_name}')
 
         # # Save the corresponding slice of tokens as a text file
         # slice72 = slicedTokens[12]
-        # slice72_name = f"{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_selectionNoPunct.txt"
+        # slice72_name = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_selectionNoPunct.txt'
         # with open(slice72_name, 'w', encoding='utf-8') as f:
         #     f.write('\n'.join(slice72))
-        # self.logMessage(f"Slice at index 72 saved as {slice72_name}")
+        # self.logMessage(f'Slice at index 72 saved as {slice72_name}')
 
+        # for i in range(100):
+        #     self.logMessage(f'Slice {i+1}: {len(slicedTokens[i])} words, {numberOfNodes[i]} nodes, gamma={gammas[i]:.5f}')
 
-
-        for i in range(100):
-            self.logMessage(f'Slice {i+1}: {len(slicedTokens[i])} words, {numberOfNodes[i]} nodes, gamma={gammas[i]:.5f}')
 
         plt.figure(figsize=(8, 6))
-        plt.plot(numberOfNodes, gammas, marker='o', linestyle='-', color='black', alpha=0.8)
+        plt.plot(numberOfNodes, gammas, marker='o', linestyle='-', color='black', alpha=0.8, label='s interpunkciou')
         plt.xlim(min(numberOfNodes), min(max(numberOfNodes)+500, 5000))
         plt.ylim(min(gammas)-0.5, max(gammas)+0.5)
-        plt.xlabel('Number of Nodes')
-        plt.ylabel('Gamma (Power-Law Exponent)')
-        plt.title('Change in Gamma with Growing Number of Nodes')
+        plt.xlabel('Počet vrcholov')
+        plt.ylabel('Gamma (Exponent mocninového rozdelenia)')
+        plt.title('Oliver Twist, Charles Dickens, Nemecká verzia')
         plt.grid(True)
+        plt.legend()
         plt.show()
 
+
+    # Plot growth comparison of network with and without punctuation
+    def growthComparisonPlot(self, event):
+        self.logMessage(self.collectInputDataInfo())
+        self.logMessage('Plotting growth comparison...')
+
+        tokensWithPunct = self.processTextFile(self.selectedPunctuation)
+        tokensWithoutPunct = self.processTextFile()
+
+        sliceWithPunct = len(tokensWithPunct) // 100
+        sliceWithoutPunct = len(tokensWithoutPunct) // 100
+        slicedTokensWithPunct = [tokensWithPunct[:(i + 1) * sliceWithPunct] for i in range(100)]
+        slicedTokensWithoutPunct = [tokensWithoutPunct[:(i + 1) * sliceWithoutPunct] for i in range(100)]
+        if len(tokensWithPunct) % 100 != 0:
+            slicedTokensWithPunct[-1] = tokensWithPunct
+        if len(tokensWithoutPunct) % 100 != 0:
+            slicedTokensWithoutPunct[-1] = tokensWithoutPunct
+
+        graphObjectsWithPunct = []
+        for slice in slicedTokensWithPunct:
+            G = nx.Graph()
+            for node, neighbors in self.createGraphData(slice)[0].items():
+                for neighbor in neighbors:
+                    G.add_edge(node, neighbor)
+            graphObjectsWithPunct.append(G)
+
+        graphObjectsWithoutPunct = []
+        for slice in slicedTokensWithoutPunct:
+            G = nx.Graph()
+            for node, neighbors in self.createGraphData(slice)[0].items():
+                for neighbor in neighbors:
+                    G.add_edge(node, neighbor)
+            graphObjectsWithoutPunct.append(G)
+
+        gammasWithPunct = []
+        numberOfNodesWithPunct = []
+        for G in graphObjectsWithPunct:
+            degrees = [deg for _, deg in G.degree()]
+            binCenters, binValues = [], []
+            if len(degrees) > 1:
+                binCenters, binValues = self.calculateLogBin(np.array(degrees), 20)
+            if len(binCenters) > 1 and len(binValues) > 1:
+                gStart, gEnd = self.longestDecreasingSlice(binValues)
+                binValues = binValues[gStart: gEnd]
+                binCenters = binCenters[gStart: gEnd]
+                slope = self.calculateLogLogSlope(binCenters, binValues)
+                gammasWithPunct.append(-slope)
+            else:
+                gammasWithPunct.append(0)
+            numberOfNodesWithPunct.append(G.number_of_nodes())
+
+        gammasWithoutPunct = []
+        numberOfNodesWithoutPunct = []
+        for G in graphObjectsWithoutPunct:
+            degrees = [deg for _, deg in G.degree()]
+            binCenters, binValues = [], []
+            if len(degrees) > 1:
+                binCenters, binValues = self.calculateLogBin(np.array(degrees), 20)
+            if len(binCenters) > 1 and len(binValues) > 1:
+                gStart, gEnd = self.longestDecreasingSlice(binValues)
+                binValues = binValues[gStart: gEnd]
+                binCenters = binCenters[gStart: gEnd]
+                slope = self.calculateLogLogSlope(binCenters, binValues)
+                gammasWithoutPunct.append(-slope)
+            else:
+                gammasWithoutPunct.append(0)
+            numberOfNodesWithoutPunct.append(G.number_of_nodes())
+        
+        plt.figure(figsize=(8, 6))
+        plt.plot(numberOfNodesWithPunct, gammasWithPunct, marker='o', linestyle='-', color='blue', alpha=0.8, label='s interpunkciou')
+        plt.plot(numberOfNodesWithoutPunct, gammasWithoutPunct, marker='o', linestyle='-', color='red', alpha=0.8, label='bez interpunkcie')
+        plt.xlim(min(min(numberOfNodesWithPunct), min(numberOfNodesWithoutPunct)), 
+                 min(max(numberOfNodesWithPunct), max(numberOfNodesWithoutPunct), 5000))
+        plt.ylim(min(min(gammasWithPunct), min(gammasWithoutPunct))-0.5,
+                    max(max(gammasWithPunct), max(gammasWithoutPunct))+0.5)
+        plt.xlabel('Počet vrcholov')
+        plt.ylabel('Gamma (Exponent mocninového rozdelenia)')
+        plt.title('Názov...')
+        plt.grid(True)
+        plt.legend()
+        plt.show()
+        
 
     # Calculate log binning for degree distribution
     def calculateLogBin(self, degrees, binCount):
@@ -549,48 +655,48 @@ class App(wx.Frame):
         result.append(f'Average shortest path length: {nx.average_shortest_path_length(G):.5f}')
         result.append(f'Diameter: {nx.diameter(G)}')
 
-        # result.append('Jazyková analýza...')
-        # wordLengths = [len(word) for word in occurrenceData.keys()]
-        # processedSentences = self.processTextFile({'period': '.', 'exclamation': '!', 
-        #                                       'question': '?', 'ellipsis': '...', 'apostrophe': '\'’‘'})
-        # i = 0
-        # while i < len(processedSentences):
-        #     if processedSentences[i] in ['\'', '’', '‘'] and i > 0 and i < len(processedSentences)-1:
-        #         processedSentences[i-1:i+2] = [''.join(processedSentences[i-1:i+2])]
-        #     else:
-        #         i += 1
-        # sentences = []
-        # subList = []
-        # sentencelengths = []
-        # for element in processedSentences:
-        #     if element in ['.', '!', '?', '...'] and subList:
-        #         sentences.append(subList)
-        #         sentencelengths.append(len(subList))
-        #         subList = []
-        #     else:
-        #         subList.append(element)
-        # data = self.processTextFile(self.selectedPunctuation)
-        # bigramCounter = Counter(zip(data[:-1], data[1:]))
-        # bigramFrequencies = [count for _, count in bigramCounter.items()]
-        # trigramCounter = Counter(zip(data[:-2], data[1:-1], data[2:]))
-        # trigramFrequencies = [count for _, count in trigramCounter.items()]
+        result.append('Jazyková analýza...')
+        wordLengths = [len(word) for word in occurrenceData.keys()]
+        processedSentences = self.processTextFile({'period': '.', 'exclamation': '!', 
+                                              'question': '?', 'ellipsis': '...', 'apostrophe': '\'’‘'})
+        i = 0
+        while i < len(processedSentences):
+            if processedSentences[i] in ['\'', '’', '‘'] and i > 0 and i < len(processedSentences)-1:
+                processedSentences[i-1:i+2] = [''.join(processedSentences[i-1:i+2])]
+            else:
+                i += 1
+        sentences = []
+        subList = []
+        sentencelengths = []
+        for element in processedSentences:
+            if element in ['.', '!', '?', '...'] and subList:
+                sentences.append(subList)
+                sentencelengths.append(len(subList))
+                subList = []
+            else:
+                subList.append(element)
+        data = self.processTextFile(self.selectedPunctuation)
+        bigramCounter = Counter(zip(data[:-1], data[1:]))
+        bigramFrequencies = [count for _, count in bigramCounter.items()]
+        trigramCounter = Counter(zip(data[:-2], data[1:-1], data[2:]))
+        trigramFrequencies = [count for _, count in trigramCounter.items()]
 
-        # result.append(f'Number of words: {len(wordLengths)}')
-        # result.append(f'Max word length: {max(wordLengths)}')
-        # result.append(f'Min word length: {min(wordLengths)}')
-        # result.append(f'Average word length: {(sum(wordLengths)/len(wordLengths)):.5f}')
-        # result.append(f'Number of sentences: {len(sentences)}')
-        # result.append(f'Max sentence length: {max(sentencelengths)}')
-        # result.append(f'Min sentence length: {min(sentencelengths)}')
-        # result.append(f'Average sentence length: {(sum(sentencelengths)/len(sentencelengths)):.5f}')
-        # result.append(f'Number of bigrams: {len(bigramCounter)}')
-        # result.append(f'Max bigram frequency: {max(bigramFrequencies)}')
-        # result.append(f'Min bigram frequency: {min(bigramFrequencies)}')
-        # result.append(f'Average bigram frequency: {sum(bigramFrequencies)/len(bigramFrequencies):.5f}')
-        # result.append(f'Number of trigrams: {len(trigramCounter)}')
-        # result.append(f'Max trigram frequency: {max(trigramFrequencies)}')
-        # result.append(f'Min trigram frequency: {min(trigramFrequencies)}')
-        # result.append(f'Average trigram frequency: {sum(trigramFrequencies)/len(trigramFrequencies):.5f}')
+        result.append(f'Number of words: {len(wordLengths)}')
+        result.append(f'Max word length: {max(wordLengths)}')
+        result.append(f'Min word length: {min(wordLengths)}')
+        result.append(f'Average word length: {(sum(wordLengths)/len(wordLengths)):.5f}')
+        result.append(f'Number of sentences: {len(sentences)}')
+        result.append(f'Max sentence length: {max(sentencelengths)}')
+        result.append(f'Min sentence length: {min(sentencelengths)}')
+        result.append(f'Average sentence length: {(sum(sentencelengths)/len(sentencelengths)):.5f}')
+        result.append(f'Number of bigrams: {len(bigramCounter)}')
+        result.append(f'Max bigram frequency: {max(bigramFrequencies)}')
+        result.append(f'Min bigram frequency: {min(bigramFrequencies)}')
+        result.append(f'Average bigram frequency: {sum(bigramFrequencies)/len(bigramFrequencies):.5f}')
+        result.append(f'Number of trigrams: {len(trigramCounter)}')
+        result.append(f'Max trigram frequency: {max(trigramFrequencies)}')
+        result.append(f'Min trigram frequency: {min(trigramFrequencies)}')
+        result.append(f'Average trigram frequency: {sum(trigramFrequencies)/len(trigramFrequencies):.5f}')
 
         return '\n'.join(result)
     
@@ -598,7 +704,7 @@ class App(wx.Frame):
     # Collect input data info
     def collectInputDataInfo(self):
         return f'Input Data...\nFile selected: {self.labelFileSelectPath.GetValue()}\nLanguage: {self.selectedLanguage} \
-            \nSelected Punctuation: {", ".join(self.selectedPunctuation.keys())}'
+            \nSelected Punctuation: {', '.join(self.selectedPunctuation.keys())}'
 
 
     # Exit the application
