@@ -467,6 +467,8 @@ INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmtt12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmtt10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr10.tfm
+INPUT chapters\30-tvorbaAplikacie.tex
+INPUT chapters\40-analyzaTextov.tex
 INPUT .\main.bbl
 INPUT .\main.bbl
 INPUT main.bbl
