@@ -1,6 +1,16 @@
 \chapter{Prehľad~problematiky}\label{ch:terminology}
 
-!!! Treba dopisat... !!!
+Táto kapitola sa zaoberá základnými pojmami a definíciami, ktoré sú nevyhnutné pre pochopenie problematiky tejto práce.
+
+Najskôr sa zameriame na teóriu grafov, ktorá je základom pre analýzu a modelovanie sietí. Definujeme si kľúčové pojmy, ako sú graf,
+vrchol, hrana, stupeň a ďalšie. 
+
+Následne sa pozrieme na rôzne typy modelov sietí a ich vlastnosti, predovšetkým na náhodné a
+bezškálové siete. Budeme sa sústrediť na ich vznik a charakteristiky, ako je distribúcia stupňov vrcholov.
+Taktiež sa budeme venovať slovným sieťam, ktoré sú špecifickým typom sietí, využívaným na analýzu jazyka a
+jeho štruktúry.
+
+Na záver kapitoly sa zameriame na úlohu a význam interpunkcie v jazyku a jej vplyvu na štruktúru textu.
 
 \section{Teória~grafov}\label{sec:graph-theory}
 
@@ -138,7 +148,12 @@ kde $p_{\mathrm{deg}}$ predstavuje pravdepodobnosť výskytu daného stupňa, $n
 
 \section{Modely~sietí}\label{sec:network-models}
 
-!!! Treba dopisat... !!!
+Siete sú štruktúry, ktoré možno reprezentovať ako grafy skladajúce sa z uzlov (vrcholov) a prepojení (hrán), pričom uzly predstavujú jednotlivé entity
+a prepojenia reprezentujú vzťahy medzi nimi. Pojem graf sa používa matematickej reprezentácií, zatiaľ čo termín sieť
+často odkazuje na reálne systémy. Umožňujú modelovanie a analýzu komplexných systémov v rôznych odvetviach,
+ako informatika, biológia, sociológia a iné \cite{barabasi2016network} . Medzi základné topológie sietí patria náhodné siete a bezškálové siete,
+ktoré predstavujú odlišné prístupy ku vzniku a distribúcii prepojení.
+
 
 \subsection{Náhodná~sieť}\label{sec:random-network}
 
@@ -200,8 +215,6 @@ Vieme ho jednoducho vypočítať ako:
 
 predstavuje pravdepodobnosť, že dva náhodne vybrané vrcholy sú prepojené \cite{barabasi2016network} .
 
-\clearpage
-
 \begin{figure}
     \centerline{\includegraphics[width=0.8\textwidth]{images/randomdegdist.png}}
     \caption[Binomická vs. Poissonová distribúcia stupňov.]{Binomická vs. Poissonová distribúcia stupňov.
@@ -209,6 +222,8 @@ predstavuje pravdepodobnosť, že dva náhodne vybrané vrcholy sú prepojené \
     dá priblížiť Poissonovou distribúciou (pravá strana) \cite{barabasi2016network} .}
     \label{obr:randomdegdist}
 \end{figure}
+
+\clearpage
 
 \subsection{Bezškálová~sieť}\label{sec:scale-free-network}
 
@@ -242,10 +257,12 @@ ktorý sa pripojí k $m$ už existujúcim uzlom. Pravdepodobnosť prepojenia nov
     \label{eq:preferential_attachment}
 \end{equation}
 
-Alternatívou k Barabási–Albertovmu modelu je Dorogovtsev–Mendesov model, ktorý taktiež generuje bezškálové siete, avšak na základe iného princípu rastu.
-Tento model začína s jednoduchým trojuholníkom, tri uzly spojené metódou každý s každým. V každom kroku sa do grafu pridá nový uzol, ktorý nevyužije preferenčné
-pripájanie, ale náhodne sa zvolia dva uzly, ku ktorým sa spojí hranou, čím vznikne nový trojuholník. Tento proces podporuje vysokú klasterizáciu siete,
-čo odlišuje tento model od Barabási–Albertovho \cite{dorogovtsev2002evolution} . 
+Ďalším modelom na generovanie bezškálových sietí je Dorogovtsev–Mendes model, často označovaný ako $G_{DM}(n)$.
+Tento model taktiež generuje siete s mocninovým rozdelením stupňov. Od Barabási-Albertovho modelu sa odlišuje mechanizmom rastu siete.
+Model začína s trojuholníkom (kompletným grafom s tromi uzlami) a v každom kroku sa pridá nový uzol, ktorý sa pripojí na oba koncové body
+náhodne vybranej existujúcej hrany \cite{dorogovtsev2002evolution}. Takýmto spôsobom sa v každom kroku vytvorí nový trojuholník, čo vedie k
+vysokému koeficientu zhlukovania. Model teda zabezpečuje vznik sietí, ktoré sú nielen bezškálové, ale majú aj malé
+priemerné vzdialenosti medzi uzlami a vysokú mieru zhlukovania.
 
 Zvýšený koeficient zhlukovania sa vyskytuje najmä pri analýze slovných sietí, kde sa rovnaké slová často vyskytujú v blízkosti seba a vytvárajú frázy,
 prirodzene sa zhlukujú do skupín. Práve preto je Dorogovtsev-Mendes model vhodný na analýzu jazykových dát, keďže dokáže simulovať podobné vlastnosti, štruktúru
@@ -278,11 +295,34 @@ $y_{BA} = -3$ \cite{cancho2001small} .
 
 \begin{figure}
     \centerline{\includegraphics[width=0.8\textwidth]{images/degdist.png}}
-    \caption[Distribúcia stupňov vrcholov.]{Distribúcia stupňov vrcholov pre dve siete, body zoskupené mocninou dvoch \cite{cancho2001small} .}
+    \caption[Distribúcia stupňov vrcholov, Dorogovtsev Mendes model]{Dorogovtsev Mendes model, distribúcia stupňov vrcholov pre dve siete,
+    body zoskupené mocninou dvoch \cite{cancho2001small} .}
     \label{obr:degdist}
 \end{figure}
 
+\clearpage
 
 \section{Interpunkcia}\label{sec:punctuation}
 
-!!! Treba dopisat... !!!
+Interpunkcia je základný prvok jazyka, používa sa na štruktúrovanie a organizovanie textu, vyjadrenie významových vzťahov.
+Pri správnom použití interpunkcia zlepšuje čitateľnosť a porozumenie textu, zatiaľ čo nesprávne použitie môže viesť k
+nejednoznačnosti a nedorozumeniu \cite{lubis2025mastering}.
+
+Tvorí ju súbor znakov, kde každý znak má svoj osobitý význam a funkciu, ako napríklad pauza, dôraz, ukončenie vety, vzťahy medzi vetnými členmi
+a podobne. Pravidlá písania interpunkcie sú kodifikované v gramatických a jazykových príručkách. Taktiež sa pravidlá písania interpunkcie líšia
+v závislosti od jazyka, v ktorom je text napísaný.
+
+Najbežnejšie používané interpunkčné znamienka možno rozdeliť do niekoľkých skupín podľa ich funkcie:
+ukončovacie (bodka, otáznik, výkričník), oddeľovacie (čiarka, bodkočiarka, dvojbodka), typografické (úvodzovky, zátvorky, pomlčky),
+prípadne aj iné znaky (trojbodka, lomka, atď.).
+
+Z gramatického hľadiska interpunkcia rozdeľuje text, vyznačuje vetnú štruktúru, oddeľuje vetné členy, hlavné a vedľajšie vety.
+Napríklad umiestnenie čiarky pred spojkami často naznačuje, že ide o vedľajšiu vetu, zatiaľ čo bodka, otáznik, výkričník označujú koniec vetného celku.
+
+Z fonetického hľadiska interpunkcia určuje intonáciu, pauzy pri čítaní textu, dôraz, rytmus a tón. Napríklad bodka naznačuje koniec vety a vyžaduje prestávku,
+kým čiarka naznačuje, že čitateľ by mal pokračovať v čítaní s malou pauzou. Takýmto spôsobom interpunkcia dokáže preniesť aspekty reči do písaného textu,
+čo môže ovplyvniť jeho význam a interpretáciu.
+
+Zo štylistického hľadiska interpunkcia ovplyvňuje štýl a tón textu. Napríklad použitie výkričníka môže naznačovať dôraz, vážnosť alebo nadšenie, zatiaľ čo otáznik
+môže naznačovať pochybnosť. Taktiež môže ovplyvniť rytmus a plynulosť textu. Napríklad dlhé vety s množstvom čiarkami môžu spôsobiť, že text bude pôsobiť ťažkopádne
+a zložito, zatiaľ čo krátke vety s minimálnym použitím interpunkcie môžu pôsobiť rýchlo a dynamicky. 

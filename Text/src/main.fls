@@ -410,23 +410,23 @@ OUTPUT main.lol
 INPUT chapters\00-uvod.tex
 INPUT chapters\10-teoria.tex
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmri12.tfm
-INPUT .\images\edges.png
-INPUT .\images\edges.png
-INPUT .\images\edges.png
-INPUT .\images\edges.png
-INPUT .\images\edges.png
-INPUT .\images\edges.png
-INPUT .\images\edges.png
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathit.enc
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-rm.enc
-INPUT .\images\matrices.png
-INPUT .\images\matrices.png
-INPUT .\images\matrices.png
-INPUT .\images\matrices.png
-INPUT .\images\matrices.png
-INPUT .\images\matrices.png
-INPUT .\images\matrices.png
+INPUT .\images\edges.png
+INPUT .\images\edges.png
+INPUT .\images\edges.png
+INPUT .\images\edges.png
+INPUT .\images\edges.png
+INPUT .\images\edges.png
+INPUT .\images\edges.png
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
+INPUT .\images\matrices.png
+INPUT .\images\matrices.png
+INPUT .\images\matrices.png
+INPUT .\images\matrices.png
+INPUT .\images\matrices.png
+INPUT .\images\matrices.png
+INPUT .\images\matrices.png
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathex.enc
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm

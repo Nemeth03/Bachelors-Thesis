@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.20)  1 MAY 2025 14:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.20)  8 MAY 2025 11:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -913,7 +913,7 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 [2
 
 ]
-<images/assignment-sk.pdf, id=72, 597.50731pt x 845.04607pt>
+<images/assignment-sk.pdf, id=112, 597.50731pt x 845.04607pt>
 File: images/assignment-sk.pdf Graphic file (type pdf)
 <use images/assignment-sk.pdf>
 Package pdftex.def Info: images/assignment-sk.pdf  used on input line 160.
@@ -968,62 +968,64 @@ Package pdftex.def Info: images/assignment-sk.pdf  used on input line 160.
 
 ]
 Kapitola 1.
-<images/edges.png, id=194, 393.72093pt x 264.99pt>
-File: images/edges.png Graphic file (type png)
-<use images/edges.png>
-Package pdftex.def Info: images/edges.png  used on input line 28.
-(pdftex.def)             Requested size: 220.50887pt x 148.40956pt.
 
 
 [3{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
-<images/matrices.png, id=206, 1173.63469pt x 410.2828pt>
-File: images/matrices.png Graphic file (type png)
-<use images/matrices.png>
-Package pdftex.def Info: images/matrices.png  used on input line 63.
-(pdftex.def)             Requested size: 352.81552pt x 123.3362pt.
+<images/edges.png, id=252, 393.72093pt x 264.99pt>
+File: images/edges.png Graphic file (type png)
+<use images/edges.png>
+Package pdftex.def Info: images/edges.png  used on input line 38.
+(pdftex.def)             Requested size: 220.50887pt x 148.40956pt.
 
 
 Package babel Info: 'slovak' activates 'slovak' shorthands.
-(babel)             Reported  on input line 70.
+(babel)             Reported  on input line 66.
 [4{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc} <./images/edges.png>]
+<images/matrices.png, id=267, 1173.63469pt x 410.2828pt>
+File: images/matrices.png Graphic file (type png)
+<use images/matrices.png>
+Package pdftex.def Info: images/matrices.png  used on input line 73.
+(pdftex.def)             Requested size: 352.81552pt x 123.3362pt.
+
 
 [5{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc} <./images/matrices.png>]
 
 [6]
 
 [7]
-<images/randomdegdist.png, id=269, 517.935pt x 365.86688pt>
+<images/randomdegdist.png, id=317, 517.935pt x 365.86688pt>
 File: images/randomdegdist.png Graphic file (type png)
 <use images/randomdegdist.png>
-Package pdftex.def Info: images/randomdegdist.png  used on input line 206.
+Package pdftex.def Info: images/randomdegdist.png  used on input line 219.
 (pdftex.def)             Requested size: 352.81552pt x 249.23837pt.
-<images/powerlaw.png, id=277, 409.53pt x 213.04594pt>
+
+
+[8 <./images/randomdegdist.png>]
+<images/powerlaw.png, id=333, 409.53pt x 213.04594pt>
 File: images/powerlaw.png Graphic file (type png)
 <use images/powerlaw.png>
-Package pdftex.def Info: images/powerlaw.png  used on input line 232.
+Package pdftex.def Info: images/powerlaw.png  used on input line 247.
 (pdftex.def)             Requested size: 352.81552pt x 183.55402pt.
 
 
-[8
+[9
 
- <./images/randomdegdist.png>]
-
-[9 <./images/powerlaw.png>]
-<images/wan.png, id=303, 286.82156pt x 215.30438pt>
+ <./images/powerlaw.png>]
+<images/wan.png, id=352, 286.82156pt x 215.30438pt>
 File: images/wan.png Graphic file (type png)
 <use images/wan.png>
-Package pdftex.def Info: images/wan.png  used on input line 274.
+Package pdftex.def Info: images/wan.png  used on input line 291.
 (pdftex.def)             Requested size: 352.81552pt x 264.84909pt.
-<images/degdist.png, id=304, 443.40656pt x 366.61969pt>
+<images/degdist.png, id=353, 443.40656pt x 366.61969pt>
 File: images/degdist.png Graphic file (type png)
 <use images/degdist.png>
-Package pdftex.def Info: images/degdist.png  used on input line 280.
+Package pdftex.def Info: images/degdist.png  used on input line 297.
 (pdftex.def)             Requested size: 352.81552pt x 291.73537pt.
-) (chapters/20-pouziteTechnologie.tex
 
-[10 <./images/wan.png>]
 
-[11 <./images/degdist.png>]
+[10]
+
+[11 <./images/wan.png> <./images/degdist.png>]) (chapters/20-pouziteTechnologie.tex
 
 [12
 
@@ -1031,7 +1033,9 @@ Package pdftex.def Info: images/degdist.png  used on input line 280.
 Kapitola 2.
 
 
-[13]
+[13
+
+]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 24.
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 24.
  (C:\Program Files\MiKTeX\tex/latex/lm\t1lmtt.fd
@@ -1073,20 +1077,20 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 3CF7878498159D07F821B3BB5A8FA488;1474.
+(rerunfilecheck)             Checksum: 742AC366C077A51992081B37F5FD9027;3095.
  ) 
 Here is how much of TeX's memory you used:
- 32031 strings out of 473522
- 586646 string characters out of 5724676
- 1060178 words of memory out of 5000000
- 54429 multiletter control sequences out of 15000+600000
- 641271 words of font info for 174 fonts, out of 8000000 for 9000
+ 32081 strings out of 473522
+ 587549 string characters out of 5724676
+ 1061155 words of memory out of 5000000
+ 54460 multiletter control sequences out of 15000+600000
+ 641635 words of font info for 178 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,7n,87p,1050b,1186s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main.pdf (34 pages, 1020733 bytes).
+Output written on main.pdf (34 pages, 1033641 bytes).
 PDF statistics:
- 465 PDF objects out of 1000 (max. 8388607)
- 103 named destinations out of 1000 (max. 500000)
- 46224 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 520 PDF objects out of 1000 (max. 8388607)
+ 114 named destinations out of 1000 (max. 500000)
+ 46304 words of extra memory for PDF output out of 51595 (max. 10000000)
 
