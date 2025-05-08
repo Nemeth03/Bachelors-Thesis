@@ -19,8 +19,10 @@
 \contentsline {section}{\numberline {3.2}Použivateľské rozhranie}{15}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Tvorba slovnej siete}{15}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Zobrazovanie charakteristík}{15}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Analýza siete}{15}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Ukladanie siete}{15}{section.3.6}%
+\contentsline {section}{\numberline {3.5}Analýza siete}{16}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Ukladanie siete}{16}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Testovanie}{16}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Možnosti rozšírenia}{16}{section.3.8}%
 \contentsline {chapter}{\numberline {4}Analýza textov}{17}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Vývoj slovnej siete}{17}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Distribúcia stupňov vrcholov}{17}{section.4.2}%
