@@ -279,13 +279,13 @@ class App(wx.Frame):
 
         N = nx.Graph(self.createGraphData(self.processTextFile(self.selectedPunctuation))[0])
         if self.selectedPunctuation:
-            graph_name = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml'
-            print(f'Saving graph to {graph_name}')
-            nx.write_graphml(N, f'{graph_name}')
+            graphName = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml'
+            self.logMessage(f'Saving graph to {graphName}')
+            nx.write_graphml(N, f'{graphName}')
         else:
-            graph_name = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml'
-            print(f'Saving graph to {graph_name}')
-            nx.write_graphml(N, graph_name)
+            graphName = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml'
+            self.logMessage(f'Saving graph to {graphName}')
+            nx.write_graphml(N, graphName)
 
 
     # Distribution analysis and visualization, comparison to Dorogovtsev-Goltsev-Mendes model
@@ -513,7 +513,7 @@ class App(wx.Frame):
         plt.ylim(min(gammas)-0.5, max(gammas)+0.5)
         plt.xlabel('Počet vrcholov')
         plt.ylabel('Gamma (Exponent mocninového rozdelenia)')
-        plt.title('Oliver Twist, Charles Dickens, Nemecká verzia')
+        plt.title('Názov...')
         plt.grid(True)
         plt.legend()
         plt.show()

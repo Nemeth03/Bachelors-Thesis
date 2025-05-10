@@ -54,20 +54,37 @@
 \fi
 
 % Add this to the preamble
-\usepackage{listings}
-\renewcommand{\lstlistlistingname}{Algoritmy}
-\renewcommand{\lstlistingname}{Algoritmus}
 
-% Define the appearance of code snippets (optional)
+\usepackage{listings}
+\renewcommand{\lstlistlistingname}{Úryvky kódu}
+\renewcommand{\lstlistingname}{Kód}
+
+\usepackage{graphicx}
+
+% Define the appearance of code snippets with syntax highlighting for Python
+\usepackage{xcolor}
+\usepackage{inconsolata}  % Monospace font similar to VS Code
 \lstset{
-    basicstyle=\ttfamily\small, % Use a monospaced font
-    numbers=left,              % Line numbers on the left
-    numberstyle=\tiny,         % Line number style
-    frame=single,              % Add a frame around the code
-    captionpos=b,              % Caption position (bottom)
-    breaklines=true,           % Allow line breaking
-    tabsize=4                  % Set tab size
+  language=Python,
+  basicstyle=\ttfamily\small,           % Inconsolata font, small size
+  keywordstyle=\color{blue}\bfseries,   % Keywords in bold blue
+  stringstyle=\color{orange},           % Strings in orange
+  commentstyle=\color{gray},            % Comments in gray
+  identifierstyle=\color{black},        % Variables etc.
+  showstringspaces=false,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  numbersep=10pt,
+  backgroundcolor=\color{white},        % Use black for dark mode
+  frame=single,
+  rulecolor=\color{black},
+  tabsize=4,
+  captionpos=b,
+  breaklines=true,
+  breakatwhitespace=false,
+  escapeinside={(*@}{@*)}
 }
+
 
 \begin{document}
 
@@ -202,6 +219,9 @@
 
 \newpage
 \listoffigures
+
+\newpage
+\listoftables
 
 \newpage
 \lstlistoflistings

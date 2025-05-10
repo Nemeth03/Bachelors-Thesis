@@ -73,4 +73,29 @@ Aric~A. Hagberg, Daniel~A. Schult, and Pieter~J. Swart.
   Proceedings of the 7th Python in Science Conference}, pages 11 -- 15,
   Pasadena, CA USA, 2008.
 
+\bibitem{projectgutenberg}
+Project gutenberg.
+\newblock \url{https://www.gutenberg.org/}.
+\newblock Navštívené dňa 9.5.2025.
+
+\bibitem{milojevic2010power}
+Sta{\v{s}}a Milojevi{\'c}.
+\newblock Power law distributions in information science: Making the case for
+  logarithmic binning.
+\newblock {\em Journal of the American Society for Information Science and
+  Technology}, 61(12):2417--2425, 2010.
+
+\bibitem{cytoscape_website}
+{Cytoscape Consortium}.
+\newblock Cytoscape: An open source platform for complex network analysis and
+  visualization.
+\newblock \url{https://cytoscape.org}.
+\newblock Navštívené dňa 9.5.2025.
+
+\bibitem{gephi_website}
+{Gephi Consortium}.
+\newblock Gephi: The open graph viz platform.
+\newblock \url{https://gephi.org}.
+\newblock Navštívené dňa 9.5.2025.
+
 \end{thebibliography}
