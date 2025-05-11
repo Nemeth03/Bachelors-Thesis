@@ -72,7 +72,7 @@ Na základe tejto analýzy boli identifikované dostatočne dlhé úseky textov,
 
 \section{Grafová analýza}\label{sec:grafovaAnalyza}
 
-Grafová analýza textu pre slovnú sieť bez interpunkcie a so zohľadnením interpunkcie bola vykonaná na rovnakých vzorkách textov.
+Grafová analýza textu pre slovnú sieť bez interpunkcie a so zohľadnením interpunkcie bola vykonaná na približne rovnako veľkých slovných sieťach.
 Vo výsledkoch (tabuľka č. \ref{tab:anglickyBezInterpunkcie}, č. \ref{tab:anglickySInterpunkciou}, č. \ref{tab:nemeckyBezInterpunkcie} a č. \ref{tab:nemeckySInterpunkciou})
 jednotlivých analýz môžeme pozorovať niekoľko zmien.
 
@@ -97,6 +97,9 @@ priemernú najkratšiu cestu, ktorá je v prípade slovnej siete s interpunkciou
           pohybuje v rozmedzí $0.23$ až $0.37$, čo naznačuje, že uzly majú slabú pozitívnu koreláciu medzi týmito dvoma typmi centrality. Tento výlsedok naznačuje, že uzly, ktoré sú blízko seba,
           nemusia zohrávať významnú úlohu pri tvorbe najkratších ciest v sieti.
 \end{itemize}
+
+Celkovo grafová analýza ukazuje, že interpunkcia má vplyv na štruktúru slovnej siete, čo sa prejave v rôznych parametroch siete, ako sú stupeň vrcholov, koeficient zhlukovania, priemerná najkratšia cesta
+a korelácie medzi rôznymi typmi centrality.
 
 
 \clearpage
@@ -124,7 +127,7 @@ Hustota siete & 0.00204 & 0.00200 & 0.00246 \\ \hline
 \begin{tabular}[c]{@{}c@{}}Priemerná\\ najkratšia\\ cesta\end{tabular} & 2.91347 & 2.91189 & 2.86155 \\ \hline
 Priemer & 7 & 8 & 7 \\ \hline
 \end{tabular}
-\caption{Grafová analýza anglických textov bez interpunkcie}\label{tab:anglickyBezInterpunkcie}
+\caption{Grafová analýza, Anglický jazyk, bez interpunkcie}\label{tab:anglickyBezInterpunkcie}
 \end{table}
 
 \begin{table}[]
@@ -209,9 +212,30 @@ Priemer & 7 & 7 & 7 \\ \hline
 
 \section{Distribúcia stupňov vrcholov}\label{sec:distribuciaStupnovvrcholov}
 
+Distribúcia stupňov vrcholov bola analyzovaná pre úryvky textov, ktoré boli vybrané na základe vývoja slovnej siete \ref{sec:vyvojSlovnejSiete}. 
+Skúmal sa vplyv zahrnutia interpunkcie do slovnej siete na mocninové rozdelenie stupňov vrcholov, zmenu exponentu $\gamma$ a podobnosť rozdelenia stupňov vrcholov
+k teoretickému Dorogovtsev-Mendes modelu.
+
+Výsledky sú zobrazené na obr. č. \ref{fig:lbdegdistKoleda}, č. \ref{fig:lbdegdistTwist} a č. \ref{fig:lbdegdistDorian} v podobe grafov 
+zobrazujúcich rozdelenie stupňov vrcholov s využitím logaritmického zoskupovania v log-log mierke.
+Na každom z týchto grafov je osobitne zobrazené rozdelenie pre sieť bez interpunkcie, s interpunkciou a teoretické rozdelenie Dorogovtsev-Mendes modelu.
+Pre analýzu bolo potrebné odfiltrovať uzly s veľmi nízkym a vysokým stupňom, aby sa znížilo skreslenie výsledkov a vybrať najdlhšiu
+klesajúcu časť charakteristiky pre výpočet hodnoty exponentu $\gamma$ mocninové rozdelenia.
+
+Analýza ukázala, že slovné siete bez interpunkcie majú exponent $\gamma$ v rozmedzí $2.03$ až $2.16$ a slovné siete so zohľadnením interpunkcie
+majú exponent $\gamma$ v intervale $2.02$ až $2.11$. Hodnoty $\gamma$ udávajú, že rozdelenie stupňov vrcholov v oboch prípadoch nasleduje 
+mocninové rozdelenie, pričom hodnoty sa pohybujú v blízkosti $2$, čo je typické pre reálne siete. Taktiež dôvod prečo sa hodnoty exponentu $\gamma$
+blížia k $2$ je ten, že v prípade slovných sietí vznikajú uzly s vysokým stupňom, zapríčinené častým výskytom spojok alebo predložiek, ktoré sa
+často spájajú s inými slovami. Môžeme pozorovať, že v prípade slovnej siete s interpunkciou je hodnota exponentu $\gamma$ nižšia vo všetkých prípadoch,
+pretože interpunkčné znamienka majú tendenciu vytvárať uzly s vysokým stupňom.
+
+Porovnanie s teoretickým Dorogovtsev-Mendes modelom sa uskutočnilo na základe hodnoty strednej kvadratickej chyby normalizovanej distribúcie stupňov vrcholov,
+ktorá sa pohybuje v rozmedzí $0.00022$ až $0.00028$ pre sieť bez interpunkcie a $0.00015$ až $0.00021$ pre sieť s interpunkciou.
+
+Zistenia potvrdzujú, že rozdelenie stupňov vrcholov v slovných sieťach s interpunkciou aj bez nej vykazuje charakteristiky bezškálových sietí a výraznú
+podobnosť s teoretickým Dorogovtsev-Mendes modelom.
 
 
-pozorovanie distribucie stupnov vrcholov charakteristiky, porovnanie s a bez interpunkcie, rozne jazyky
 
 \begin{figure}[htbp]
     \centering
@@ -226,7 +250,7 @@ pozorovanie distribucie stupnov vrcholov charakteristiky, porovnanie s a bez int
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Zmena veľkosti exponentu $\gamma$ v závisloti od veľkosti siete, text Vianočná koleda od Charlesa Dickensa.}
+    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Vianočná koleda od Charlesa Dickensa.}\label{fig:lbdegdistKoleda}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -242,7 +266,7 @@ pozorovanie distribucie stupnov vrcholov charakteristiky, porovnanie s a bez int
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Zmena veľkosti exponentu $\gamma$ v závisloti od veľkosti siete, text Oliver Twist od Charlesa Dickensa.}
+    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Oliver Twist od Charlesa Dickensa.}\label{fig:lbdegdistTwist}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -258,14 +282,37 @@ pozorovanie distribucie stupnov vrcholov charakteristiky, porovnanie s a bez int
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Zmena veľkosti exponentu $\gamma$ v závisloti od veľkosti siete, text Portrét Doriana Graya od Oscara Wildea.}
+    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Portrét Doriana Graya od Oscara Wildea.}\label{fig:lbdegdistDorian}
 \end{figure}
 
 \clearpage
 
 \section{Jazyková analýza}\label{sec:jazykovaAnalyza}
 
-tabulky vypocitanych hodnot, porovnanie s a bez interpunkcie, rozne jazyky
+Jazyková analýza jednotlivých diel bola vykonaná na slovných sieťach so zohľadnením interpunkcie.
+V tabuľkách č. \ref{tab:anglickyJazykovaAnalyza} a č. \ref{tab:nemeckyJazykovaAnalyza} sú uvedené výsledky jazykovej analýzy pre anglický a nemecký jazyk.
+Možno pozorovať viaceré rozdiely, ktoré sú spôsobené štruktúrou jazykov a štýlom prekladu.
+
+Počet interpunkčných znakov sa v jednotlivých dielach výrazne líši, aj napriek tomu, že analyzované slovné siete sú približne rovnakej veľkosti.
+Tento rozdiel je zapríčinený tým, že na vytvorenie slovnej siete určitej veľkosti je potrebné odlišné množstvo textu. Množstvo textu je závislé od
+štruktúry samostatného jazyka a štýlom písania autora či prekladateľa. Ak si vypočítame pomer medzi veľkosťou vzorky textu a počtom interpunkčných znakov,
+zistíme, že v prípade anglického jazyka sa tento pomer pohybuje v intervale $4.8$ až $5.1$ a v prípade nemeckého jazyka $5.2$ až $5.4$.
+Tento pomer ukazuje, že vo všetkých dielach v oboch jazykoch je počet interpunkčných znakov v priemere približne päťkrát menší, ako počet slov.
+
+Priemerná dĺžka slova je vyššia pre všetky analýzy v nemeckom jazyku (okolo $7.5$ až $7.9$ znakov), čo je typické pre nemecký jazyk, v ktorom sa
+často vyskytujú dlhé zložené slová. V anglickom jazyku sa priemerná dĺžka slova pohybuje v rozmedzí $6.4$ až $6.7$ znakov. Rovnaký 
+trend je pozorovaný aj v prípade maximálnej dĺžky slova, ktorá sa v nemeckom jazyku pohybuje v rozmedzí $23$ až $26$ znakov, zatiaľ čo v anglickom jazyku
+sa maximálna dĺžka slova pohybuje v intervale $15$ až $16$ znakov.
+
+Štatistiky týkajúce sa dĺžky viet vykazujú podobné hodnoty, jediný výrazný rozdiel je v maximálnej dĺžke vety textu Oliver Twist, kde je v anglickom jazyku
+viac ako dvojnásobná v porovnaní s nemeckým prekladom. Tento rozdiel môže byť spôsobený viacerými faktormi, ako sú štruktúra jazyka či preklad textu.	
+
+Taktiež sa skúmal výskyt dvojíc a trojíc slov v textoch, ktoré tvoria časté slovné spojenia. Táto analýza silno závisí od štýlu písania autora, štruktúry a veľkosti textu, ako
+vidno v anglickej verzii Portrétu Doriana Graya, kde sa vyskytuje najviac dvojíc a trojíc slov. Dôvodom môže byť aj veľkosť textu, ktorý je v porovnaní s ostatnými anglickými textami
+o takmer $30\%$ väčší. Veľkú úlohu zohráva aj gramatická štruktúra jazyka, ktorá ovplyvňuje výskyt dvojíc a trojíc slov, pretože pravidlá písania napríklad čiarky môže vytvárať
+dvojice, trojice uzlov s vysokou frekvenciou.
+
+Tieto zistenia naznačujú, že jazyková analýza môže poskytnúť cenné informácie o štruktúre a charakteristikách textu, ako aj o štýle písania autora.
 
 \clearpage
 
@@ -299,7 +346,7 @@ Maximálna frekvencia trojice & 73 & 119 & 256 \\ \hline
 Minimálna frekvencia trojice & 1 & 1 & 1 \\ \hline
 Priemerná frekvencia trojice & 1.17015 & 1.19288 & 1.26050 \\ \hline
 \end{tabular}
-\caption{Jazyková analýza, Anglický jazyk}
+\caption{Jazyková analýza, Anglický jazyk}\label{tab:anglickyJazykovaAnalyza}
 \end{table}
 
 
@@ -333,5 +380,5 @@ Maximálna frekvencia trojice & 87 & 53 & 155 \\ \hline
 Minimálna frekvencia trojice & 1 & 1 & 1 \\ \hline
 Priemerná frekvencia trojice & 1.11724 & 1.10996 & 1.12834 \\ \hline
 \end{tabular}
-\caption{Jazyková analýza, Nemecký jazyk}
+\caption{Jazyková analýza, Nemecký jazyk}\label{tab:nemeckyJazykovaAnalyza}
 \end{table}

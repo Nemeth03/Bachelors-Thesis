@@ -8,7 +8,7 @@ by mohli zlepšiť funkcionalitu aplikácie.
 
 Aplikácia je implementovaná v programovacom jazyku Python. Využíva externé knižnice, ako sú Matplotlib pre grafickú vizualizáciu
 charakteristík, re pre spracovanie textových dát, NumPy pre numerické výpočty a prácu s dátami, wxPython pre vytvorenie grafického
-používateľského rozhrania, NetworkX pre prácu s pozičnou slovnou sieťou, výpočet analýzy.
+používateľského rozhrania, NetworkX pre prácu s pozičnou slovnou sieťou a výpočet analýzy.
 
 Prvým krokom bolo získanie textových dát pre analýzu. Na tento účel bola využitá stránka Project Gutenberg \cite{projectgutenberg} ,
 kde je možné nájsť množstvo verejne dostupných literárnych diel od rôznych autorov preložených do rôznych svetových jazykov.
@@ -31,7 +31,7 @@ počet dvojíc a trojíc slov (frázy), ich frekvencia (maximálna, minimálna, 
 častého výskytu.
 
 Výsledky uvedených grafických a výpočtových analýz budú porovnávané pre dve verzie siete - bez interpunkcie a s interpunkciou. Následne
-budeme skúmať ich odlišnosti a podobnosti, taktiež budeme porovnávať výsledky pre rôzne jazyky a rôzne texty.
+budeme skúmať ich odlišnosti a podobnosti, taktiež budeme porovnávať výsledky pre rôzne jazyky a texty.
 
 \section{Grafické používateľské rozhranie}\label{sec:GUI}
 
@@ -67,7 +67,7 @@ Ukážku grafického používateľského rozhrania možno vidieť na obrázku č
 \section{Tvorba slovnej siete}\label{sec:creationOfWordNetwork}
 
 Pre vytvorenie slovnej siete je nevyhnutné najprv načítaný textový súbor predspracovať. Cieľom predspracovanie je
-vytvorenie normalizovaného zoznamu slov, ktoré budú predstavovať vrcholy siete. Na tento účel sa využíva knižnica \texttt{re},
+vytvorenie normalizovaného zoznamu slov, ktoré budú predstavovať uzly siete. Na tento účel sa využíva knižnica re,
 pretože umožňuje efektívne spracovanie textu pomocou regulárnych výrazov. Vďaka nej možno jednoducho definovať, ktoré
 interpunkčné znaky sa majú zohľadniť pri vytváraní siete, a ktoré sa majú ignorovať. 
 Metódu predspracovania textu možno vidieť na ukážke č. \ref{lst:textPreprocessing}. Vstupný parameter tejto metódy je
@@ -93,8 +93,8 @@ interpunkčného znaku ako kľúč a regulárny výraz ako hodnotu.
 \end{lstlisting}
 
 Po úspešnom predspracovaní textu sa vytvorí slovník susedností a slovník početností pomocou metódy \texttt{createGraphData}, ktorú
-možno vidieť na ukážke č. \ref{lst:createGraphData}. Na reprezentáciu pozičnej slovnej siete sa využíva knižnica \texttt{NetworkX}, špecificky
-trieda \texttt{Graph}. Implementáciu je možné vidieť na ukážke č. \ref{lst:networkxGraph}. Naďalej sa pracuje s touto inštanciou triedy \texttt{Graph},
+možno vidieť na ukážke č. \ref{lst:createGraphData}. Na reprezentáciu pozičnej slovnej siete sa využíva knižnica NetworkX, špecificky
+trieda Graph. Implementáciu je možné vidieť na ukážke č. \ref{lst:networkxGraph}. Naďalej sa pracuje s touto inštanciou triedy Graph,
 pretože poskytuje množstvo užitočných funkcií a metód na analýzu a vizualizáciu grafov.
 
 \clearpage
@@ -134,7 +134,7 @@ pretože poskytuje množstvo užitočných funkcií a metód na analýzu a vizua
 
 \section{Zobrazenie výstupných charakteristík}\label{sec:graphicalOutput}
 
-Na zobrazenie výstupných charakteristík sa využíva knižnica \texttt{Matplotlib}. Táto knižnica poskytuje množstvo funkcií
+Na zobrazenie výstupných charakteristík sa využíva knižnica Matplotlib. Táto knižnica poskytuje množstvo funkcií
 a metód na vytváranie grafov a vizualizáciu dát. V tejto aplikácii sa budeme zameriavať na zobrazenie distribúcie stupňov
 vrcholov, rastovú závislosť siete od hodnoty exponentu $\gamma$ mocninového zákona.
 
@@ -203,15 +203,15 @@ a následne sa určí hodnota exponentu $\gamma$. Výsledkom je graf, ktorý zob
 \section{Výpočet analýzy siete}\label{sec:calculationOfNetworkAnalysis}
 
 Výpočet analýzy siete je rozdelený do dvoch oblastí. Prvá, grafická analýza je implementovaná pomocou zadefinovaných
-metód v knižníci \texttt{NetworkX}. Druhá, jazyková analýza je implementovaná pomocou vlastných metód,
+metód v knižníci NetworkX. Druhá, jazyková analýza je implementovaná pomocou vlastných metód,
 ktoré sú špecifické pre danú aplikáciu.
 
 \section{Uloženie siete do súboru}\label{sec:savingNetworkToFile}
 
-Jednou z funkcionalít aplikácie je uloženie vytvorenej slovnej siete do súboru. Na tento účel sa využíva knižnica \texttt{NetworkX},
-ktorá poskytuje metódy na exportovanie grafov do rôznych formátov. V tejto aplikácii sa využíva formát \texttt{GraphML}, ktorý je
-vhodný pre externé aplikácie na analýzu a vizualizáciu grafov, ako \texttt{Cytoscape} \cite{cytoscape_website}
-alebo \texttt{Gephi} \cite{gephi_website}. 
+Jednou z funkcionalít aplikácie je uloženie vytvorenej slovnej siete do súboru. Na tento účel sa využíva knižnica NetworkX,
+ktorá poskytuje metódy na exportovanie grafov do rôznych formátov. V tejto aplikácii sa využíva formát GraphML, ktorý je
+vhodný pre externé aplikácie na analýzu a vizualizáciu grafov, ako Cytoscape \cite{cytoscape_website}
+alebo Gephi \cite{gephi_website}. 
 
 Uloženie siete do súboru je implementované v metóde \texttt{saveNetwork}, ktorú možno
 vidieť na ukážke č. \ref{lst:saveNetwork}. Táto metóda sa volá po stlačení tlačidla "Save Network" v GUI, ktontroluje či je vybraná
