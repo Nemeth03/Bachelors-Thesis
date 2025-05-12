@@ -279,11 +279,11 @@ class App(wx.Frame):
 
         N = nx.Graph(self.createGraphData(self.processTextFile(self.selectedPunctuation))[0])
         if self.selectedPunctuation:
-            graphName = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphYesPunct.graphml'
+            graphName = f'{self.labelFileSelectPath.GetValue().split("/")[-1].split(".")[0]}_graphYesPunct.graphml'
             self.logMessage(f'Saving graph to {graphName}')
             nx.write_graphml(N, f'{graphName}')
         else:
-            graphName = f'{self.labelFileSelectPath.GetValue().split('/')[-1].split('.')[0]}_graphNoPunct.graphml'
+            graphName = f'{self.labelFileSelectPath.GetValue().split("/")[-1].split(".")[0]}_graphNoPunct.graphml'
             self.logMessage(f'Saving graph to {graphName}')
             nx.write_graphml(N, graphName)
 
@@ -708,7 +708,7 @@ class App(wx.Frame):
     # Collect input data info
     def collectInputDataInfo(self):
         return f'Input Data...\nFile selected: {self.labelFileSelectPath.GetValue()}\nLanguage: {self.selectedLanguage} \
-            \nSelected Punctuation: {', '.join(self.selectedPunctuation.keys())}'
+            \nSelected Punctuation: {", ".join(self.selectedPunctuation.keys())}'
 
 
     # Exit the application
