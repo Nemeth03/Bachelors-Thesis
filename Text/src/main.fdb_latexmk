@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1746969009.07741 "main.aux" "main.bbl" "main" 1746972880.2551 0
+["bibtex main"] 1746969009.07741 "main.aux" "main.bbl" "main" 1747040594.9175 0
   "./references.bib" 1746816503 5202 caef06796977603730be17194f66ece4 ""
   "C:/Program Files/MiKTeX/bibtex/bst/bibtex/unsrt.bst" 1291864736 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "main.aux" 1746972879 24182 b25c2b2e906736eaa13a579f802fa805 "pdflatex"
+  "main.aux" 1747040593 24182 b25c2b2e906736eaa13a579f802fa805 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1746972875.83889 "c:/Users/megam/Desktop/Bachelors-Thesis/Text/src/main.tex" "main.pdf" "main" 1746972880.25578 0
+["pdflatex"] 1747040590.62256 "c:/Users/megam/Desktop/Bachelors-Thesis/Text/src/main.tex" "main.pdf" "main" 1747040594.91812 0
   "C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
   "C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc" 1256929440 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc" 1256929440 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -255,12 +255,12 @@
   "C:/Users/megam/AppData/Roaming/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/megam/AppData/Roaming/MiKTeX/tex/latex/upquote/upquote.sty" 1335534756 1088 517e01cde97c1c0baf72e69d43aa5a2e ""
   "c:/Users/megam/Desktop/Bachelors-Thesis/Text/src/main.tex" 1746876052 5888 24f0b478af8b860978707d50e0d30b6c ""
-  "chapters/00-uvod.tex" 1744547552 111 08a40cb7669fd0fc7323f4c2b29125ad ""
+  "chapters/00-uvod.tex" 1746978966 2165 a166689023c29676ea5d09b2a3c5f742 ""
   "chapters/10-teoria.tex" 1746534453 22672 fe71f009d7b9840b372578a6e8f4668d ""
   "chapters/20-pouziteTechnologie.tex" 1746797966 2353 dab49d19b504a18385cd0bf6b4fd96a0 ""
   "chapters/30-tvorbaAplikacie.tex" 1746968626 19376 a93f09e93a19a7ffcf4d85f84d1c777a ""
-  "chapters/40-analyzaTextov.tex" 1746969591 23500 23c68489c8e99503a787ac54f4495750 ""
-  "chapters/50-zaver.tex" 1746882222 115 c157c8c208535e0a63a5a35dd98488fe ""
+  "chapters/40-analyzaTextov.tex" 1746973853 23500 23c68489c8e99503a787ac54f4495750 ""
+  "chapters/50-zaver.tex" 1747040589 2117 a9cfabe15a0ab65001b4e918e14efcf5 ""
   "definitions.tex" 1744027781 1641 cbb814dceb994c3d965844392568ecd2 ""
   "images/Growth/Screenshot_13.png" 1745931005 61325 3721baabfc3c43ab848c167fc8d5357e ""
   "images/Growth/Screenshot_14.png" 1745931061 63394 75b25dce2c456dcb484e3181c5d0f682 ""
@@ -284,15 +284,15 @@
   "images/randomdegdist.png" 1744895292 288654 a819fc847929d4220f935789fcfc658b ""
   "images/rawLogBinnedDegDist.png" 1746817223 46310 517163a760c6dbf9cc11097dcce98a22 ""
   "images/wan.png" 1744806772 4949 d371a2f3b76bf192f623fab29aeba0a1 ""
-  "main.aux" 1746972879 24182 b25c2b2e906736eaa13a579f802fa805 "pdflatex"
+  "main.aux" 1747040593 24182 b25c2b2e906736eaa13a579f802fa805 "pdflatex"
   "main.bbl" 1746969009 3594 f15d9a6d7310324f6891a93e36b1e9b4 "bibtex main"
-  "main.lof" 1746972879 2644 67c4bf290a815729b3181219ae7faf09 "pdflatex"
-  "main.lol" 1746972879 788 d9b8aa44a4ca5208d675c752e316bda5 "pdflatex"
-  "main.lot" 1746972879 1013 cd394f235131b0cb2d0f41b7a395a44d "pdflatex"
-  "main.out" 1746972879 5170 371c7c36156e66688cb16acb239f0fe3 "pdflatex"
+  "main.lof" 1747040593 2644 67c4bf290a815729b3181219ae7faf09 "pdflatex"
+  "main.lol" 1747040593 788 d9b8aa44a4ca5208d675c752e316bda5 "pdflatex"
+  "main.lot" 1747040593 1013 cd394f235131b0cb2d0f41b7a395a44d "pdflatex"
+  "main.out" 1747040593 5170 371c7c36156e66688cb16acb239f0fe3 "pdflatex"
   "main.tex" 1746876052 5888 24f0b478af8b860978707d50e0d30b6c ""
-  "main.toc" 1746972879 2785 693addb6090aff185f3275e3bd173275 "pdflatex"
-  "variables.tex" 1746972875 6532 5acaed97a33f51667976742694473cf6 ""
+  "main.toc" 1747040593 2785 693addb6090aff185f3275e3bd173275 "pdflatex"
+  "variables.tex" 1746973838 6532 5acaed97a33f51667976742694473cf6 ""
   (generated)
   "main.aux"
   "main.lof"
