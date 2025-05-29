@@ -1,13 +1,14 @@
 \chapter{Analýza textov}\label{ch:textAnalysis}
 
 Výskum sa zameriava na literárne diela dvoch autorov, Charlesa Dickensa a Oscara Wildea v dvoch jazykových variáciách: anglická a nemecká.
-Cieľom je preskúmať vplyv interpunkcie na pozičnú slovnú sieť a jej mocninové rozdelenie.
+Cieľom je preskúmať vplyv interpunkcie na pozičnú slovnú sieť (\ref{sec:word-networks}) a jej mocninové rozdelenie, t. j. keď sa veľkosť stupňov
+uzlov riadi rozdelením, v ktorom malé množstvo uzlov má veľmi vysoký stupeň, zatiaľ čo väčšina má len niekoľko spojení \cite{barabasi2016network}.
 Kapitola je rozdelená do štyroch hlavných častí: vývoj slovnej siete, distribúcia stupňov vrcholov, grafová analýza a jazyková analýza.
 
 \section{Vývoj slovnej siete}\label{sec:vyvojSlovnejSiete}
 
 Ako je možné vidieť na uvedených grafoch obr. č. \ref{fig:growthKoleda}, č. \ref{fig:growthTwist} a č. \ref{fig:growthDorian},
-veľkosť exponentu mocninového rozdelenia $\gamma$ sa mení v závislosti od veľkosti siete. Pozorovanie vývoja slovných sietí vytvorených z literárnych diel v rôznych
+veľkosť exponentu mocninového rozdelenia $\gamma$ (\ref{eq:power_law_distribution_scale_free}) sa mení v závislosti od veľkosti siete. Pozorovanie vývoja slovných sietí vytvorených z literárnych diel v rôznych
 jazykoch ukázalo, že rozdiel medzi slovnou sieťou bez interpunkcie a slovnou sieťou, ktorá obsahuje interpunkciu je najmä v počiatočnom
 štádiu vývoja siete. 
 
@@ -33,7 +34,7 @@ Na základe tejto analýzy boli identifikované dostatočne dlhé úseky textov,
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Zmena veľkosti exponentu $\gamma$ v závisloti od veľkosti siete, text Vianočná koleda od Charlesa Dickensa.}\label{fig:growthKoleda}
+    \caption{Zmena veľkosti exponentu $\gamma$ (\ref{eq:power_law_distribution_scale_free}) v závisloti od veľkosti siete, text Vianočná koleda od Charlesa Dickensa.}\label{fig:growthKoleda}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -49,7 +50,7 @@ Na základe tejto analýzy boli identifikované dostatočne dlhé úseky textov,
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Zmena veľkosti exponentu $\gamma$ v závisloti od veľkosti siete, text Oliver Twist od Charlesa Dickensa.}\label{fig:growthTwist}
+    \caption{Zmena veľkosti exponentu $\gamma$ (\ref{eq:power_law_distribution_scale_free}) v závisloti od veľkosti siete, text Oliver Twist od Charlesa Dickensa.}\label{fig:growthTwist}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -65,7 +66,7 @@ Na základe tejto analýzy boli identifikované dostatočne dlhé úseky textov,
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Zmena veľkosti exponentu $\gamma$ v závisloti od veľkosti siete, text Portrét Doriana Graya od Oscara Wildea.}\label{fig:growthDorian}
+    \caption{Zmena veľkosti exponentu $\gamma$ (\ref{eq:power_law_distribution_scale_free}) v závisloti od veľkosti siete, text Portrét Doriana Graya od Oscara Wildea.}\label{fig:growthDorian}
 \end{figure}
 
 \clearpage
@@ -87,11 +88,11 @@ priemerný stupeň znížil.
 Priemerný koeficient zhlukovania je v prípade slovnej siete s interpunkciou vyšší, čo naznačuje, že uzly sú v tejto sieti viac zoskupené do tzv. hubov. To vplýva aj na 
 priemernú najkratšiu cestu, ktorá je v prípade slovnej siete s interpunkciou nižšia.
 
-Ďalšie zaujímavé pozorovania sa týkajú korelácie medzi rôznymi typmi centrality:
+Ďalšie zaujímavé pozorovania sa týkajú korelácie medzi rôznymi typmi centrality (viď teóriu grafov \ref{sec:graph-theory}):
 \begin{itemize}
-    \item Korelácia medzi stupňom a blízkosťou pohybujúca sa v intervale $0.34$ až $0.50$, ktorá udáva, ako blízko sú jednotlivé uzly.
+    \item Korelácia medzi stupňom (\ref{eq:degree_centrality}) a blízkosťou (\ref{eq:closeness_centrality}) pohybujúca sa v intervale $0.34$ až $0.50$, ktorá udáva, ako blízko sú jednotlivé uzly.
           V prípade slovnej siete bez interpunkcie je vyššia.
-    \item Korelácia medzi stupňom a medziľahlosťou je v oboch prípadoch veľmi vysoká v rozsahu $0.93$ až $0.96$ s minimálnou zmenou a naznačuje, že uzly s vysokým stupňom
+    \item Korelácia medzi stupňom a medziľahlosťou (\ref{eq:betweenness_centrality}) je v oboch prípadoch veľmi vysoká v rozsahu $0.93$ až $0.96$ s minimálnou zmenou a naznačuje, že uzly s vysokým stupňom
           sú často aj uzlami, ktoré prepájajú rôzne časti siete.
     \item Korelácia medzi blízkosťou a medziľahlosťou je v prípade slovnej siete bez interpunkcie opäť vyššia, no vo všetkých prípadoch sa
           pohybuje v rozmedzí $0.23$ až $0.37$, čo naznačuje, že uzly majú slabú pozitívnu koreláciu medzi týmito dvoma typmi centrality. Tento výlsedok naznačuje, že uzly, ktoré sú blízko seba,
@@ -214,15 +215,15 @@ Priemer & 7 & 7 & 7 \\ \hline
 
 Distribúcia stupňov vrcholov bola analyzovaná pre úryvky textov, ktoré boli vybrané na základe vývoja slovnej siete \ref{sec:vyvojSlovnejSiete}. 
 Skúmal sa vplyv zahrnutia interpunkcie do slovnej siete na mocninové rozdelenie stupňov vrcholov, zmenu exponentu $\gamma$ a podobnosť rozdelenia stupňov vrcholov
-k teoretickému Dorogovtsev-Mendes modelu.
+k teoretickému Dorogovtsev-Mendes modelu (pozri sekciu \ref{sec:scale-free-network}).
 
 Výsledky sú zobrazené na obr. č. \ref{fig:lbdegdistKoleda}, č. \ref{fig:lbdegdistTwist} a č. \ref{fig:lbdegdistDorian} v podobe grafov 
 zobrazujúcich rozdelenie stupňov vrcholov s využitím logaritmického zoskupovania v log-log mierke.
 Na každom z týchto grafov je osobitne zobrazené rozdelenie pre sieť bez interpunkcie, s interpunkciou a teoretické rozdelenie Dorogovtsev-Mendes modelu.
 Pre analýzu bolo potrebné odfiltrovať uzly s veľmi nízkym a vysokým stupňom, aby sa znížilo skreslenie výsledkov a vybrať najdlhšiu
-klesajúcu časť charakteristiky pre výpočet hodnoty exponentu $\gamma$ mocninové rozdelenia.
+klesajúcu časť charakteristiky pre výpočet hodnoty exponentu $\gamma$ mocninové rozdelenia \ref{sec:scale-free-network}.
 
-Analýza ukázala, že slovné siete bez interpunkcie majú exponent $\gamma$ v rozmedzí $2.03$ až $2.16$ a slovné siete so zohľadnením interpunkcie
+Analýza ukázala, že slovné siete bez interpunkcie majú exponent $\gamma$ (\ref{eq:power_law_distribution_scale_free}) v rozmedzí $2.03$ až $2.16$ a slovné siete so zohľadnením interpunkcie
 majú exponent $\gamma$ v intervale $2.02$ až $2.11$. Hodnoty $\gamma$ udávajú, že rozdelenie stupňov vrcholov v oboch prípadoch nasleduje 
 mocninové rozdelenie, pričom hodnoty sa pohybujú v blízkosti $2$, čo je typické pre reálne siete. Taktiež dôvod prečo sa hodnoty exponentu $\gamma$
 blížia k $2$ je ten, že v prípade slovných sietí vznikajú uzly s vysokým stupňom, zapríčinené častým výskytom spojok alebo predložiek, ktoré sa
@@ -250,7 +251,7 @@ podobnosť s teoretickým Dorogovtsev-Mendes modelom.
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Vianočná koleda od Charlesa Dickensa.}\label{fig:lbdegdistKoleda}
+    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Vianočná koleda od Charlesa Dickensa. Porovnanie so simulovaným Dorogovtsev-Mendes modelom (\ref{sec:simulationDorogovtsevMendes}).}\label{fig:lbdegdistKoleda}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -266,7 +267,7 @@ podobnosť s teoretickým Dorogovtsev-Mendes modelom.
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Oliver Twist od Charlesa Dickensa.}\label{fig:lbdegdistTwist}
+    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Oliver Twist od Charlesa Dickensa. Porovnanie so simulovaným Dorogovtsev-Mendes modelom (\ref{sec:simulationDorogovtsevMendes}).}\label{fig:lbdegdistTwist}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -282,7 +283,7 @@ podobnosť s teoretickým Dorogovtsev-Mendes modelom.
     \end{subfigure}
     
     \vspace{0.3cm}
-    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Portrét Doriana Graya od Oscara Wildea.}\label{fig:lbdegdistDorian}
+    \caption{Distribúcia stupňov vrcholov s využitím logaritmického zoskupovania, text Portrét Doriana Graya od Oscara Wildea. Porovnanie so simulovaným Dorogovtsev-Mendes modelom (\ref{sec:simulationDorogovtsevMendes}).}\label{fig:lbdegdistDorian}
 \end{figure}
 
 \clearpage
@@ -295,9 +296,12 @@ Možno pozorovať viaceré rozdiely, ktoré sú spôsobené štruktúrou jazykov
 
 Počet interpunkčných znakov sa v jednotlivých dielach výrazne líši, aj napriek tomu, že analyzované slovné siete sú približne rovnakej veľkosti.
 Tento rozdiel je zapríčinený tým, že na vytvorenie slovnej siete určitej veľkosti je potrebné odlišné množstvo textu. Množstvo textu je závislé od
-štruktúry samostatného jazyka a štýlom písania autora či prekladateľa. Ak si vypočítame pomer medzi veľkosťou vzorky textu a počtom interpunkčných znakov,
-zistíme, že v prípade anglického jazyka sa tento pomer pohybuje v intervale $4.8$ až $5.1$ a v prípade nemeckého jazyka $5.2$ až $5.4$.
-Tento pomer ukazuje, že vo všetkých dielach v oboch jazykoch je počet interpunkčných znakov v priemere približne päťkrát menší, ako počet slov.
+štruktúry samostatného jazyka a štýlom písania autora či prekladateľa. Ak vypočítame zlomok
+\[
+\frac{\text{veľkosť textu}}{\text{počet interpunkčných znamienok}},
+\]
+v prípade anglického jazyka sa jeho hodnota pohybuje v intervale $4.8$ až $5.1$ a v prípade nemeckého jazyka $5.2$ až $5.4$.
+To znamená, že vo všetkých dielach v oboch jazykoch je počet interpunkčných znakov v priemere približne päťkrát menší, ako počet slov.
 
 Priemerná dĺžka slova je vyššia pre všetky analýzy v nemeckom jazyku (okolo $7.5$ až $7.9$ znakov), čo je typické pre nemecký jazyk, v ktorom sa
 často vyskytujú dlhé zložené slová. V anglickom jazyku sa priemerná dĺžka slova pohybuje v rozmedzí $6.4$ až $6.7$ znakov. Rovnaký 

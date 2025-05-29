@@ -11,27 +11,28 @@
 \contentsline {subsection}{\numberline {1.2.1}Náhodná~sieť}{7}{subsection.1.2.1}%
 \contentsline {subsection}{\numberline {1.2.2}Bezškálová~sieť}{9}{subsection.1.2.2}%
 \contentsline {section}{\numberline {1.3}Slovné~siete}{10}{section.1.3}%
-\contentsline {section}{\numberline {1.4}Interpunkcia}{12}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Použité technológie}{13}{chapter.2}%
-\contentsline {section}{\numberline {2.1}NetworkX}{13}{section.2.1}%
-\contentsline {chapter}{\numberline {3}Tvorba aplikácie}{15}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Prístup k problematike}{15}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Grafické používateľské rozhranie}{16}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Tvorba slovnej siete}{18}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Zobrazenie výstupných charakteristík}{19}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Logaritmické zhlukovanie}{20}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Distribúcia stupňov vrcholov}{20}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Rastová analýza siete}{21}{subsection.3.4.3}%
-\contentsline {section}{\numberline {3.5}Výpočet analýzy siete}{21}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Uloženie siete do súboru}{21}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Testovanie}{23}{section.3.7}%
-\contentsline {subsection}{\numberline {3.7.1}Testovanie predspracovania textu a vytvorenia slovnej siete}{23}{subsection.3.7.1}%
-\contentsline {subsection}{\numberline {3.7.2}Testovanie grafického používateľského rozhrania}{23}{subsection.3.7.2}%
-\contentsline {subsection}{\numberline {3.7.3}Testovanie analýzy siete}{23}{subsection.3.7.3}%
-\contentsline {section}{\numberline {3.8}Možnosti budúceho rozšírenia}{24}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Analýza textov}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Vývoj slovnej siete}{25}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Grafová analýza}{29}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Distribúcia stupňov vrcholov}{32}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Jazyková analýza}{36}{section.4.4}%
-\contentsline {chapter}{Záver}{39}{chapter*.32}%
+\contentsline {section}{\numberline {1.4}Interpunkcia}{13}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Použité technológie}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}NetworkX}{15}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Tvorba aplikácie}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Prístup k problematike}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Grafické používateľské rozhranie}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Tvorba slovnej siete}{20}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Zobrazenie výstupných charakteristík}{21}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Logaritmické zhlukovanie}{22}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Distribúcia stupňov vrcholov}{22}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Rastová analýza siete}{23}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Výpočet analýzy siete}{23}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Simulácia Dorogovtsev-Mendes modelu}{24}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Uloženie siete do súboru}{25}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Testovanie}{26}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Testovanie predspracovania textu a vytvorenia slovnej siete}{26}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Testovanie grafického používateľského rozhrania}{27}{subsection.3.8.2}%
+\contentsline {subsection}{\numberline {3.8.3}Testovanie analýzy siete}{27}{subsection.3.8.3}%
+\contentsline {section}{\numberline {3.9}Možnosti budúceho rozšírenia}{27}{section.3.9}%
+\contentsline {chapter}{\numberline {4}Analýza textov}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Vývoj slovnej siete}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Grafová analýza}{33}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Distribúcia stupňov vrcholov}{36}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Jazyková analýza}{40}{section.4.4}%
+\contentsline {chapter}{Záver}{43}{chapter*.32}%

@@ -16,6 +16,11 @@ Albert-László Barabási.
 \newblock {\em Network Science}.
 \newblock Cambridge University Press, Cambridge, UK, 2016.
 
+\bibitem{borgatti2006graph}
+Stephen~P Borgatti and Martin~G Everett.
+\newblock A graph-theoretic perspective on centrality.
+\newblock {\em Social networks}, 28(4):466--484, 2006.
+
 \bibitem{erdos1959random}
 A.~Rényi P.~Erdős.
 \newblock On random graphs.
@@ -78,12 +83,12 @@ Project gutenberg.
 \newblock \url{https://www.gutenberg.org/}.
 \newblock Navštívené dňa 9.5.2025.
 
-\bibitem{milojevic2010power}
-Sta{\v{s}}a Milojevi{\'c}.
+\bibitem{Milojevi__2010}
+Staša Milojević.
 \newblock Power law distributions in information science: Making the case for
   logarithmic binning.
 \newblock {\em Journal of the American Society for Information Science and
-  Technology}, 61(12):2417--2425, 2010.
+  Technology}, 61(12):2417–2425, December 2010.
 
 \bibitem{cytoscape_website}
 {Cytoscape Consortium}.

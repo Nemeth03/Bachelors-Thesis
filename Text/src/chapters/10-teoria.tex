@@ -146,6 +146,30 @@ Pre graf s počtom vrcholov $n$ a počtom vrcholov so stupňom $\mathrm{deg}$ oz
 \end{equation}
 kde $p_{\mathrm{deg}}$ predstavuje pravdepodobnosť výskytu daného stupňa, $n_{\mathrm{deg}}$ je počet vrcholov s daným stupňom a $n$ je počet vrcholov grafu.
 
+Najznámejšou a najjednoduchšou mierou centrality je stupňová centralita, ktorá je definovaná ako počet hrán incidentných s vrcholom:
+\begin{equation}
+    C_D(v) = deg(v),
+    \label{eq:degree_centrality}
+\end{equation}
+kde $C_D(v)$ je stupňová centralita vrchola $v$ a $deg(v)$ je stupeň vrchola $v$ \cite{borgatti2006graph}.
+
+Ďalšou dôležitou centralitou je blízkostná centralita, ktorá hodnotí, ako blízko sa vrchol nachádza k ostatným vrcholom v grafe:
+\begin{equation}
+    C_C(v) = \frac{|V|-1}{\sum_{\substack{u \in V}} d(v, u)},
+    \label{eq:closeness_centrality}
+\end{equation}
+kde $C_C(v)$ je blízkostná centralita vrchola $v$, $d(v, u)$ je dĺžka najkratšej cesty medzi vrcholmi $v$ a $u$ a $V$
+je množina všetkých vrcholov v grafe \cite{borgatti2006graph}.
+
+Významnou centralitou je aj medziľahlosť, ktorá meria, ako často je vrchol súčasťou najkratších ciest medzi inými dvojicami vrcholov:
+\begin{equation}
+    C_B(v) = \sum_{\substack{u, w \in V \\ u \ne v \ne w}} \frac{\sigma_{uw}(v)}{\sigma_{uw}},
+    \label{eq:betweenness_centrality}
+\end{equation}
+kde $C_B(v)$ je medziľahlosť vrchola $v$, $\sigma_{uw}$ je počet najkratších ciest medzi vrcholmi $u$ a $w$ a $\sigma_{uw}(v)$ je počet týchto ciest,
+ktoré prechádzajú cez vrchol $v$ \cite{borgatti2006graph}.
+
+
 \section{Modely~sietí}\label{sec:network-models}
 
 Siete sú štruktúry, ktoré možno reprezentovať ako grafy skladajúce sa z uzlov (vrcholov) a prepojení (hrán), pričom uzly predstavujú jednotlivé entity
@@ -223,8 +247,6 @@ predstavuje pravdepodobnosť, že dva náhodne vybrané vrcholy sú prepojené \
     \label{obr:randomdegdist}
 \end{figure}
 
-\clearpage
-
 \subsection{Bezškálová~sieť}\label{sec:scale-free-network}
 
 Pri bezškálových sieťach sa jedná o špecifický typ grafu, ktorý sa vyznačuje tým, že existuje niekoľko uzlov
@@ -275,6 +297,8 @@ V takýchto sieťach sú jednotlivé slová reprezentované ako uzly a vzťahy m
 tvoria hrany \cite{motter2002topology} . Podľa metód reprezentácie vzťahov medzi slovami dokážeme slovné siete rozlišovať.
 V sémantických slovných sieťach vznikajú prepojenia medzi slovami na základe ich významovej podobnosti. Narozdiel od sémantických
 slovných sietí, v syntaktických slovných sieťach sú interakcie medzi slovami založené na slovnej štruktúre a gramatických pravidlách.
+
+\pagebreak
 
 Špecifický typ syntaktickej slovnej siete, ktorej sa budeme venovať v tejto práci sa nazýva pozičná slovná sieť. Táto sieť je zameraná na štruktúru
 a pozície slov v texte. V pozičnej slovnej sieti uzly tvoria jednotlivé slová a hrany sú vytvorené na základe toho, či sa slová nachádzajú

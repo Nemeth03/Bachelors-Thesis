@@ -330,14 +330,14 @@ class App(wx.Frame):
         # Ensure both distributions are of the same length by padding with zeros
         wordDegrees = degrees.copy()
         dmDegrees = dgmDegrees.copy()
-        max_len = max(len(wordDegrees), len(dmDegrees))
-        wordDegrees += [0] * (max_len - len(wordDegrees))
-        dmDegrees += [0] * (max_len - len(dmDegrees))
+        maxLen = max(len(wordDegrees), len(dmDegrees))
+        wordDegrees += [0] * (maxLen - len(wordDegrees))
+        dmDegrees += [0] * (maxLen - len(dmDegrees))
 
         wordDegreesNormalized = np.array(wordDegrees) / max(wordDegrees)
         dmDegreesNormalized = np.array(dmDegrees) / max(dmDegrees)
         mseNormalized = np.mean((wordDegreesNormalized - dmDegreesNormalized)**2)
-        print(f'Normalized Degree Distribution MSE: {mseNormalized:.5f}')
+        self.logMessage(f'Normalized Degree Distribution MSE: {mseNormalized:.5f}')
 
         # normalize dgm raw degree distribution
         scalingFactor = max(counts) / max(dgmCounts)
@@ -614,9 +614,9 @@ class App(wx.Frame):
 
     # Calculate log-log slope for the given x and y values
     def calculateLogLogSlope(self, x, y):
-        log_degrees = np.log10(x)
-        log_counts = np.log10(y)
-        slope, intercept, r_value, p_value, std_err = linregress(log_degrees, log_counts)
+        logDegrees = np.log10(x)
+        logCounts = np.log10(y)
+        slope, intercept, r_value, p_value, std_err = linregress(logDegrees, logCounts)
         return slope
     
 

@@ -7,7 +7,7 @@ by mohli zlepšiť funkcionalitu aplikácie.
 \section{Prístup k problematike}\label{sec:solutionApproach}
 
 Aplikácia je implementovaná v programovacom jazyku Python. Využíva externé knižnice, ako sú Matplotlib pre grafickú vizualizáciu
-charakteristík, re pre spracovanie textových dát, NumPy pre numerické výpočty a prácu s dátami, wxPython pre vytvorenie grafického
+charakteristík, Re pre spracovanie textových dát, NumPy pre numerické výpočty a prácu s dátami, wxPython pre vytvorenie grafického
 používateľského rozhrania, NetworkX pre prácu s pozičnou slovnou sieťou a výpočet analýzy.
 
 Prvým krokom bolo získanie textových dát pre analýzu. Na tento účel bola využitá stránka Project Gutenberg \cite{projectgutenberg} ,
@@ -15,13 +15,14 @@ kde je možné nájsť množstvo verejne dostupných literárnych diel od rôzny
 
 Následne bolo nevyhnutné zadefinovať spôsob, akým sa vytvorí pozičná slovná sieť. Každé slovo v texte sa považuje za vrchol,
 tvar slova sa významovo nemení, iba sa normalizuje celé slovo na malé písmená. Dva vrcholy sú spojené neorientovanou neohodnotenou
-hranou v prípade, že im príslušné slová nasledujú v texte bezprostredne za sebou. Vytvorená sieť je teda neorientovaná a neohodnotená.
+hranou v prípade, že im príslušné slová nasledujú v texte bezprostredne za sebou. Vytvorená sieť je teda neorientovaná a bez ohodnotenia hrán.
 
 Ak je pri tvorbe siete zvolená množina interpunkčných znakov, tieto sa považujú za samostatné slová, ostatné sa zanedbávajú a sieť sa tvorí
 rovnakým postupom.
 
 Pri vizualizácii sa zameriame na zobrazenie distribúcie stupňov vrcholov, ktorá je jednou z najdôležitejších charakteristík
-pozičnej slovnej siete. Taktiež zobrazíme závislosť veľkosti siete (t.j. počtu vrcholov) od hodnoty exponentu $\gamma$ mocninového zákona.
+pozičnej slovnej siete. Taktiež zobrazíme distribúciu stupňov vrcholov v log-log mierke a určíme hodnotu exponentu $\gamma$ mocninového zákona,
+ktorá zodpovedá smerovému uhlu tejto závislosti, pri rôznych veľkostiach siete.
 
 Výpočet analýzy siete je rozdelený do dvoch oblastí. Prvou je grafová analýza, ktorá sa zaoberá výpočtom základných veličín siete, ako je
 počet vrcholov; počet hrán; maximálny, minimálny, priemerný stupeň vrcholov; hustota siete; priemerný koeficient zhlukovania; priemerná
@@ -136,13 +137,13 @@ pretože poskytuje množstvo užitočných funkcií a metód na analýzu a vizua
 
 Na zobrazenie výstupných charakteristík sa využíva knižnica Matplotlib. Táto knižnica poskytuje množstvo funkcií
 a metód na vytváranie grafov a vizualizáciu dát. V tejto aplikácii sa budeme zameriavať na zobrazenie distribúcie stupňov
-vrcholov, rastovú závislosť siete od hodnoty exponentu $\gamma$ mocninového zákona.
+vrcholov, rastovú závislosť siete od hodnoty exponentu $\gamma$ mocninového zákona \ref{sec:scale-free-network}.
 
 \subsection{Logaritmické zhlukovanie}\label{sec:logarithmicClustering}
 
 Pri vizualizácii distribúcie stupňov vrcholov sa využíva metóda logaritmického zhlukovania, ktorá je implementovaná
 v metóde \texttt{calculateLogBin}, ukážka č. \ref{lst:logarithmicClustering}. Táto metóda zhlukuje dáta do logaritmických intervalov,
-čo umožňuje lepšie zobrazenie distribúcie stupňov vrcholov v prípade, že sú dáta rozptýlené na širokom intervale hodnôt.
+čo umožňuje lepšie zobrazenie distribúcie stupňov vrcholov v prípade, že sú dáta rozptýlené na širokom intervale hodnôt \cite{Milojevi__2010}.
 
 Funkcia najprv vypočíta rozsah stupňov vrcholov, následne vytvorí logaritmicky rozdelené intervaly pomocou funkcie \texttt{np.logspace},
 potom vypočíta hustotu pravdepodobnosti pre každý interval pomocou funkcie \texttt{np.histogram}. Výsledkom sú stredy intervalov a
@@ -162,25 +163,25 @@ hustoty pravdepodobnosti, ktoré sú následne vrátené ako výstup metódy.
 \end{lstlisting}
 
 Výsledné dáta sú zobrazované v log-log grafe, ktorý umožnuje overiť, či dáta nasledujú mocninový zákon a vypočítať hodnotu exponentu
-$\gamma$.
+$\gamma$ (pozri \ref{sec:scale-free-network}, \ref{sec:degreeDistribution}, \ref{sec:calculationOfNetworkAnalysis}).
 
 \subsection{Distribúcia stupňov vrcholov}\label{sec:degreeDistribution}
 
 Distribúcia stupňov vrcholov udáva, ako sú stupne vrcholov rozložené v sieti. Najskôr sa vypočíta tzv. surová distribúcia stupňov,
-ktorá predstavuje relatívny výskyt každého stupňa v sieti. Pri slovnej sieti býva táto distribúcia zvyčajne veľmi rozptýlená,
-preto je ťažké získať prehľad o tom, ako sú stupne vrcholov rozložené. Z toho dôvodu sa používa logaritmické zhlukovanie \ref{sec:logarithmicClustering},
+ktorá predstavuje relatívny výskyt každého stupňa v sieti. V slovnej sieti sú stupne vrcholov veľmi rôznorodé, takže je ťažké získať
+jasný obraz o ich rozložení. Z toho dôvodu sa používa logaritmické zhlukovanie \ref{sec:logarithmicClustering},
 ktoré zoskupuje dáta do logaritmických intervalov. Porovnanie surovej distribúcie stupňov vrcholov s logaritmicky zhlukovanou distribúciou stupňov
 vrcholov je zobrazené na obrázku č. \ref{obr:rawLogBinnedDegDist}.
 
 Práve logaritmicky zhlukovaná distribúcia stupňov vrcholov je veľmi dôležitá pre analýzu siete, pretože sa využíva na porovnanie
-s teoretickým mocninovým rozdelením. Pomocou tejto metódy vizualizácie je možné vypočítať hodnotu exponentu $\gamma$ mocninového zákona, ktorý
-udáva, ako sú stupne vrcholov rozložené v sieti.
+s teoretickým mocninovým rozdelením. Pomocou tejto metódy vizualizácie je možné vypočítať hodnotu exponentu $\gamma$ mocninového zákona,
+ako je podrobnejšie vysvetlené v sekcii \ref{sec:calculationOfNetworkAnalysis}.
 
 \clearpage
 
 \begin{figure}
     \centerline{\includegraphics[width=1\textwidth]{images/rawLogBinnedDegDist.png}}
-    \caption[Distribúcia stupňov vrcholov bez a s pomocou logaritmického zhlukovania.]{Distribúcia stupňov vrcholov bez a s pomocou logaritmického zhlukovania \cite{milojevic2010power}.}
+    \caption[Distribúcia stupňov vrcholov bez a s pomocou logaritmického zhlukovania.]{Distribúcia stupňov vrcholov bez a s pomocou logaritmického zhlukovania \cite{Milojevi__2010}.}
     \label{obr:rawLogBinnedDegDist}
 \end{figure}
 
@@ -188,8 +189,7 @@ udáva, ako sú stupne vrcholov rozložené v sieti.
 
 Rastová analýza siete je ďalšou dôležitou charakteristikou, ktorá sa zaoberá tým, ako sa mení štruktúra siete pri zmene veľkosti textu. V tejto analýze
 sa skúma, ako sa vyvíja hodnota exponentu $\gamma$ mocninového zákona v závislosti od veľkosti siete (počtu vrcholov). 
-Takáto analýza nám umožňuje určiť, pri akej veľkosti textu sa hodnota exponentu $\gamma$ stabilizuje, tým pádom vieme určiť, akú veľkosť textu je potrebné
-použiť na získanie reprezentatívnych výsledkov.
+Takáto analýza umožňuje určiť, pri akej veľkosti textu sa hodnota exponentu $\gamma$ stabilizuje a viacej sa už nezmení.
 
 Postup spočíva v rozdelení textu na rovnomerné časti, z ktorých sa vytvára sieť. Pre každú z týchto sietí sa vypočíta logaritmicky zhlukovaná distribúcia stupňov vrcholov
 a následne sa určí hodnota exponentu $\gamma$. Výsledkom je graf, ktorý zobrazuje hodnotu exponentu $\gamma$ v závislosti od počtu vrcholov v sieti, zobrazený na obrázku č. \ref{obr:growthPlot}.
@@ -203,8 +203,54 @@ a následne sa určí hodnota exponentu $\gamma$. Výsledkom je graf, ktorý zob
 \section{Výpočet analýzy siete}\label{sec:calculationOfNetworkAnalysis}
 
 Výpočet analýzy siete je rozdelený do dvoch oblastí. Prvá, grafická analýza je implementovaná pomocou zadefinovaných
-metód v knižníci NetworkX. Druhá, jazyková analýza je implementovaná pomocou vlastných metód,
+metód v knižnici NetworkX. Druhá, jazyková analýza je implementovaná pomocou vlastných metód,
 ktoré sú špecifické pre danú aplikáciu.
+
+Jedným z dôležitých výpočtov v rámci grafickej analýzy siete je určenie hodnoty exponentu $\gamma$ mocninového zákona (\ref{eq:power_law_distribution_scale_free}).
+Tento exponent je indikátorom toho, či je sieť škálovateľná (\ref{sec:scale-free-network}).
+Výpočet je realizovaný pomocou metódy \texttt{calculateLogLogSlope}, ktorá vypočíta smerovú hodnotu v logaritmickej mierke pre logaritmicky zhlukovanú distribúciu stupňov vrcholov.
+Metóda využíva funkciu \texttt{linregress} z knižnice SciPy, ktorá vykonáva lineárnu regresiu na logaritmicky zhlukovaných dátach.
+Výsledkom je hodnota smernice, ktorá predstavuje hodnotu exponentu $\gamma$ mocninového zákona. Implementáciu tejto metódy možno vidieť na ukážke č. \ref{lst:powerLawExponentMethod}.
+
+\pagebreak
+
+\begin{lstlisting}[caption={Výpočet exponentu $\gamma$ mocninového rozdelenia \ref{eq:power_law_distribution_scale_free}. }, label={lst:powerLawExponentMethod}]
+    def calculateLogLogSlope(self, x, y):
+        logDegrees = np.log10(x)
+        logCounts = np.log10(y)
+        slope, intercept, r_value, p_value, std_err = 
+                            linregress(logDegrees, logCounts)
+        return slope
+\end{lstlisting}
+
+\section{Simulácia Dorogovtsev-Mendes modelu}\label{sec:simulationDorogovtsevMendes}
+
+Na vytvorenie simulovanej siete podľa Dorogovtsev-Mendes modelu sa využíva metóda \newline \texttt{dorogovtsev\_goltsev\_mendes\_graph(n)} z knižnice NetworkX.
+
+Porovnanie vytvorenej slovnej siete s Dorogovtsev-Mendes modelom je realizované pomocou výpočtu strednej kvadratickej odchýlky (MSE) medzi
+distribúciou stupňov vrcholov slovnej siete a distribúciou stupňov vrcholov simulovaného modelu. Implementáciu možno vidieť na ukážke č. \ref{lst:MSEcalculation}.
+
+\pagebreak
+
+Najprv sa oba zoznamy stupňov vrcholov upravia na rovnakú dĺžku, aby bolo možné ich porovnať. Následne sa normalizujú hodnoty stupňov vrcholov
+a vypočíta sa stredná kvadratická odchýlka medzi normalizovanými hodnotami. Výsledkom je hodnota MSE, ktorá sa zobrazí v dialógovom okne.
+
+\begin{lstlisting}[caption={Výpočet strednej kvadratickej odchýlky analyzovanej siete a simulovaného modelu.}, label={lst:MSEcalculation}]
+    wordDegrees = degrees.copy()
+    dmDegrees = dgmDegrees.copy()
+    maxLen = max(len(wordDegrees), len(dmDegrees))
+    wordDegrees += [0] * (maxLen - len(wordDegrees))
+    dmDegrees += [0] * (maxLen - len(dmDegrees))
+
+    wordDegreesNormalized = np.array(wordDegrees) / 
+                            max(wordDegrees)
+    dmDegreesNormalized = np.array(dmDegrees) / max(dmDegrees)
+    mseNormalized = np.mean((wordDegreesNormalized - 
+                            dmDegreesNormalized)**2)
+    self.logMessage(f'Normalized Degree Distribution MSE: 
+                                    {mseNormalized:.5f}')
+\end{lstlisting}
+
 
 \section{Uloženie siete do súboru}\label{sec:savingNetworkToFile}
 
@@ -217,6 +263,8 @@ Uloženie siete do súboru je implementované v metóde \texttt{saveNetwork}, kt
 vidieť na ukážke č. \ref{lst:saveNetwork}. Táto metóda sa volá po stlačení tlačidla "Save Network" v GUI, ktontroluje či je vybraná
 interpunkcia a následne uloží sieť do súboru s názvom, ktorý je odvodený od názvu vstupného textového súboru a vypíše miesto uloženia
 do dialógového okna.
+
+\pagebreak
 
 \begin{lstlisting}[caption={Uloženie siete do súboru.}, label={lst:saveNetwork}]
     def saveNetwork(self, event):

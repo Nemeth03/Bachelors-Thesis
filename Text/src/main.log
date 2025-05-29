@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.8)  12 MAY 2025 11:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.8)  29 MAY 2025 15:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -933,7 +933,7 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 [2
 
 ]
-<images/assignment-sk.pdf, id=148, 597.50731pt x 845.04607pt>
+<images/assignment-sk.pdf, id=152, 597.50731pt x 845.04607pt>
 File: images/assignment-sk.pdf Graphic file (type pdf)
 <use images/assignment-sk.pdf>
 Package pdftex.def Info: images/assignment-sk.pdf  used on input line 178.
@@ -1003,7 +1003,7 @@ Kapitola 1.
 
 
 [3{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
-<images/edges.png, id=354, 393.72093pt x 264.99pt>
+<images/edges.png, id=375, 393.72093pt x 264.99pt>
 File: images/edges.png Graphic file (type png)
 <use images/edges.png>
 Package pdftex.def Info: images/edges.png  used on input line 38.
@@ -1011,7 +1011,7 @@ Package pdftex.def Info: images/edges.png  used on input line 38.
 
 
 [4{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc} <./images/edges.png>]
-<images/matrices.png, id=368, 1173.63469pt x 410.2828pt>
+<images/matrices.png, id=389, 1173.63469pt x 410.2828pt>
 File: images/matrices.png Graphic file (type png)
 <use images/matrices.png>
 Package pdftex.def Info: images/matrices.png  used on input line 73.
@@ -1023,49 +1023,51 @@ Package pdftex.def Info: images/matrices.png  used on input line 73.
 [6]
 
 [7]
-<images/randomdegdist.png, id=417, 517.935pt x 365.86688pt>
+<images/randomdegdist.png, id=442, 517.935pt x 365.86688pt>
 File: images/randomdegdist.png Graphic file (type png)
 <use images/randomdegdist.png>
-Package pdftex.def Info: images/randomdegdist.png  used on input line 219.
+Package pdftex.def Info: images/randomdegdist.png  used on input line 243.
 (pdftex.def)             Requested size: 352.81552pt x 249.23837pt.
 
 
-[8 <./images/randomdegdist.png>]
-<images/powerlaw.png, id=433, 409.53pt x 213.04594pt>
+[8]
+<images/powerlaw.png, id=460, 409.53pt x 213.04594pt>
 File: images/powerlaw.png Graphic file (type png)
 <use images/powerlaw.png>
-Package pdftex.def Info: images/powerlaw.png  used on input line 247.
+Package pdftex.def Info: images/powerlaw.png  used on input line 269.
 (pdftex.def)             Requested size: 352.81552pt x 183.55402pt.
 
 
-[9
+[9 <./images/randomdegdist.png>]
 
- <./images/powerlaw.png>]
-<images/wan.png, id=453, 286.82156pt x 215.30438pt>
+[10 <./images/powerlaw.png>]
+<images/wan.png, id=486, 286.82156pt x 215.30438pt>
 File: images/wan.png Graphic file (type png)
 <use images/wan.png>
-Package pdftex.def Info: images/wan.png  used on input line 291.
+Package pdftex.def Info: images/wan.png  used on input line 315.
 (pdftex.def)             Requested size: 352.81552pt x 264.84909pt.
-<images/degdist.png, id=454, 443.40656pt x 366.61969pt>
+<images/degdist.png, id=487, 443.40656pt x 366.61969pt>
 File: images/degdist.png Graphic file (type png)
 <use images/degdist.png>
-Package pdftex.def Info: images/degdist.png  used on input line 297.
+Package pdftex.def Info: images/degdist.png  used on input line 321.
 (pdftex.def)             Requested size: 352.81552pt x 291.73537pt.
 
 
-[10]
+[11 <./images/wan.png>]
 
-[11 <./images/wan.png> <./images/degdist.png>]) (chapters/20-pouziteTechnologie.tex
+[12 <./images/degdist.png>]) (chapters/20-pouziteTechnologie.tex
 
-[12
+[13
+
+]
+
+[14
 
 ]
 Kapitola 2.
 
 
-[13
-
-]
+[15]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 24.
 LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 24.
  (C:\Users\megam\AppData\Roaming\MiKTeX\tex/latex/inconsolata\t1zi4.fd
@@ -1083,221 +1085,244 @@ LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
 (Font)              scaled to size 10.95pt on input line 25.
 ) (chapters/30-tvorbaAplikacie.tex
 
-[14
+[16
 
 {C:/Users/megam/AppData/Roaming/MiKTeX/fonts/enc/dvips/inconsolata/i4-t1-0.enc}]
 Kapitola 3.
 
 
-[15
+[17
 
 ]
-<images/gui.png, id=512, 528.47438pt x 532.99126pt>
+<images/gui.png, id=547, 528.47438pt x 532.99126pt>
 File: images/gui.png Graphic file (type png)
 <use images/gui.png>
-Package pdftex.def Info: images/gui.png  used on input line 61.
+Package pdftex.def Info: images/gui.png  used on input line 62.
 (pdftex.def)             Requested size: 352.81552pt x 355.83357pt.
 
 Underfull \vbox (badness 5288) has occurred while \output is active []
 
 
 
-[16]
-
-[17 <./images/gui.png>]
-
 [18]
 
-[19
+[19 <./images/gui.png>]
+
+[20]
+
+[21
 
 ]
 
-[20]
-<images/rawLogBinnedDegDist.png, id=592, 820.56563pt x 264.99pt>
+[22]
+<images/rawLogBinnedDegDist.png, id=635, 820.56563pt x 264.99pt>
 File: images/rawLogBinnedDegDist.png Graphic file (type png)
 <use images/rawLogBinnedDegDist.png>
-Package pdftex.def Info: images/rawLogBinnedDegDist.png  used on input line 182.
+Package pdftex.def Info: images/rawLogBinnedDegDist.png  used on input line 183.
 (pdftex.def)             Requested size: 441.01773pt x 142.4172pt.
-<images/growthPlot.png, id=596, 525.46312pt x 417.05812pt>
+<images/growthPlot.png, id=639, 525.46312pt x 417.05812pt>
 File: images/growthPlot.png Graphic file (type png)
 <use images/growthPlot.png>
 Package pdftex.def Info: images/growthPlot.png  used on input line 198.
 (pdftex.def)             Requested size: 352.81552pt x 280.0384pt.
 
+Underfull \vbox (badness 5578) has occurred while \output is active []
 
-[21
+
+
+[23
 
  <./images/rawLogBinnedDegDist.png>]
+Underfull \vbox (badness 2790) has occurred while \output is active []
 
-[22 <./images/growthPlot.png>]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 250.
+
+
+[24 <./images/growthPlot.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[25]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 298.
  (C:\Program Files\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
-[23{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]) (chapters/40-analyzaTextov.tex
+[26{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
 
-[24]
+[27]) (chapters/40-analyzaTextov.tex
+
+[28]
 Kapitola 4.
-<images/Growth/Screenshot_13.png, id=641, 563.85657pt x 437.38406pt>
+<images/Growth/Screenshot_13.png, id=719, 563.85657pt x 437.38406pt>
 File: images/Growth/Screenshot_13.png Graphic file (type png)
 <use images/Growth/Screenshot_13.png>
-Package pdftex.def Info: images/Growth/Screenshot_13.png  used on input line 26.
+Package pdftex.def Info: images/Growth/Screenshot_13.png  used on input line 27.
 (pdftex.def)             Requested size: 396.91325pt x 307.88863pt.
-<images/Growth/Screenshot_14.png, id=642, 563.10374pt x 441.14813pt>
+<images/Growth/Screenshot_14.png, id=720, 563.10374pt x 441.14813pt>
 File: images/Growth/Screenshot_14.png Graphic file (type png)
 <use images/Growth/Screenshot_14.png>
-Package pdftex.def Info: images/Growth/Screenshot_14.png  used on input line 32.
+Package pdftex.def Info: images/Growth/Screenshot_14.png  used on input line 33.
 (pdftex.def)             Requested size: 396.91325pt x 310.94888pt.
-<images/Growth/Screenshot_17.png, id=643, 557.08125pt x 426.09187pt>
+<images/Growth/Screenshot_17.png, id=723, 557.08125pt x 426.09187pt>
 File: images/Growth/Screenshot_17.png Graphic file (type png)
 <use images/Growth/Screenshot_17.png>
-Package pdftex.def Info: images/Growth/Screenshot_17.png  used on input line 42.
+Package pdftex.def Info: images/Growth/Screenshot_17.png  used on input line 43.
 (pdftex.def)             Requested size: 396.91325pt x 303.5936pt.
-<images/Growth/Screenshot_18.png, id=644, 565.36218pt x 439.6425pt>
+<images/Growth/Screenshot_18.png, id=724, 565.36218pt x 439.6425pt>
 File: images/Growth/Screenshot_18.png Graphic file (type png)
 <use images/Growth/Screenshot_18.png>
-Package pdftex.def Info: images/Growth/Screenshot_18.png  used on input line 48.
+Package pdftex.def Info: images/Growth/Screenshot_18.png  used on input line 49.
 (pdftex.def)             Requested size: 396.91325pt x 308.65999pt.
-<images/Growth/Screenshot_15.png, id=645, 570.63188pt x 441.90094pt>
+<images/Growth/Screenshot_15.png, id=727, 570.63188pt x 441.90094pt>
 File: images/Growth/Screenshot_15.png Graphic file (type png)
 <use images/Growth/Screenshot_15.png>
-Package pdftex.def Info: images/Growth/Screenshot_15.png  used on input line 58.
+Package pdftex.def Info: images/Growth/Screenshot_15.png  used on input line 59.
 (pdftex.def)             Requested size: 396.91325pt x 307.37311pt.
-<images/Growth/Screenshot_16.png, id=646, 563.10374pt x 435.12563pt>
+<images/Growth/Screenshot_16.png, id=728, 563.10374pt x 435.12563pt>
 File: images/Growth/Screenshot_16.png Graphic file (type png)
 <use images/Growth/Screenshot_16.png>
-Package pdftex.def Info: images/Growth/Screenshot_16.png  used on input line 64.
+Package pdftex.def Info: images/Growth/Screenshot_16.png  used on input line 65.
 (pdftex.def)             Requested size: 396.91325pt x 306.70384pt.
 
-
-[25
-
-]
-
-[26 <./images/Growth/Screenshot_13.png> <./images/Growth/Screenshot_14.png>]
-
-[27 <./images/Growth/Screenshot_17.png> <./images/Growth/Screenshot_18.png>]
-
-[28 <./images/Growth/Screenshot_15.png> <./images/Growth/Screenshot_16.png>]
 
 [29
 
 ]
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 107.
+[30 <./images/Growth/Screenshot_13.png> <./images/Growth/Screenshot_14.png>]
 
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 110.
+[31 <./images/Growth/Screenshot_17.png> <./images/Growth/Screenshot_18.png>]
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 133.
+[32 <./images/Growth/Screenshot_15.png> <./images/Growth/Screenshot_16.png>]
 
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 159.
-
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 185.
-
-
-
-[30]
-
-[31]
-<images/lbdegdist/Screenshot_1.png, id=692, 569.87906pt x 444.91219pt>
-File: images/lbdegdist/Screenshot_1.png Graphic file (type png)
-<use images/lbdegdist/Screenshot_1.png>
-Package pdftex.def Info: images/lbdegdist/Screenshot_1.png  used on input line 243.
-(pdftex.def)             Requested size: 396.91325pt x 309.87497pt.
-<images/lbdegdist/Screenshot_2.png, id=693, 569.87906pt x 451.6875pt>
-File: images/lbdegdist/Screenshot_2.png Graphic file (type png)
-<use images/lbdegdist/Screenshot_2.png>
-Package pdftex.def Info: images/lbdegdist/Screenshot_2.png  used on input line 249.
-(pdftex.def)             Requested size: 396.91325pt x 314.59389pt.
-<images/lbdegdist/Screenshot_5.png, id=694, 560.8453pt x 439.6425pt>
-File: images/lbdegdist/Screenshot_5.png Graphic file (type png)
-<use images/lbdegdist/Screenshot_5.png>
-Package pdftex.def Info: images/lbdegdist/Screenshot_5.png  used on input line 259.
-(pdftex.def)             Requested size: 396.91325pt x 311.13538pt.
-<images/lbdegdist/Screenshot_6.png, id=695, 559.33969pt x 442.65375pt>
-File: images/lbdegdist/Screenshot_6.png Graphic file (type png)
-<use images/lbdegdist/Screenshot_6.png>
-Package pdftex.def Info: images/lbdegdist/Screenshot_6.png  used on input line 265.
-(pdftex.def)             Requested size: 396.91325pt x 314.12424pt.
-<images/lbdegdist/Screenshot_3.png, id=696, 560.8453pt x 439.6425pt>
-File: images/lbdegdist/Screenshot_3.png Graphic file (type png)
-<use images/lbdegdist/Screenshot_3.png>
-Package pdftex.def Info: images/lbdegdist/Screenshot_3.png  used on input line 275.
-(pdftex.def)             Requested size: 396.91325pt x 311.13538pt.
-<images/lbdegdist/Screenshot_4.png, id=697, 554.07pt x 436.63126pt>
-File: images/lbdegdist/Screenshot_4.png Graphic file (type png)
-<use images/lbdegdist/Screenshot_4.png>
-Package pdftex.def Info: images/lbdegdist/Screenshot_4.png  used on input line 281.
-(pdftex.def)             Requested size: 396.91325pt x 312.78194pt.
-
-
-[32
-
+[33
 
 ]
 
-[33 <./images/lbdegdist/Screenshot_1.png> <./images/lbdegdist/Screenshot_2.png>]
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 108.
 
-[34 <./images/lbdegdist/Screenshot_5.png> <./images/lbdegdist/Screenshot_6.png>]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 111.
 
-[35 <./images/lbdegdist/Screenshot_3.png> <./images/lbdegdist/Screenshot_4.png>]
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 134.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 160.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 186.
+
+
+
+[34]
+
+[35]
+<images/lbdegdist/Screenshot_1.png, id=783, 569.87906pt x 444.91219pt>
+File: images/lbdegdist/Screenshot_1.png Graphic file (type png)
+<use images/lbdegdist/Screenshot_1.png>
+Package pdftex.def Info: images/lbdegdist/Screenshot_1.png  used on input line 244.
+(pdftex.def)             Requested size: 396.91325pt x 309.87497pt.
+<images/lbdegdist/Screenshot_2.png, id=784, 569.87906pt x 451.6875pt>
+File: images/lbdegdist/Screenshot_2.png Graphic file (type png)
+<use images/lbdegdist/Screenshot_2.png>
+Package pdftex.def Info: images/lbdegdist/Screenshot_2.png  used on input line 250.
+(pdftex.def)             Requested size: 396.91325pt x 314.59389pt.
+
+
+LaTeX Warning: Float too large for page by 4.13257pt on input line 255.
+
+<images/lbdegdist/Screenshot_5.png, id=787, 560.8453pt x 439.6425pt>
+File: images/lbdegdist/Screenshot_5.png Graphic file (type png)
+<use images/lbdegdist/Screenshot_5.png>
+Package pdftex.def Info: images/lbdegdist/Screenshot_5.png  used on input line 260.
+(pdftex.def)             Requested size: 396.91325pt x 311.13538pt.
+<images/lbdegdist/Screenshot_6.png, id=788, 559.33969pt x 442.65375pt>
+File: images/lbdegdist/Screenshot_6.png Graphic file (type png)
+<use images/lbdegdist/Screenshot_6.png>
+Package pdftex.def Info: images/lbdegdist/Screenshot_6.png  used on input line 266.
+(pdftex.def)             Requested size: 396.91325pt x 314.12424pt.
+
+LaTeX Warning: Float too large for page by 4.92332pt on input line 271.
+
+<images/lbdegdist/Screenshot_3.png, id=791, 560.8453pt x 439.6425pt>
+File: images/lbdegdist/Screenshot_3.png Graphic file (type png)
+<use images/lbdegdist/Screenshot_3.png>
+Package pdftex.def Info: images/lbdegdist/Screenshot_3.png  used on input line 276.
+(pdftex.def)             Requested size: 396.91325pt x 311.13538pt.
+<images/lbdegdist/Screenshot_4.png, id=792, 554.07pt x 436.63126pt>
+File: images/lbdegdist/Screenshot_4.png Graphic file (type png)
+<use images/lbdegdist/Screenshot_4.png>
+Package pdftex.def Info: images/lbdegdist/Screenshot_4.png  used on input line 282.
+(pdftex.def)             Requested size: 396.91325pt x 312.78194pt.
+
+LaTeX Warning: Float too large for page by 3.58102pt on input line 287.
+
+
 
 [36
 
+
 ]
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 319.
+[37 <./images/lbdegdist/Screenshot_1.png> <./images/lbdegdist/Screenshot_2.png>]
 
+[38 <./images/lbdegdist/Screenshot_5.png> <./images/lbdegdist/Screenshot_6.png>]
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 353.
-
-) (chapters/50-zaver.tex
-
-[37]
-
-[38
-
-
-])
-
-[39] (main.bbl
+[39 <./images/lbdegdist/Screenshot_3.png> <./images/lbdegdist/Screenshot_4.png>]
 
 [40
 
 ]
 
-[41])
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 323.
 
-[42] (main.aux)
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 357.
+
+) (chapters/50-zaver.tex
+
+[41]
+
+[42
+
+
+])
+
+[43] (main.bbl
+
+[44
+
+]
+
+[45])
+
+[46] (main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 371C7C36156E66688CB16ACB239F0FE3;5170.
+(rerunfilecheck)             Checksum: DC25BBD844E31C9D7A1F48E7C9F99B40;5409.
  ) 
 Here is how much of TeX's memory you used:
- 33061 strings out of 469940
- 605710 string characters out of 5479477
- 1325203 words of memory out of 5000000
- 58818 multiletter control sequences out of 15000+600000
- 722503 words of font info for 211 fonts, out of 8000000 for 9000
+ 33128 strings out of 469940
+ 606808 string characters out of 5479477
+ 1326203 words of memory out of 5000000
+ 58853 multiletter control sequences out of 15000+600000
+ 722590 words of font info for 212 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,15n,87p,1050b,1379s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/megam/AppData/Roaming/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb><C:/Users/megam/AppData/Roaming/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
-Output written on main.pdf (58 pages, 1790315 bytes).
+Output written on main.pdf (62 pages, 1814264 bytes).
 PDF statistics:
- 889 PDF objects out of 1000 (max. 8388607)
- 238 named destinations out of 1000 (max. 500000)
- 55155 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 992 PDF objects out of 1000 (max. 8388607)
+ 268 named destinations out of 1000 (max. 500000)
+ 55163 words of extra memory for PDF output out of 61914 (max. 10000000)
 
