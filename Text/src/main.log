@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.8)  29 MAY 2025 15:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.8)  3 JUN 2025 12:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1301,9 +1301,13 @@ LaTeX Warning: No positions in optional float specifier.
 
 ]
 
-[45])
+[45]) (chapters/91-appendixA.tex
 
-[46] (main.aux)
+[46])
+
+[47
+
+] (main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-04-14>
@@ -1312,17 +1316,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: DC25BBD844E31C9D7A1F48E7C9F99B40;5409.
  ) 
 Here is how much of TeX's memory you used:
- 33128 strings out of 469940
- 606808 string characters out of 5479477
- 1326203 words of memory out of 5000000
- 58853 multiletter control sequences out of 15000+600000
+ 33135 strings out of 469940
+ 606969 string characters out of 5479477
+ 1326230 words of memory out of 5000000
+ 58855 multiletter control sequences out of 15000+600000
  722590 words of font info for 212 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,15n,87p,1050b,1379s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/megam/AppData/Roaming/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb><C:/Users/megam/AppData/Roaming/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
-Output written on main.pdf (62 pages, 1814264 bytes).
+Output written on main.pdf (63 pages, 1815961 bytes).
 PDF statistics:
- 992 PDF objects out of 1000 (max. 8388607)
- 268 named destinations out of 1000 (max. 500000)
+ 998 PDF objects out of 1000 (max. 8388607)
+ 270 named destinations out of 1000 (max. 500000)
  55163 words of extra memory for PDF output out of 61914 (max. 10000000)
 

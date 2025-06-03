@@ -612,6 +612,7 @@ INPUT chapters\50-zaver.tex
 INPUT .\main.bbl
 INPUT .\main.bbl
 INPUT main.bbl
+INPUT chapters\91-appendixA.tex
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out
