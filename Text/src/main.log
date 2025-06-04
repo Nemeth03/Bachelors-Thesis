@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.8)  3 JUN 2025 15:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.5.8)  4 JUN 2025 20:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -745,7 +745,7 @@ File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ) (C:\Program Files\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 91.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 89.
  (C:\Program Files\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
@@ -757,24 +757,24 @@ Package babel Info: 'slovak' activates 'slovak' shorthands.
 )
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 91.
-LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 89.
+LaTeX Font Info:    ... okay on input line 89.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -810,20 +810,20 @@ LaTeX Font Info:    ... okay on input line 91.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 91.
-Package microtype Info: Applying patch `item' on input line 91.
-Package microtype Info: Applying patch `toc' on input line 91.
-Package microtype Info: Applying patch `eqnum' on input line 91.
-Package microtype Info: Applying patch `footnote' on input line 91.
-Package microtype Info: Applying patch `verbatim' on input line 91.
-LaTeX Info: Redefining \microtypesetup on input line 91.
+LaTeX Info: Redefining \microtypecontext on input line 89.
+Package microtype Info: Applying patch `item' on input line 89.
+Package microtype Info: Applying patch `toc' on input line 89.
+Package microtype Info: Applying patch `eqnum' on input line 89.
+Package microtype Info: Applying patch `footnote' on input line 89.
+Package microtype Info: Applying patch `verbatim' on input line 89.
+LaTeX Info: Redefining \microtypesetup on input line 89.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 91.
+LaTeX Info: Redefining \showhyphens on input line 89.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -854,7 +854,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (C:\Program Files\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 91.
+Package hyperref Info: Link coloring OFF on input line 89.
  (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -878,41 +878,41 @@ Package microtype Info: Character `029' is missing
 
 
 {C:/Users/megam/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}]
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 159.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 157.
  (C:\Program Files\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 159.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 157.
  (C:\Program Files\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 159.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 157.
  (C:\Program Files\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 159.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 157.
  (C:\Program Files\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 159.
+(Font)              <12> on input line 157.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 159.
+(Font)              <8> on input line 157.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 159.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 159.
+(Font)              <6> on input line 157.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 157.
  (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (C:\Users\megam\AppData\Roaming\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 159.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 157.
  (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Users\megam\AppData\Roaming\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 159.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 157.
  (C:\Users\megam\AppData\Roaming\MiKTeX\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
@@ -924,7 +924,7 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 <images/assignment-sk.pdf, id=145, 597.50731pt x 845.04607pt>
 File: images/assignment-sk.pdf Graphic file (type pdf)
 <use images/assignment-sk.pdf>
-Package pdftex.def Info: images/assignment-sk.pdf  used on input line 180.
+Package pdftex.def Info: images/assignment-sk.pdf  used on input line 178.
 (pdftex.def)             Requested size: 441.01773pt x 680.85085pt.
 
 
@@ -936,9 +936,11 @@ Package pdftex.def Info: images/assignment-sk.pdf  used on input line 180.
 
 [4]
 
-[5] (main.toc
+[5]
 
-[6
+[6] (main.toc
+
+[7
 
 ])
 \tf@toc=\write5
@@ -947,14 +949,14 @@ Package pdftex.def Info: images/assignment-sk.pdf  used on input line 180.
 
 
 Package babel Info: 'slovak' activates 'slovak' shorthands.
-(babel)             Reported  on input line 222.
-[7] (main.lof)
+(babel)             Reported  on input line 239.
+[8] (main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
 
 
-[8
+[9
 
 {C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}] (main.lot)
 \tf@lot=\write7
@@ -962,7 +964,7 @@ Package babel Info: 'slovak' activates 'slovak' shorthands.
 
 
 
-[9
+[10
 
 ] (main.lol)
 \tf@lol=\write8
@@ -970,7 +972,7 @@ Package babel Info: 'slovak' activates 'slovak' shorthands.
 
 
 
-[10
+[11
 
 ] (chapters/00-uvod.tex) (chapters/10-teoria.tex
 
@@ -984,7 +986,7 @@ Kapitola 1.
 [2
 
 {C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}]
-<images/edges.png, id=351, 393.72093pt x 264.99pt>
+<images/edges.png, id=355, 393.72093pt x 264.99pt>
 File: images/edges.png Graphic file (type png)
 <use images/edges.png>
 Package pdftex.def Info: images/edges.png  used on input line 38.
@@ -992,7 +994,7 @@ Package pdftex.def Info: images/edges.png  used on input line 38.
 
 
 [3{C:/Program Files/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc} <./images/edges.png>]
-<images/matrices.png, id=365, 1173.63469pt x 410.2828pt>
+<images/matrices.png, id=369, 1173.63469pt x 410.2828pt>
 File: images/matrices.png Graphic file (type png)
 <use images/matrices.png>
 Package pdftex.def Info: images/matrices.png  used on input line 73.
@@ -1004,7 +1006,7 @@ Package pdftex.def Info: images/matrices.png  used on input line 73.
 [5]
 
 [6]
-<images/randomdegdist.png, id=418, 517.935pt x 365.86688pt>
+<images/randomdegdist.png, id=422, 517.935pt x 365.86688pt>
 File: images/randomdegdist.png Graphic file (type png)
 <use images/randomdegdist.png>
 Package pdftex.def Info: images/randomdegdist.png  used on input line 243.
@@ -1012,7 +1014,7 @@ Package pdftex.def Info: images/randomdegdist.png  used on input line 243.
 
 
 [7]
-<images/powerlaw.png, id=436, 409.53pt x 213.04594pt>
+<images/powerlaw.png, id=441, 409.53pt x 213.04594pt>
 File: images/powerlaw.png Graphic file (type png)
 <use images/powerlaw.png>
 Package pdftex.def Info: images/powerlaw.png  used on input line 269.
@@ -1022,12 +1024,12 @@ Package pdftex.def Info: images/powerlaw.png  used on input line 269.
 [8 <./images/randomdegdist.png>]
 
 [9 <./images/powerlaw.png>]
-<images/wan.png, id=462, 286.82156pt x 215.30438pt>
+<images/wan.png, id=466, 286.82156pt x 215.30438pt>
 File: images/wan.png Graphic file (type png)
 <use images/wan.png>
 Package pdftex.def Info: images/wan.png  used on input line 315.
 (pdftex.def)             Requested size: 352.81552pt x 264.84909pt.
-<images/degdist.png, id=463, 443.40656pt x 366.61969pt>
+<images/degdist.png, id=467, 443.40656pt x 366.61969pt>
 File: images/degdist.png Graphic file (type png)
 <use images/degdist.png>
 Package pdftex.def Info: images/degdist.png  used on input line 321.
@@ -1073,7 +1075,7 @@ Kapitola 3.
 [15
 
 ]
-<images/gui.png, id=519, 528.47438pt x 532.99126pt>
+<images/gui.png, id=523, 528.47438pt x 532.99126pt>
 File: images/gui.png Graphic file (type png)
 <use images/gui.png>
 Package pdftex.def Info: images/gui.png  used on input line 62.
@@ -1091,12 +1093,12 @@ Package pdftex.def Info: images/gui.png  used on input line 62.
 ]
 
 [20]
-<images/rawLogBinnedDegDist.png, id=607, 820.56563pt x 264.99pt>
+<images/rawLogBinnedDegDist.png, id=611, 820.56563pt x 264.99pt>
 File: images/rawLogBinnedDegDist.png Graphic file (type png)
 <use images/rawLogBinnedDegDist.png>
 Package pdftex.def Info: images/rawLogBinnedDegDist.png  used on input line 183.
 (pdftex.def)             Requested size: 441.01773pt x 142.4172pt.
-<images/growthPlot.png, id=611, 525.46312pt x 417.05812pt>
+<images/growthPlot.png, id=615, 525.46312pt x 417.05812pt>
 File: images/growthPlot.png Graphic file (type png)
 <use images/growthPlot.png>
 Package pdftex.def Info: images/growthPlot.png  used on input line 198.
@@ -1121,32 +1123,32 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 
 [26]
 Kapitola 4.
-<images/Growth/Screenshot_13.png, id=691, 563.85657pt x 437.38406pt>
+<images/Growth/Screenshot_13.png, id=695, 563.85657pt x 437.38406pt>
 File: images/Growth/Screenshot_13.png Graphic file (type png)
 <use images/Growth/Screenshot_13.png>
 Package pdftex.def Info: images/Growth/Screenshot_13.png  used on input line 27.
 (pdftex.def)             Requested size: 396.91325pt x 307.88863pt.
-<images/Growth/Screenshot_14.png, id=692, 563.10374pt x 441.14813pt>
+<images/Growth/Screenshot_14.png, id=696, 563.10374pt x 441.14813pt>
 File: images/Growth/Screenshot_14.png Graphic file (type png)
 <use images/Growth/Screenshot_14.png>
 Package pdftex.def Info: images/Growth/Screenshot_14.png  used on input line 33.
 (pdftex.def)             Requested size: 396.91325pt x 310.94888pt.
-<images/Growth/Screenshot_17.png, id=695, 557.08125pt x 426.09187pt>
+<images/Growth/Screenshot_17.png, id=699, 557.08125pt x 426.09187pt>
 File: images/Growth/Screenshot_17.png Graphic file (type png)
 <use images/Growth/Screenshot_17.png>
 Package pdftex.def Info: images/Growth/Screenshot_17.png  used on input line 43.
 (pdftex.def)             Requested size: 396.91325pt x 303.5936pt.
-<images/Growth/Screenshot_18.png, id=696, 565.36218pt x 439.6425pt>
+<images/Growth/Screenshot_18.png, id=700, 565.36218pt x 439.6425pt>
 File: images/Growth/Screenshot_18.png Graphic file (type png)
 <use images/Growth/Screenshot_18.png>
 Package pdftex.def Info: images/Growth/Screenshot_18.png  used on input line 49.
 (pdftex.def)             Requested size: 396.91325pt x 308.65999pt.
-<images/Growth/Screenshot_15.png, id=699, 570.63188pt x 441.90094pt>
+<images/Growth/Screenshot_15.png, id=703, 570.63188pt x 441.90094pt>
 File: images/Growth/Screenshot_15.png Graphic file (type png)
 <use images/Growth/Screenshot_15.png>
 Package pdftex.def Info: images/Growth/Screenshot_15.png  used on input line 59.
 (pdftex.def)             Requested size: 396.91325pt x 307.37311pt.
-<images/Growth/Screenshot_16.png, id=700, 563.10374pt x 435.12563pt>
+<images/Growth/Screenshot_16.png, id=704, 563.10374pt x 435.12563pt>
 File: images/Growth/Screenshot_16.png Graphic file (type png)
 <use images/Growth/Screenshot_16.png>
 Package pdftex.def Info: images/Growth/Screenshot_16.png  used on input line 65.
@@ -1189,12 +1191,12 @@ LaTeX Warning: No positions in optional float specifier.
 [32]
 
 [33]
-<images/lbdegdist/Screenshot_1.png, id=755, 569.87906pt x 444.91219pt>
+<images/lbdegdist/Screenshot_1.png, id=759, 569.87906pt x 444.91219pt>
 File: images/lbdegdist/Screenshot_1.png Graphic file (type png)
 <use images/lbdegdist/Screenshot_1.png>
 Package pdftex.def Info: images/lbdegdist/Screenshot_1.png  used on input line 244.
 (pdftex.def)             Requested size: 396.91325pt x 309.87497pt.
-<images/lbdegdist/Screenshot_2.png, id=756, 569.87906pt x 451.6875pt>
+<images/lbdegdist/Screenshot_2.png, id=760, 569.87906pt x 451.6875pt>
 File: images/lbdegdist/Screenshot_2.png Graphic file (type png)
 <use images/lbdegdist/Screenshot_2.png>
 Package pdftex.def Info: images/lbdegdist/Screenshot_2.png  used on input line 250.
@@ -1203,12 +1205,12 @@ Package pdftex.def Info: images/lbdegdist/Screenshot_2.png  used on input line 2
 
 LaTeX Warning: Float too large for page by 4.13257pt on input line 255.
 
-<images/lbdegdist/Screenshot_5.png, id=759, 560.8453pt x 439.6425pt>
+<images/lbdegdist/Screenshot_5.png, id=763, 560.8453pt x 439.6425pt>
 File: images/lbdegdist/Screenshot_5.png Graphic file (type png)
 <use images/lbdegdist/Screenshot_5.png>
 Package pdftex.def Info: images/lbdegdist/Screenshot_5.png  used on input line 260.
 (pdftex.def)             Requested size: 396.91325pt x 311.13538pt.
-<images/lbdegdist/Screenshot_6.png, id=760, 559.33969pt x 442.65375pt>
+<images/lbdegdist/Screenshot_6.png, id=764, 559.33969pt x 442.65375pt>
 File: images/lbdegdist/Screenshot_6.png Graphic file (type png)
 <use images/lbdegdist/Screenshot_6.png>
 Package pdftex.def Info: images/lbdegdist/Screenshot_6.png  used on input line 266.
@@ -1216,12 +1218,12 @@ Package pdftex.def Info: images/lbdegdist/Screenshot_6.png  used on input line 2
 
 LaTeX Warning: Float too large for page by 4.92332pt on input line 271.
 
-<images/lbdegdist/Screenshot_3.png, id=763, 560.8453pt x 439.6425pt>
+<images/lbdegdist/Screenshot_3.png, id=767, 560.8453pt x 439.6425pt>
 File: images/lbdegdist/Screenshot_3.png Graphic file (type png)
 <use images/lbdegdist/Screenshot_3.png>
 Package pdftex.def Info: images/lbdegdist/Screenshot_3.png  used on input line 276.
 (pdftex.def)             Requested size: 396.91325pt x 311.13538pt.
-<images/lbdegdist/Screenshot_4.png, id=764, 554.07pt x 436.63126pt>
+<images/lbdegdist/Screenshot_4.png, id=768, 554.07pt x 436.63126pt>
 File: images/lbdegdist/Screenshot_4.png Graphic file (type png)
 <use images/lbdegdist/Screenshot_4.png>
 Package pdftex.def Info: images/lbdegdist/Screenshot_4.png  used on input line 282.
@@ -1279,17 +1281,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: DC25BBD844E31C9D7A1F48E7C9F99B40;5409.
  ) 
 Here is how much of TeX's memory you used:
- 33127 strings out of 469940
- 606909 string characters out of 5479477
+ 33128 strings out of 469940
+ 606916 string characters out of 5479477
  1326176 words of memory out of 5000000
  58855 multiletter control sequences out of 15000+600000
  722590 words of font info for 212 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  85i,15n,87p,1050b,1379s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/megam/AppData/Roaming/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb><C:/Users/megam/AppData/Roaming/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
-Output written on main.pdf (54 pages, 1810581 bytes).
+Output written on main.pdf (55 pages, 1812118 bytes).
 PDF statistics:
- 960 PDF objects out of 1000 (max. 8388607)
- 262 named destinations out of 1000 (max. 500000)
+ 965 PDF objects out of 1000 (max. 8388607)
+ 263 named destinations out of 1000 (max. 500000)
  55163 words of extra memory for PDF output out of 61914 (max. 10000000)
 
